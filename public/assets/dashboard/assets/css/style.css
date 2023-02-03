@@ -1,0 +1,667 @@
+/* ================================================================================================
+// 	File Name: style.scss
+// 	Description: Style for customization.
+// 	----------------------------------------------------------------------------------------------
+// 	Item Name: Chameleon Admin - Modern Bootstrap 4 WebApp & Dashboard HTML Template + UI Kit
+// 	Version: 1.0
+// 	Author: ThemeSelection
+// 	Author URL: https://themeselection.com/
+// ================================================================================================
+
+NOTE:
+------
+PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
+WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
+
+
+
+.extent-wrp i.ccm {
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    color: #000;
+    font-size: 18px;
+    transform: translateY(-50%);
+  }
+
+  form .form-group {
+    margin-bottom: 0.5rem;
+  }
+  .form-group label {
+    font-size: 13px;
+  }
+  .form-control{font-size:0.95rem;}
+  form .form-group i.ft-external-link {
+      position: absolute;
+      right: -10px;
+      top: 50%;
+      color: #000;
+      font-size: 18px;
+      transform: translateY(-50%);
+  }
+  h4.form-section {
+      color: #3d85c6;
+      font-size: 16px;
+      font-weight: 600;
+      padding-top: 0px !important;
+      border: 0px;
+      margin-bottom: 4px;
+      display: inline-block;
+  }
+  .form-group label {
+      font-size: 12px;
+      color: #000;
+      display:flex;
+      align-item:center;
+      font-weight: 500;
+      padding-right: 0;
+  }
+  input::placeholder {
+      color: #000 !IMPORTANT;font-size: 12px;
+  }
+  .row.bg-lighttt.tab_portrait_sctn select.form-control {
+      padding-right: 0px;
+      padding-left: 5px;
+      color: #000;
+  }
+  form.form.form-horizontal {
+      margin-top: 10px;
+  }
+  .row.mt-3c.payroll input {
+      width: 100%;
+  }
+  .personal_address {
+      display: flex;
+      align-items: center;
+  }
+
+  .personal_address input {
+      background: #f3f3f3;
+      max-width: 160px;
+      border: 1px solid #cacfe7;
+      color: #cacfe7;
+      padding: 3px 12px;
+      margin-left: auto;
+  }
+
+  .card-header .heading-elements, .card-header .heading-elements-toggle {
+      top: 15px;
+      font-size: 20px;
+  }
+  .create_btn {
+      font-size: 14px;
+      color: #fff !important;
+      background: #28afd0;
+      padding: 8px 15px;
+      display: inline-block;
+      margin: 5px 0px 10px;
+      border-radius: 3px;
+  }
+  .col_dropdown {
+      width: 100%;
+  }
+
+  .col_dropdown .col_boxdrop {
+      width: 100%;
+      padding: 5px 0px;
+  }
+
+  .col_dropdown .col_boxdrop select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+  }
+  .col_dropdown .col_boxdrop label.col-md-3 {
+      align-items: center;
+  }
+  button:focus{
+      outline:0 !important;
+  }
+  .contact-close {
+      border-top: 1px solid #ddd;
+      text-align: center;
+  }
+
+  .contact-close p {
+      font-size: 17px;
+      color: #232323;
+      font-weight: 600;
+      text-transform: capitalize;
+  }
+
+  .contact-close a {
+      display: inline-block;
+      border: 1px  solid #232323;
+      padding: 6px 15px;
+      border-radius: 5px;
+      color: #000;
+      font-weight: 700;
+      margin: 0px 5px;
+  }
+  .nav.nav-tabs .nav-item .nav-link.active input::before {
+      background: #0075ff !important;
+      width: 10px;
+      height: 10px;
+      border: 2px solid  #ffffff;
+      position: absolute;
+      content: "";
+      border-radius: 100%;
+      padding: 6px;
+      top: -2px;
+      left: -1px;
+  }
+  #create-modal .modal-dialog {
+      width: 100%;
+      max-width: 70%;
+      left: 10%;
+  }
+  #create-modal .bg-lighttt {
+      padding: 15px;
+  }
+  #moreAddress .modal-dialog.modal-dialog-centered {
+      width: 100%;
+      max-width: 1000px;
+  }
+
+  #moreAddress .modal-dialog.modal-dialog-centered .cxrmcheckbox.pb-2 {
+      padding-bottom: 5px !IMPORTANT;
+  }
+  .modal {
+      z-index: 99999;
+  }
+  .modal-backdrop {
+      z-index: 9999;
+  }
+  .media-body.text-left.text-dark .row.cxrmcheckbox.pb-2 {
+      padding-bottom: 0px !IMPORTANT;
+  }
+  .radio_button-type .row.p-2 {
+      padding: 0px !important;
+      padding-left: 150px !important;
+  }
+  .col_custom-head .form-group input {
+      width: 100%;
+      color: #4e5154;
+      border: 1px solid #babfc7;
+      border-radius: .25rem;
+      background-color: #fff;
+      background-clip: padding-box;
+      padding: 10px;
+  }
+
+  .col_custom-head select.form-control {
+      padding: 5px;
+  }
+  .address_info {
+      border: 2px solid #2d21213d;
+      border-radius: 5px;
+      padding: 10px;
+      height:100%;
+      box-shadow: 0px 0px 3px #b5aeae;
+      position: relative;
+  }
+
+  .address_info .col_bx {
+      padding: 0px;
+      margin: 0px;
+  }
+
+  .address_info .col_bx li {
+      width: 100%;
+      display: flex;
+      margin-bottom: 4px;
+  }
+
+  .address_info .col_bx li .icons {
+      width: 30px;
+  }
+
+  .address_info .col_bx li .address-data {
+      width: 90%;
+  }
+
+  .address_info .col_bx li i {
+      background: #fff;
+      box-shadow: 0px 0px 10px #ddd;
+      padding: 3px;
+      display: inline-block;
+      font-size: 11px;
+      border-radius: 3px;
+  }
+
+  .address_info .col_bx li .address-data label {
+      font-size: 12px;
+      margin: 0px;
+  }
+
+  .address_info .col_bx li .address-data p {
+      font-size: 12px;
+      color: #000;
+      font-weight: 600;
+      margin: 0px;
+  }
+
+  .address_info .col_bx li .address-data a {
+      font-size: 12px;
+      color: #000;
+      font-weight: 600;
+  }
+
+  .address_info .right-edit-btn {
+      float: right;
+      margin-bottom: -20px;
+      position: relative;
+      z-index: 9;
+  }
+
+  .address_info .right-edit-btn i {
+      color: #2196F3;
+      font-size: 15px;
+  }
+  .type-address h2 {
+      font-size: 12px;
+  }
+  .type-address {
+      display: flex;
+      justify-content: space-between;
+  }
+
+  #myTab .type-address {
+      width: 100%;
+  }
+
+  #myTab li a {
+      width: 100%;
+      font-size: 12px;
+      color: #000;
+      font-weight: 600;
+      margin: 0px;
+  }
+
+
+  #tab a i {
+      background: #fff;
+      box-shadow: 0px 0px 10px #ddd;
+      padding: 3px;
+      display: inline-block;
+      font-size: 11px;
+      border-radius: 3px;
+  }
+
+  #myTab li a i {
+      background: #fff;
+      box-shadow: 0px 0px 10px #ddd;
+      padding: 3px;
+      display: inline-block;
+      font-size: 11px;
+      border-radius: 3px;
+      margin-right: 7px;
+  }
+
+  /*mycssv*/
+  .custom-search-fild .show .dropdown-menu {
+    -webkit-transform: scale(1, 1);
+    -moz-transform: scale(1, 1);
+    -ms-transform: scale(1, 1);
+    -o-transform: scale(1, 1);
+    transform: scale(1, 1);
+    opacity: 1;
+    display: block;
+    z-index: 990;
+    top: 0;
+    left: 25px;
+    background: transparent;
+    box-shadow: none !important;
+  }
+  .show > .dropdown-menu .arrow_box::after{
+    display:none;
+  }
+  .header-navbar .navbar-container ul.nav li > a.nav-link {
+    font-size: 1.15rem;
+  }
+  .btn-sm, .btn-group-sm > .btn {
+    padding: 0.5rem 0.5rem;
+  }
+  .custom-search-fild .search-box input {
+    width: 210px;
+    height: 2.2rem;
+    font-size: 0.8rem;
+    padding: 0.75rem 0.5rem;
+  }
+  .custom-search-fild .form-control-position{
+    line-height: 2.5rem;
+  }
+  .filter-part button{
+    border-radius: 0;
+  }
+  .dataTables_length , #users-contacts_filter{display: none;}
+  .user-text h3{
+    color: #000;
+  }
+
+  ul.nav.navbar-nav.ml-auto.float-left.mt-1.filter-part .dropdown-menu.show {
+      max-height: 400px;
+      overflow: auto;
+  }
+  .dropdown-menu ul {
+      padding: 0px;
+      margin: 0px;
+      list-style: none;
+  }
+  .dropdown-menu ul li {
+      border-bottom: 1px solid #ddd;
+      padding: 6px 0px;
+  }
+  .dropdown-menu ul li a {
+      font-size: 14px;
+      color: #232323;
+      font-weight: 500;
+      padding: 2px 10px !important;
+  }
+  .accordion {
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+  }
+
+  .panel {
+    padding: 0 18px;
+    display: none;
+    background-color: white;
+    overflow: hidden;
+  }
+  .dropdown .dropdown-menu {
+      min-width: 300px !important;
+  }
+
+  .dropdown-menu ul li.tab-panel a.accordion.active {
+      background: #a174f6;
+      width: 100%;
+      display: inline-block;
+      color: #fff;
+  }
+
+  .dropdown-menu ul li.tab-panel .dropdown {
+      width: 100%;
+      position: relative;
+  }
+
+  .dropdown-menu ul li.tab-panel .dropdown select {
+      width: 87%;
+      height: 40px;
+      border: 1px solid #ddd;
+      margin: 10px 0px;
+  }
+
+  .dropdown-menu ul li.tab-panel .dropdown .delete {
+      position: absolute;
+      right: -10px;
+      top: 8px;
+  }
+
+  .dropdown-menu ul li.tab-panel .dropdown .inpt-feild input {
+      width: 87%;
+      border: 1px solid #ddd;
+      height: 40px;
+      border-radius: 5px;
+  }
+
+  .buttons-add {
+      width: 100%;
+      margin-top: 10px;
+  }
+
+  .buttons-add a {
+      background: #5ed84f !important;
+      padding: 8px 10px;
+      border-radius: 3px;
+      display: inline-block;
+      color: #fff !important;
+      font-size: 13px !important;
+  }
+
+  .buttons-add a.apply {
+      background: #a174f6 !important;
+  }
+
+  .dropdown-menu ul .accrodin-box .searach-input {
+      margin-top: 20px;
+  }
+
+  .dropdown-menu ul .accrodin-box .searach-input input {
+      width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 8px 10px;
+  }
+  .cheech-box {
+      margin-top:5px;
+  }
+
+  .cheech-box input {
+      width: auto !important;
+  }
+
+  .cheech-box label {
+      margin: 0px;
+  }
+  .submit_btn {
+      background: #6967ce;
+      padding: 10px 20px;
+      color: #fff;
+      font-size: 16px;
+      border: 0px;
+      border-radius: 4px;
+      float: right;
+      display: inline-block;
+      margin: 20px 0px 40px;
+  }
+  #manager_modal {
+      max-width: 100%;
+      min-width: 100%;
+  }
+
+  #manager_modal .modal-dialog {
+      width: 100%;
+      min-width: 90%;
+  }
+
+  #manager_modal .modal-dialog .modal-content {
+      left: 15px;
+  }
+
+  #working_hours {
+      max-width: 100%;
+      min-width: 100%;
+  }
+
+  #working_hours .modal-dialog {
+      width: 100%;
+      min-width: 90%;
+  }
+
+  #working_hours .modal-dialog .modal-content {
+      left: 15px;
+  }
+  .manager_row span.select2 {
+      width: 100% !important;
+  }
+
+  @media only screen and (max-width: 1099px) and (min-width: 768px) {
+  .header-navbar .navbar-container ul.nav li a.nav-link-expand, .header-navbar .navbar-container ul.nav li a.nav-link-search {
+      padding: 1rem 0.2rem;
+  }
+  .header-navbar .navbar-container ul.nav li>a.nav-link {
+      font-size: 1.15rem;
+      padding: 1.5rem 0.5rem;
+      font-size: 1rem !important;
+  }
+  ul.nav.nav-tabs li.nav-item a {
+      font-size: 14px;
+      padding-left: 10px !important;
+      padding-right: 10px !important;
+  }
+  .btn-group-sm>.btn, .btn-sm {
+      font-size: .800rem;
+  }
+   .col-sm-6 {
+      max-width: 100%;
+      flex: 0 0 100%;
+  }
+   .col-md-6 {
+      width: 100%;
+      flex: 0 0 100%;
+      max-width: 100%;
+  }
+  .header-navbar .navbar-container {
+      height: 100%;
+  }
+
+  nav.header-navbar.navbar-expand-md.navbar.navbar-with-menu.navbar-without-dd-arrow.fixed-top.navbar-semi-dark div#navbar-mobile {
+      width: 950px;
+  }
+
+  .navbar-container.content {
+      overflow: auto;
+  }
+
+  }
+
+
+  @media only screen and (max-width: 767px) {
+  .custom-search-fild .search-box input {
+      display: inline-block;
+      height: auto;
+  }
+
+  #navbar-mobile.navbar-collapse .navbar-nav .dropdown-menu {
+      position: static;
+      min-width: auto !important;
+  }
+
+  #navbar-mobile.navbar-collapse .navbar-nav li.nav-item.dropdown.navbar-search.show {
+      display: flex;
+      align-items: center;
+      width: 100%;
+  }
+
+  .input-group.search-box.p-0 .form-control-position {
+      right: 0;
+  }
+
+  ul.nav.navbar-nav.float-left.custom-search-fild {
+      width: auto !important;
+      padding-top: 20px;
+  }
+
+  }
+  #child-contact-section .right-edit-btn {
+      width: auto;
+      position: absolute;
+      left: 4px;
+      top: 10px;
+      z-index: 99;
+  }
+
+  #child-contact-section .row .border-left-radius-palette {
+      margin-left: 30px;
+  }
+
+  #edit-company-contact .modal-dialog.modal-dialog-centered {
+      max-width: 100%;
+      left: 8px;
+  }
+  #edit-company-contact .modal-content {
+      padding: 30px 20px;
+  }
+  #edit-company-contact .modal-header {
+      width: 100%;
+      display: inline-block;
+  }
+
+  #edit-company-contact .modal-header button.close {
+      margin: 0px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 99;
+  }
+
+  /*.form-control {*/
+  /*    background-color: #eceff1;*/
+  /*}*/
+  /*.select2-container--default .select2-selection--single {*/
+  /*    background-color: #eceff1;*/
+  /*}*/
+  #contact-edit-address {
+      z-index: 999999;
+  }
+
+  #contact-edit-address::after {
+      position: absolute;
+      content: "";
+      width: 100%;
+      height: 100%;
+      background: #0000007a;
+      left: 0;
+      top: 0;
+      z-index: -1;
+  }
+  .row.bg-lighttt.tab_portrait_sctn .form-control {
+      background: transparent;
+  }
+
+  .row.bg-lighttt.tab_portrait_sctn  span.select2-selection.select2-selection--single {
+      background: transparent;
+  }
+  .bg-lighttt .form-control.parent-tags.tagging {
+      padding: 0px !IMPORTANT;
+  }
+
+  .bg-lighttt .form-control.parent-tags.tagging input.type-zone {
+      width: 100%;
+      padding: 10px;
+  }
+  .bg-lighttt .form-control {
+      background: transparent;
+  }
+  .bg-lighttt input[type=file] {
+    cursor: pointer;
+    width: 120px !important;
+    height: 38px;
+    overflow: hidden;
+    margin-left: 0px !important;
+    margin-top:10px !important;
+    margin-right: 10px;
+  }
+  .profile-image img {
+      display: block;
+  }
+  .bg-lighttt input[type=file]:before {
+      width: 120px;
+      height: 38px;
+      font-size: 10px;
+      line-height: 38px;
+      content: 'Choose Picture';
+      display: inline-block;
+      background: #dddd;
+      border: 1px solid #ccc;
+      padding: 0 10px;
+      text-align: center;
+      font-family: Helvetica, Arial, sans-serif;
+      color: #232323;
+      border-radius: 3px;
+  }
+
+  .bg-lighttt input[type=file]::-webkit-file-upload-button {
+    visibility: hidden;
+  }a.profile-image br {
+      display: none;
+  }

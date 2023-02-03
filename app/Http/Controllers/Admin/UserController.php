@@ -1,0 +1,253 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+
+class UserController extends Controller
+{
+    /**
+     * Class User
+     * @package App\Models\User
+     *
+     * @property-read int $id
+     */
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return view('admin.users.index');
+    }
+
+    /**
+     * Server side pagination for get the users result.
+     *
+     */
+    public function getPageResult(Request $request)
+    {
+        $totalData = User::where("role", "user")->count();
+        $totalFiltered = $totalData;
+        $columns = array(
+            0 => 'id',
+            1 => 'name',
+            3 => 'email',
+            5 => 'status',
+            6 => 'created_at',
+        );
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        $start = $start ? $start / $limit : 0;
+        $order = $columns[$request->input('order.0.column')];
+        $dir = $request->input('order.0.dir');
+        if (empty($request->input('search.value'))) {
+            $users = User::where("role", "user")->orderBy('created_at', 'desc')
+                ->paginate($limit, ['*'], 'page', $start + 1);
+            $totalFiltered = $totalData;
+        } else {
+            $search = $request->input('search.value');
+            $users = User::where("role", "user")->where(function ($query) use ($search) {
+                $query->orWhere('name', 'LIKE', "%{$search}%")
+                    ->orWhere('email', 'LIKE', "%{$search}%")
+                    ->orWhere('status', 'LIKE', "%{$search}%");
+            })
+                ->orderBy('created_at', 'desc')
+                ->paginate($limit, ['*'], 'page', $start + 1);
+            $totalFiltered = $users->count();
+        }
+        $data = array();
+        if (!empty($users)) {
+            foreach ($users as $key => $user) {
+                $nestedData['id'] = ($start * $limit) + $key + 1;
+                $nestedData['name'] = $user->name;
+                $nestedData['email'] = $user->email;
+                if ($user->status == 1) {
+                    $nestedData['status'] = "<span class='text-success'>Active</span>";
+                } else {
+                    $nestedData['status'] = "<span class='text-danger'>Inactive</span>";
+                }
+
+                $nestedData['created_at'] = $user->created_at->diffForHumans();
+                $status = route('users.status', encrypt($user->id));
+                $edit = route('users.edit', encrypt($user->id));
+                $delete = route('users.drop', encrypt($user->id));
+                $exist = $user;
+                $nestedData['action'] = view('admin.partial.action', compact('exist', 'status', 'edit', 'delete'))->render();
+                $data[] = $nestedData;
+            }
+        }
+        $json_data = array(
+            "draw" => intval($request->input('draw')),
+            "recordsTotal" => intval($totalData),
+            "recordsFiltered" => intval($totalFiltered),
+            "data" => $data
+        );
+        return json_encode($json_data);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('admin.users.create');
+    }
+
+    public function passString($length)
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required | max:150',
+            'email' => 'required | email | unique:users',
+        ]);
+
+        $password = self::passString(8);
+        $user = new User();
+        $user->name = $request['name'];
+        $user->email = $request['email'];
+        $user->password = Hash::make($password);
+        $user->role = "user";
+        $user->picture = asset("assets/default.png");
+        $user->status = 1;
+        $user->save();
+        $data = [
+                    'to' => $user->email,
+                    'subject' => "Congrats! You received Credentials for Factu",
+                    'body' => "Congrats! You received Credentials for Factu login. Your email: ".$user->email." and password: "."<strong>$password</strong>",
+                ];
+        Mail::send([], [], function ($message) use ($data) {
+            $message->to($data['to'])
+                ->subject($data['subject'])
+                ->setBody($data['body'], 'text/html');
+        });
+        return redirect()->route('users.index')->with('success', 'User successfully registered.');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $user = User::find(decrypt($id));
+        if ($user) {
+            return view('admin.users.edit', compact('user'));
+        } else {
+            return redirect()->back()->with('error', 'Invalid record!');
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $user = User::find(decrypt($id));
+
+        if ($user) {
+            $request->validate([
+                'name' => 'required | max:150',
+            ]);
+            if ($request['email'] != $user->email) {
+                $request->validate([
+                    'email' => 'required | email | unique:users',
+                ]);
+            }
+
+            $user->name = $request['name'];
+            $user->email = $request['email'];
+            $user->save();
+            return redirect()->route('users.index')->with('success', 'User successfully updated.');
+        } else {
+            return redirect()->route('users.index')->with('error', 'Invalid users.');
+        }
+    }
+
+    /**
+     * Update the status of users.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function userStatus(Request $request, $id)
+    {
+        try {
+            $record = User::find(decrypt($id));
+            if ($record) {
+                $record->status = $request['status'];
+                $record->save();
+                if ($request['status'] == 1) {
+                    return redirect()->back()->with('success', 'User active successfully.');
+                } else {
+                    return redirect()->back()->with('success', 'User inactive successfully.');
+                }
+            } else {
+                return redirect()->back()->with('error', 'wrong access.');
+            }
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $record = User::find(decrypt($id));
+        if ($record) {
+            $record->delete();
+            return redirect()->back()->with('success', 'User successfully deleted.');
+        } else {
+            return redirect()->back()->with('error', 'Invalid record!');
+        }
+    }
+
+}
+
