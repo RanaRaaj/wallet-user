@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\CompanyBank;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -247,6 +248,24 @@ class UserController extends Controller
         } else {
             return redirect()->back()->with('error', 'Invalid record!');
         }
+    }
+
+    public function deposit_form()
+    {
+        $active_bank = CompanyBank::where('status',1)->get()->first();
+        return view('deposit_form', compact('active_bank'));
+    }
+
+    public function deposit_confirm(Request $request)
+    {
+        $amount = $request->amount;
+        $active_bank = CompanyBank::where('status',1)->get()->first();
+        return view('deposit_confirmation', compact('active_bank','amount'));
+    }
+
+    public function deposit_confirm_done(Request $request)
+    {
+        return view('deposit_success');
     }
 
 }

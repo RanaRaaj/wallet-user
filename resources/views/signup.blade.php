@@ -68,10 +68,10 @@
                         <div class="card border-grey border-lighten-3 px-1 py-1 m-0">
                             <div class="card-header border-0">
                                 <div class="text-center mb-1">
-                                    <img src="{{asset('assets/images/logo.png')}}" width="100" alt="branding logo">
+                                    <!-- <img src="{{asset('assets/images/logo.png')}}" width="100" alt="branding logo"> -->
                                 </div>
                                 <div class="font-large-1  text-center">
-                                    Admin SignUp
+                                    User SignUp
                                 </div>
                             </div>
                             <div class="card-content">

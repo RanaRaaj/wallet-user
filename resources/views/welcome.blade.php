@@ -9,7 +9,7 @@
 </head>
 <style type="text/css">
 
-.justify-content-center > i {
+.justify-content-center > i, .justify-content-center > a > i {
     background: #748EF2;
     border-radius: 5px;
     padding: 18%;
@@ -88,13 +88,15 @@ header#header {
     padding-left: 0px;
 }
 .sidebar {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: -200px;
-  width: 200px;
-  background: lightgray;
-  transition: left 0.3s ease-out;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: -200px;
+    width: 200px;
+    background: #464545;
+    transition: left 0.3s ease-out;
+    color: #fff;
+    z-index: 999;
 }
 
 .sidebar.open {
@@ -141,7 +143,7 @@ header#header {
                     </li>
                     <li>Setting</li>
                     <li>
-                      <a href="#" class="logout">Logout</a>
+                      <a href="{{url('/logout')}}" class="logout">Logout</a>
                     </li>
                   </ul>
                 </div>
@@ -161,8 +163,8 @@ header#header {
                 <p class="mt-2">Send</p>
               </div>
               <div class="col-3 align-items-center justify-content-center">
-                <i class="fas fa-list-ul fa-2x"></i>
-                <p class="mt-2">Activities</p>
+                <a href="{{route('deposit.form')}}"><i class="fas fa-list-ul fa-2x"></i></a>
+                <p class="mt-2">Deposit</p>
               </div>
               <div class="col-3 align-items-center justify-content-center">
                 <i class="fas fa-check-circle fa-2x"></i>

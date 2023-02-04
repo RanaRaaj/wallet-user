@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ReasonController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ApplicationController;
+use App\Http\Controllers\Admin\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,11 @@ Route::get('/welcome', function () {
 Route::get('/', function () {
     return view('login');
 })->name('login');
+
+
+Route::get('deposit-form', [UserController::class, 'deposit_form'])->name('deposit.form');
+Route::post('deposit.confirm', [UserController::class, 'deposit_confirm'])->name('deposit.confirm');
+Route::post('deposit-confirm-done', [UserController::class, 'deposit_confirm_done'])->name('deposit.confirm.done');
 
 Route::view('barcode', 'barcode');
 
