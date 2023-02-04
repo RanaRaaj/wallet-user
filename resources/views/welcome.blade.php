@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <title>Mobile Responsive Website</title>
 </head>
 <style type="text/css">
@@ -88,6 +87,29 @@ header#header {
 .container-fluid.news {
     padding-left: 0px;
 }
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: -200px;
+  width: 200px;
+  background: lightgray;
+  transition: left 0.3s ease-out;
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+.sidebar-toggle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
 </style>
 <body>
     <div class="container">
@@ -99,7 +121,30 @@ header#header {
                 <p>Username</p>
               </div>
               <div class="col-6 d-flex justify-content-right top-right">
-                <img src="https://via.placeholder.com/30x30" alt="User Image" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <!-- <button id="sidebar-button">
+                    <img src="https://via.placeholder.com/30x30" alt="User Image" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                </button> -->
+                <button class="sidebar-toggle">
+                  <img src="https://via.placeholder.com/50x50" alt="Toggle Sidebar">
+                </button>
+                <div class="sidebar">
+                  <h3>Sidebar Menu</h3>
+                  <ul>
+                    <li>Profile</li>
+                    <li class="has-submenu">
+                      Payment
+                      <ul class="submenu">
+                        <li>Option 1</li>
+                        <li>Option 2</li>   
+                        <li>Option 3</li>
+                      </ul>
+                    </li>
+                    <li>Setting</li>
+                    <li>
+                      <a href="#" class="logout">Logout</a>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -218,7 +263,14 @@ header#header {
         </div>
     </div>
 
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $(".sidebar-toggle").click(function() {
+      $(".sidebar").toggleClass("open");
+    });
+  });
+</script>
 <script>
   $(window).scroll(function() {
     if ($(this).scrollTop() > 100) {
