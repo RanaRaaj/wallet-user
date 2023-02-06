@@ -157,7 +157,7 @@ header#header {
                 @php
                   $user_id = Auth::user()->id;
                   $bank_detail = DB::table('user_banks')->where('user_id', $user_id)->first();
-                  $balance = $bank_detail->amount;
+                  $balance = $bank_detail->amount ?? 00;
                 @endphp
                 <p class="m-0">Total Amount: {{$balance ?? 'no'}} VND</p>
               </div>

@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Auth;
+use Pusher\Pusher;
 
 class UserController extends Controller
 {
@@ -323,6 +324,20 @@ class UserController extends Controller
         $user_bank->file = $request->file;
 
         $user_bank->save();
+
+        $options = array(
+			'cluster' => 'ap2',
+			'encrypted' => true
+		);
+        $pusher = new Pusher(
+            '57313b8085a7707d1c7e',
+            'a261134581d511f071f4',
+            '1548715',
+            $options
+        );
+		$data = 'new deposit request';
+        $pusher->trigger('deposit-request', 'deposit-event', $data);
+
         return view('deposit_success');
     }
 

@@ -224,7 +224,7 @@ header#header {
                                                         <fieldset class="form-group center m-2">
                                                             <a href="{{route('welcome')}}"
                                                                class="btn btn-primary">Back to Home</a>
-                                                            <button type="submit" class="btn btn-success">Deposit
+                                                            <button type="submit" class="btn btn-success">Add
                                                             </button>
                                                         </fieldset>
                                                     </div>
