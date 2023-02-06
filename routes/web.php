@@ -37,7 +37,13 @@ Route::get('/', function () {
 })->name('login');
 
 
+Route::get('send-form', [UserController::class, 'send_form'])->name('send.form');
+
+Route::get('check-receiver', [UserController::class, 'check_receiver'])->name('check.receiver');
+
+
 Route::get('deposit-form', [UserController::class, 'deposit_form'])->name('deposit.form');
+Route::post('bank.confirm', [UserController::class, 'bank_confirm'])->name('bank.confirm');
 Route::post('deposit.confirm', [UserController::class, 'deposit_confirm'])->name('deposit.confirm');
 Route::post('deposit-confirm-done', [UserController::class, 'deposit_confirm_done'])->name('deposit.confirm.done');
 

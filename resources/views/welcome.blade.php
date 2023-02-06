@@ -120,7 +120,7 @@ header#header {
             <div class="row">
               <div class="col-6 align-items-center top-left">
                 <span>hello</span>
-                <p>Username</p>
+                <p>{{auth()->user()->name}}</p>
               </div>
               <div class="col-6 d-flex justify-content-right top-right">
                 <!-- <button id="sidebar-button">
@@ -154,12 +154,17 @@ header#header {
         <main class="container-fluid">
             <div class="row mt-3">
               <div class="col-12 bg-primary text-white d-flex align-items-center justify-content-center" style="height: 100px;border-radius: 5px;">
-                <p class="m-0">Total Amount: $100</p>
+                @php
+                  $user_id = Auth::user()->id;
+                  $bank_detail = DB::table('user_banks')->where('user_id', $user_id)->first();
+                  $balance = $bank_detail->amount;
+                @endphp
+                <p class="m-0">Total Amount: {{$balance ?? 'no'}} VND</p>
               </div>
             </div>
             <div class="row mt-3 links">
               <div class="col-3 align-items-center justify-content-center">
-                <i class="fas fa-paper-plane fa-2x"></i>
+                <a href="{{route('send.form')}}"><i class="fas fa-paper-plane fa-2x"></i></a>
                 <p class="mt-2">Send</p>
               </div>
               <div class="col-3 align-items-center justify-content-center">

@@ -5,9 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\CompanyBank;
+use App\Models\UserBank;
+use App\Models\UserDeposit;
+use App\Models\UserSendMoney;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Auth;
 
 class UserController extends Controller
 {
@@ -252,8 +256,49 @@ class UserController extends Controller
 
     public function deposit_form()
     {
-        $active_bank = CompanyBank::where('status',1)->get()->first();
-        return view('deposit_form', compact('active_bank'));
+        $user_id = Auth::user()->id;
+        $bank = UserBank::where('user_id', $user_id)->get()->first();
+        if(isset($bank->id)){
+            $active_bank = CompanyBank::where('status',1)->get()->first();
+            return view('deposit_form', compact('active_bank'));
+        }
+        return view('bank_detail', compact('user_id'));
+    }
+
+    public function send_form()
+    {
+        $user_id = Auth::user()->id;
+        $bank = UserBank::where('user_id', $user_id)->get()->first();
+        if(isset($bank->id)){
+            return view('send_amount', compact('bank'));
+        }
+        return view('bank_detail', compact('user_id'));
+    }
+
+    public function check_receiver(Request $request)
+    {
+        $receiver = $request->input('receiver');
+        
+        $userExists = User::where('email',$receiver)->get()->first();
+
+        if (isset($userExists->id)) {
+            return 'available';
+        } else {
+            return 'unavailable';
+        }
+    }
+
+    public function bank_confirm(Request $request)
+    {
+        $user_id = Auth::user()->id;
+        $user_bank = new UserBank();
+        $user_bank->user_id = $user_id;
+        $user_bank->bank_name = $request->bank_name;
+        $user_bank->account_name = $request->account_name;
+        $user_bank->account_number = $request->account_number;
+        $user_bank->save();
+
+        return view('deposit_success');
     }
 
     public function deposit_confirm(Request $request)
@@ -265,6 +310,19 @@ class UserController extends Controller
 
     public function deposit_confirm_done(Request $request)
     {
+        $user_id = Auth::user()->id;
+        $bank = UserBank::where('user_id', $user_id)->get()->first();
+        $user_bank = new UserDeposit();
+        $user_bank->user_id = $user_id;
+        $user_bank->user_name = Auth::user()->name;
+        $user_bank->bank_name = $bank->bank_name;
+        $user_bank->account_name = $bank->account_name;
+        $user_bank->account_number = $bank->account_number;
+        $user_bank->amount = $request->amount;
+        $user_bank->company_bank_id = $request->active_bank_id;
+        $user_bank->file = $request->file;
+
+        $user_bank->save();
         return view('deposit_success');
     }
 

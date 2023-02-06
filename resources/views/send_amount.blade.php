@@ -167,12 +167,12 @@ header#header {
                                     <div class="col-xl-8 col-md-8 col-sm-12">
                                         <div class="card-block">
                                             <div class="card-body">
-                                                <h2>Deposit Amount</h2>
+                                                <h2>Send Amount</h2>
                                                 <form id="deposit_form" action="{{route('deposit.confirm')}}" method="post"
                                                       enctype="multipart/form-data">
                                                     @csrf
 
-                                                    <fieldset class="form-group">
+                                                    <fieldset class="form-group" style="display: none;">
                                                         <label for="" class="label_edit">@if(Session::get('language') == 'vie')Tên người dùng @else Name @endif</label>
                                                         <input type="text" name="name" value="Admin test" class="form-control"
                                                                id="basicInput" disabled>
@@ -183,9 +183,31 @@ header#header {
                                                     </fieldset>
 
                                                     <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Nhóm quyền @else Permission @endif</label>
-                                                        <select name="bank_name" class="form-control" id="basicInput" required>
-                                                            <option value="">Select You Bank</option>
+                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')ID đăng nhập @else Send To @endif</label>
+                                                        <input type="text" name="receiver" value="{{old('receiver')}}" id="receiver" class="form-control"
+                                                            id="basicInput" required><span id="username-check-result"></span>
+
+                                                        @if($errors->has('receiver'))
+                                                            <div class="error"
+                                                                style="color:red">{{$errors->first('receiver')}}</div>
+                                                        @endif
+                                                    </fieldset>
+
+                                                    <fieldset class="form-group">
+                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')ID đăng nhập @else Amount : Maximum {{$bank->amount}} VND @endif</label>
+                                                        <input type="number" name="amount" value="{{old('amount')}}" class="form-control"
+                                                            id="basicInput" required>
+
+                                                        @if($errors->has('amount'))
+                                                            <div class="error"
+                                                                style="color:red">{{$errors->first('amount')}}</div>
+                                                        @endif
+                                                    </fieldset>
+
+                                                    <!-- <fieldset class="form-group">
+                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Nhóm quyền @else Bank Name @endif</label>
+                                                        <select name="bank_name" class="form-control" id="basicInput" disabled>
+                                                            <option value="{{$bank->amount}}">{{$bank->amount}}</option>
                                                             <option value="BIDV">BIDV</option>
                                                             <option value="ACB">ACB</option>
                                                             <option value="VCB">VCB</option>
@@ -195,35 +217,14 @@ header#header {
                                                             <div class="error"
                                                                 style="color:red">{{$errors->first('role')}}</div>
                                                         @endif
-                                                    </fieldset>
-
-                                                    <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Tên người dùng @else Account ID @endif</label>
-                                                        <input type="text" name="account_id" value="" class="form-control"
-                                                               id="basicInput" require>
-                                                        @if($errors->has('name'))
-                                                            <div class="error"
-                                                                 style="color:red">{{$errors->first('name')}}</div>
-                                                        @endif
-                                                    </fieldset>
-
-                                                    <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')ID đăng nhập @else Amount @endif</label>
-                                                        <input type="number" name="amount" value="{{old('amount')}}" class="form-control"
-                                                               id="basicInput" required>
-
-                                                        @if($errors->has('amount'))
-                                                            <div class="error"
-                                                                 style="color:red">{{$errors->first('amount')}}</div>
-                                                        @endif
-                                                    </fieldset>
+                                                    </fieldset> -->
 
                                                     <div class="row justify-content-center m-2"
                                                          style="border-top: 1px solid black">
                                                         <fieldset class="form-group center m-2">
                                                             <a href="{{route('welcome')}}"
                                                                class="btn btn-primary">Back to Home</a>
-                                                            <button type="submit" class="btn btn-success">Deposit
+                                                            <button type="submit" class="btn btn-success">Next
                                                             </button>
                                                         </fieldset>
                                                     </div>
@@ -243,6 +244,28 @@ header#header {
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+$(document).ready(function() {
+    $('#receiver').on('input', function() {
+        var receiver = $(this).val();
+        $.ajax({
+            url: "/check-receiver",
+            type: "GET",
+            headers: {
+		        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		    },
+            data: {receiver: receiver},
+            success: function(data) {
+            	console.log(data);
+                if (data == "available") {
+                    $('#username-check-result').html('<i class="fa fa-check-circle" style="color: green;"></i>');
+                } else {
+                    $('#username-check-result').html('<i class="fa fa-times-circle" style="color: red;"></i>');
+                }
+            }
+        });
+    });
+});
+
 // $('#deposit_form').on('submit', function(e) {
 //     e.preventDefault(); 
 //     $.ajax({

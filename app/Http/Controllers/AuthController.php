@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserBank;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
@@ -19,19 +20,22 @@ class AuthController extends Controller
             'email' => $request['email'],
             'password' => $request['password']
         ];
-        return redirect()->route('welcome');
         $auth = Auth::attempt($credentials);
         if($auth) {
             $user = Auth::user();
-            return redirect()->route('admin.dashboard');
             if($user->role == "admin" || $user->role == "sub_admin"){
                 if($user->status == 1) {
-                    return redirect()->route('admin.dashboard');
+
+                    $bank_detail = UserBank::where('user_id',Auth::user()->id)->get()->first();
+                    $balance = $bank_detail->amount;
+                    return redirect()->route('admin.dashboard', compact('balance'));
                 }
                 else {
                     Auth::logout();
                     return redirect()->back()->with('error', 'You profile is inactive from super admin.');
                 }
+            }elseif($user->role == "user"){
+                return redirect()->route('welcome');
             }
             else {
                 Auth::logout();

@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -118,9 +120,6 @@ header#header {
 .justify-content-center.m-2 fieldset {
     padding-top: 3%;
 }
-div#imgTest img {
-    width: 100%;
-}
 </style>
 <body>
     <div class="container">
@@ -129,7 +128,7 @@ div#imgTest img {
             <div class="row">
               <div class="col-6 align-items-center top-left">
                 <span>hello</span>
-                <p>Username</p>
+                <p>{{auth()->user()->name}}</p>
               </div>
               <div class="col-6 d-flex justify-content-right top-right">
                 <!-- <button id="sidebar-button">
@@ -170,51 +169,61 @@ div#imgTest img {
                                     <div class="col-xl-8 col-md-8 col-sm-12">
                                         <div class="card-block">
                                             <div class="card-body">
-                                                <h4>Account Details</h4>
-                                                <form action="{{route('deposit.confirm.done')}}" method="post"
+                                                <h2>Bank Detail</h2>
+                                                <form id="deposit_form" action="{{route('bank.confirm')}}" method="post"
                                                       enctype="multipart/form-data">
                                                     @csrf
 
-                                                    <ul class="d-inline-block mb-0">
-                                                        <li class="my-2">
-                                                        Bank Name: <b class="text-danger fs-6" id="txtBankName">{{$active_bank->bank_name}}</b>
-                                                            <span id="btnCopyBankName" style="cursor:pointer;background-color:#ffe180;border-radius:3px" class="px-1 ms-2">copy</span>
-                                                            <input type="text" name="BankName" value="{{$active_bank->bank_name}}" hidden="">
-                                                        </li>
-                                                        <li class="my-2">
-                                                            Account Name: <b class="text-danger fs-6" id="txtBankAccountname">{{$active_bank->account_name}}</b>
-                                                            <span id="btnCopyBankAccountname" style="cursor:pointer;background-color:#ffe180;border-radius:3px" class="px-1 ms-2">copy</span>
-                                                            <input type="text" name="BankAccountname" value="{{$active_bank->account_name}}" hidden="">
-                                                        </li>
-                                                        <li class="my-2">
-                                                            Account Number: <b class="text-danger fs-6" id="txtBankAccountNumber">{{$active_bank->bank_account_number}}</b>
-                                                            <span id="btnCopyBankAccountNumber" style="cursor:pointer;background-color:#ffe180;border-radius:3px" class="px-1 ms-2">copy</span>
-                                                            <input type="text" name="BankAccountNumber" value="{{$active_bank->bank_account_number}}" hidden="">
-                                                        </li>
-                                                        <li class="my-2">
-                                                        Your Deposit Amount: <b class="text-danger fs-6">{{$amount}}</b>
-                                                            <input type="text" value="{{$amount}}" hidden=""> VND
-                                                        </li>
-                                                        <li class="my-2">
-                                                            Content : <b class="text-danger fs-6" >{{$active_bank->content}}</b>
-                                                            <input type="text" value="{{$active_bank->content}}" hidden="">
-                                                        </li>
-                                                    </ul>
-                                                    
-                                                    <input type="file" name="UploadFile" accept="image/*" class="form-control d-block rounded mt-2 form-control-sm"  id="inputFileToLoad" onchange="encodeImageFileAsURL();" required>
-                                                    <input type="text" name="AttachFile" hidden="">
-                                                    <div id="preview" class="d-flex justify-content-center">
-                                                    <input type="hidden" id="d_img" value='' name="file">
-                                                    <div id="imgTest"></div>
-                                                    </div>
-                                                    <input type="hidden" name="amount" value="{{$amount}}">
-                                                    <input type="hidden" name="active_bank_id" value="{{$active_bank->id}}">
+                                                    <fieldset class="form-group">
+                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Tên người dùng @else User Name @endif</label>
+                                                        <input type="text" name="name" value="{{auth()->user()->name}}" class="form-control"
+                                                               id="basicInput" disabled>
+                                                        @if($errors->has('name'))
+                                                            <div class="error"
+                                                                 style="color:red">{{$errors->first('name')}}</div>
+                                                        @endif
+                                                    </fieldset>
+
+                                                    <fieldset class="form-group">
+                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Nhóm quyền @else Bank Name @endif</label>
+                                                        <select name="bank_name" class="form-control" id="basicInput" required>
+                                                            <option value="">Select You Bank</option>
+                                                            <option value="BIDV">BIDV</option>
+                                                            <option value="ACB">ACB</option>
+                                                            <option value="VCB">VCB</option>
+                                                        </select>
+
+                                                        @if($errors->has('bank_name'))
+                                                            <div class="error"
+                                                                style="color:red">{{$errors->first('bank_name')}}</div>
+                                                        @endif
+                                                    </fieldset>
+
+                                                    <fieldset class="form-group">
+                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Tên người dùng @else Account Name @endif</label>
+                                                        <input type="text" name="account_name" value="" class="form-control"
+                                                               id="basicInput" require>
+                                                        @if($errors->has('account_name'))
+                                                            <div class="error"
+                                                                 style="color:red">{{$errors->first('account_name')}}</div>
+                                                        @endif
+                                                    </fieldset>
+
+                                                    <fieldset class="form-group">
+                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Tên người dùng @else Account Number @endif</label>
+                                                        <input type="number" name="account_number" value="" class="form-control"
+                                                               id="basicInput" require>
+                                                        @if($errors->has('account_number'))
+                                                            <div class="error"
+                                                                 style="color:red">{{$errors->first('account_number')}}</div>
+                                                        @endif
+                                                    </fieldset>
 
                                                     <div class="row justify-content-center m-2"
                                                          style="border-top: 1px solid black">
                                                         <fieldset class="form-group center m-2">
-                                                            <a href="{{ route('deposit.form') }}"
-                                                               class="btn btn-primary">Back</a>
+                                                            <a href="{{route('welcome')}}"
+                                                               class="btn btn-primary">Back to Home</a>
                                                             <button type="submit" class="btn btn-success">Deposit
                                                             </button>
                                                         </fieldset>
@@ -235,26 +244,6 @@ div#imgTest img {
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    function encodeImageFileAsURL() {
-
-    var filesSelected = document.getElementById("inputFileToLoad").files;
-    if (filesSelected.length > 0) {
-    var fileToLoad = filesSelected[0];
-
-    var fileReader = new FileReader();
-
-    fileReader.onload = function(fileLoadedEvent) {
-        var srcData = fileLoadedEvent.target.result; // <--- data: base64
-
-        var newImage = document.createElement('img');
-        newImage.src = srcData;
-
-        document.getElementById("imgTest").innerHTML = newImage.outerHTML;
-        document.getElementById("d_img").value = srcData;
-    }
-    fileReader.readAsDataURL(fileToLoad);
-    }
-}
 // $('#deposit_form').on('submit', function(e) {
 //     e.preventDefault(); 
 //     $.ajax({
@@ -266,25 +255,6 @@ div#imgTest img {
 //         }
 //     });
 // });
-
-$(document).ready(function () {
-    $("#btnCopyBankAccountname").click(function () {
-        if (!navigator.clipboard) return
-        navigator.clipboard.writeText($("input[name='BankAccountname']").val());
-        $(this).text("Copied");
-    });
-    $("#btnCopyBankName").click(function () {
-        if (!navigator.clipboard) return
-        navigator.clipboard.writeText($("input[name='BankName']").val());
-        $(this).text("Copied");
-    });
-    $("#btnCopyBankAccountNumber").click(function () {
-        if (!navigator.clipboard) return
-        navigator.clipboard.writeText($("input[name='BankAccountNumber']").val());
-        $(this).text("Copied");
-    });
-    
-});
 
   $(document).ready(function() {
     $(".sidebar-toggle").click(function() {
