@@ -204,6 +204,15 @@ header#header {
                                                         @endif
                                                     </fieldset>
 
+                                                    <fieldset class="form-group">
+                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Nhóm quyền @else Content @endif</label>
+                                                        <textarea name="content" class="form-control" cols="30" rows="10"></textarea>
+                                                        @if($errors->has('role'))
+                                                            <div class="error"
+                                                                style="color:red">{{$errors->first('role')}}</div>
+                                                        @endif
+                                                    </fieldset>
+
                                                     <!-- <fieldset class="form-group">
                                                         <label for="" class="label_edit">@if(Session::get('language') == 'vie')Nhóm quyền @else Bank Name @endif</label>
                                                         <select name="bank_name" class="form-control" id="basicInput" disabled>

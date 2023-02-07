@@ -16,6 +16,7 @@ class UserDeposit extends Model
         'account_name',
         'account_number',
         'amount',
+        'content',
         'file',
     ];
 }

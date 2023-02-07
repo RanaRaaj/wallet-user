@@ -196,8 +196,8 @@ div#imgTest img {
                                                             <input type="text" value="{{$amount}}" hidden=""> VND
                                                         </li>
                                                         <li class="my-2">
-                                                            Content : <b class="text-danger fs-6" >{{$active_bank->content}}</b>
-                                                            <input type="text" value="{{$active_bank->content}}" hidden="">
+                                                            Content : <b class="text-danger fs-6" >{{$content}}</b>
+                                                            <input type="text" name="content" value="{{$content}}" hidden="">
                                                         </li>
                                                     </ul>
                                                     

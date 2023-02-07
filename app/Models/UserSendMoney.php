@@ -15,6 +15,7 @@ class UserSendMoney extends Model
         'receiver_id',
         'receiver_name',
         'amount',
+        'content',
         'status',
     ];
 }

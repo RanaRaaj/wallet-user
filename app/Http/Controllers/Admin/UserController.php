@@ -316,6 +316,7 @@ class UserController extends Controller
         $send->receiver_name = $request->receiver;
         $send->receiver_id = $receiver_data->id;
         $send->amount = $request->amount;
+        $send->content = $request->content;
 
         $send->save();
 
@@ -352,8 +353,9 @@ class UserController extends Controller
     public function deposit_confirm(Request $request)
     {
         $amount = $request->amount;
+        $content = $request->content;
         $active_bank = CompanyBank::where('status',1)->get()->first();
-        return view('deposit_confirmation', compact('active_bank','amount'));
+        return view('deposit_confirmation', compact('active_bank','amount','content'));
     }
 
     public function deposit_confirm_done(Request $request)
@@ -368,6 +370,7 @@ class UserController extends Controller
         $user_bank->account_number = $bank->account_number;
         $user_bank->amount = $request->amount;
         $user_bank->company_bank_id = $request->active_bank_id;
+        $user_bank->content = $request->content;
         $user_bank->file = $request->file;
 
         $user_bank->save();
