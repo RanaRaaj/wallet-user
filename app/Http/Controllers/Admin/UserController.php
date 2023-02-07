@@ -289,6 +289,53 @@ class UserController extends Controller
         }
     }
 
+    public function send_confirm(Request $request)
+    {
+        $request->validate([
+            'receiver' => 'required',
+            'amount' => 'required',
+        ]);
+        $receiver_data = User::where('email',$request->receiver)->first();
+
+        $sender_id = Auth()->user()->id;
+        $sender = UserBank::where('user_id',$sender_id)->first();
+        $receiver = UserBank::where('user_id',$receiver_data->id)->first();
+        if(!isset($receiver->id)){
+            return 'Recever Account Not Exists';
+        }
+
+        $sender->amount = $sender->amount - $request->amount;
+        $sender->save();
+
+        $receiver->amount = $receiver->amount + $request->amount;
+        $receiver->save();
+        
+        $send = new UserSendMoney();
+        $send->sender_name = Auth::user()->name;
+        $send->sender_id = Auth::user()->id;
+        $send->receiver_name = $request->receiver;
+        $send->receiver_id = $receiver_data->id;
+        $send->amount = $request->amount;
+
+        $send->save();
+
+        $options = array(
+            'cluster' => 'ap2',
+            'encrypted' => true
+        );
+        $pusher = new Pusher(
+            '57313b8085a7707d1c7e',
+            'a261134581d511f071f4',
+            '1548715',
+            $options
+        );
+        $data = 'new transection request';
+        $pusher->trigger('transection-request', 'transection-event', $data);
+
+        return view('deposit_success');
+
+    }
+
     public function bank_confirm(Request $request)
     {
         $user_id = Auth::user()->id;

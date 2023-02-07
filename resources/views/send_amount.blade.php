@@ -168,7 +168,7 @@ header#header {
                                         <div class="card-block">
                                             <div class="card-body">
                                                 <h2>Send Amount</h2>
-                                                <form id="deposit_form" action="{{route('deposit.confirm')}}" method="post"
+                                                <form id="deposit_form" action="{{route('send.confirm')}}" method="post"
                                                       enctype="multipart/form-data">
                                                     @csrf
 
@@ -196,7 +196,7 @@ header#header {
                                                     <fieldset class="form-group">
                                                         <label for="" class="label_edit">@if(Session::get('language') == 'vie')ID đăng nhập @else Amount : Maximum {{$bank->amount}} VND @endif</label>
                                                         <input type="number" name="amount" value="{{old('amount')}}" class="form-control"
-                                                            id="basicInput" required>
+                                                            id="basicInput" max="{{$bank->amount}}" required>
 
                                                         @if($errors->has('amount'))
                                                             <div class="error"
