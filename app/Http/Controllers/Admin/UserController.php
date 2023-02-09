@@ -311,10 +311,14 @@ class UserController extends Controller
         $receiver->save();
         
         $send = new UserSendMoney();
-        $send->sender_name = Auth::user()->name;
+        $send->sender_name = Auth::user()->email;
         $send->sender_id = Auth::user()->id;
         $send->receiver_name = $request->receiver;
         $send->receiver_id = $receiver_data->id;
+        $send->sender_bank_name = $sender->bank_name;
+        $send->receiver_bank_name = $receiver->bank_name;
+        $send->sender_bank_number = $sender->account_number;
+        $send->receiver_bank_number = $receiver->account_number;
         $send->amount = $request->amount;
         $send->content = $request->content;
 

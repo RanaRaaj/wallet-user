@@ -1,0 +1,29 @@
+94.237.75.38
+root
+VZtG2Nze4Ub8
+/home/xe1888com/xe1888.com/public_html
+
+.
+DB: finance_dashboard
+user: finance_admin
+password: VZtG2Nze4Ub8
+
+if u want to view db or smething, heres the PHPMyadmin link:
+PhpMyAdmin: http://94.237.75.38:6789/phpmyadmin
+Auth_Username: admin
+Auth_Password: ODVmZDhmNTA4ZGNhYzQ1YjBjMDhmNjZl
+DB_User: admin_larvps
+DB_Password: YTM0MTNkNDQ3N2NiOGJmMjk1NjFlZjU2
+
+https://website1.xe1888.com/
+ssv388.info
+admin.ssv388.info
+
+
+DB: ssv388info
+user: ssv388info
+password: ssv388info
+
+DB: admin_ssv388
+pass: admin_ssv388
+user: admin_ssv388
