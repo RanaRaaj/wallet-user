@@ -84,9 +84,6 @@ header#header {
     font-size: 12px;
     font-weight: 700;
 }
-.container-fluid.news {
-    padding-left: 0px;
-}
 .sidebar {
     position: fixed;
     top: 0;
@@ -106,11 +103,94 @@ header#header {
 .sidebar-toggle {
   position: absolute;
   top: 10px;
-  right: 10px;
+  /* right: 10px; */
   background: transparent;
   border: none;
   outline: none;
   cursor: pointer;
+  padding-right: 0;
+}
+.news {
+    padding: 20px;
+    box-shadow: 0px 0px 10px 0px #ccc;
+    margin-top: 20px;
+    border-radius: 10px;
+  }
+
+  .stories {
+    margin-bottom: 20px;
+  }
+
+  .stories:last-child {
+    margin-bottom: 0px;
+  }
+
+  .stories:hover {
+    background-color: #e9e9e9;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+  }
+
+  .new-story {
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  .new-story i {
+    color: #007bff;
+    margin-right: 10px;
+  }
+
+  .new-story span {
+    font-size: 12px;
+    color: #828282;
+  }
+
+  .new-story p {
+    font-size: 18px;
+    font-weight: 400;
+    margin-top: 5px;
+  }
+
+  .justify-content-right span {
+    font-size: 20px;
+    font-weight: 500;
+    color: #007bff;
+  }
+  .links {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+  }
+
+  .links a {
+      color: #333;
+      text-decoration: none;
+  }
+
+  .links i {
+      transition: all 0.3s ease-in-out;
+  }
+
+  .links a:hover i {
+      transform: scale(1.2);
+  }
+
+  .links p {
+      margin: 0;
+      transition: all 0.3s ease-in-out;
+  }
+
+  .links a:hover p {
+      transform: translateY(-20px);
+  }
+  @keyframes AnimatedBackground {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 100% 50%;
+  }
 }
 </style>
 <body>
@@ -152,121 +232,117 @@ header#header {
           </div>
         </header>
         <main class="container-fluid">
-            <div class="row mt-3">
-              <div class="col-12 bg-primary text-white d-flex align-items-center justify-content-center" style="height: 100px;border-radius: 5px;">
-                @php
+        <div class="row mt-3">
+          <div class="col-12 bg-primary text-white d-flex align-items-center justify-content-center" style="height: 100px; border-radius: 5px; background: linear-gradient(to right, #00b4db, #0083b0); animation: AnimatedBackground 10s linear infinite;">
+              @php
                   $user_id = Auth::user()->id;
                   $bank_detail = DB::table('user_banks')->where('user_id', $user_id)->first();
-                  $balance = $bank_detail->amount ?? 00;
-                @endphp
-                <p class="m-0">Total Amount: {{$balance ?? 'no'}} VND</p>
-              </div>
-            </div>
-            <div class="row mt-3 links">
+                  $balance = $bank_detail->amount ?? 0;
+              @endphp
+              <p class="m-0">Total Amount: {{$balance ?? 'no'}} VND</p>
+          </div>
+        </div>
+
+          <div class="row mt-3 links">
               <div class="col-3 align-items-center justify-content-center">
-                <a href="{{route('send.form')}}"><i class="fas fa-paper-plane fa-2x"></i></a>
-                <p class="mt-2">Send</p>
+                  <a href="{{route('send.form')}}">
+                      <i class="fas fa-paper-plane fa-2x"></i>
+                      <p class="mt-2">Send</p>
+                  </a>
               </div>
+
               <div class="col-3 align-items-center justify-content-center">
-                <a href="{{route('deposit.form')}}"><i class="fas fa-list-ul fa-2x"></i></a>
-                <p class="mt-2">Deposit</p>
+                  <a href="{{route('deposit.form')}}">
+                      <i class="fas fa-list-ul fa-2x"></i>
+                      <p class="mt-2">Deposit</p>
+                  </a>
               </div>
+
               <div class="col-3 align-items-center justify-content-center">
-                <i class="fas fa-check-circle fa-2x"></i>
-                <p class="mt-2">Status</p>
+                  <i class="fas fa-check-circle fa-2x"></i>
+                  <p class="mt-2">Status</p>
               </div>
+
               <div class="col-3 align-items-center justify-content-center">
-                <i class="fas fa-credit-card fa-2x"></i>
-                <p class="mt-2">Payment</p>
+                  <i class="fas fa-credit-card fa-2x"></i>
+                  <p class="mt-2">Payment</p>
               </div>
-            </div>
+          </div>
         </main>
         <div class="container-fluid transaction">
-            <div class="row">
-                <div class="col-6 d-flex align-items-center">
-                  <p>News</p>
-                </div>
-                <div class="col-6 d-flex justify-content-right">
-                  <a href=""><span>See All</span></a>
-                </div>
-            </div>
+            
         </div>
 
         <div class="container-fluid news">
-            <div class="row stories">
-                <div class="col-9 d-flex align-items-center new-story">
-                    <div class="col-3 d-flex align-items-left">
-                        <i class="fas fa-paper-plane fa-2x"></i>
-                    </div>
-                    <div class="col-9 align-items-center">
-                        <span>Today</span>
-                        <p>Electric Bill</p>
-                    </div>
-                </div>
-                <div class="col-3 d-flex justify-content-right">
-                    <span>$33.5</span>
-                </div>
+          <div class="row">
+              <div class="col-6 d-flex align-items-center">
+                <p>News</p>
+              </div>
+              <div class="col-6 d-flex justify-content-right">
+                <a href=""><span>See All</span></a>
+              </div>
+          </div>
+          <hr>
+          <div class="row story-2 stories">
+            <div class="col-9 d-flex align-items-center">
+              <div class="col-3 d-flex align-items-left">
+                <i class="fas fa-paper-plane fa-2x"></i>
+              </div>
+              <div class="col-9 align-items-center">
+                <span>Today</span>
+                <p>Electric Bill</p>
+              </div>
             </div>
+            <div class="col-3 d-flex justify-content-right">
+              <span>$33.5</span>
+            </div>
+          </div>
 
-            <div class="row">
-                <div class="col-9 d-flex align-items-center">
-                    <div class="col-3 d-flex align-items-left">
-                        <i class="fas fa-paper-plane fa-2x"></i>
-                    </div>
-                    <div class="col-9 align-items-center">
-                        <span>Today</span>
-                        <p>Electric Bill</p>
-                    </div>
-                </div>
-                <div class="col-3 d-flex justify-content-right">
-                    <span>$33.5</span>
-                </div>
+          <div class="row story-3 stories">
+            <div class="col-9 d-flex align-items-center">
+              <div class="col-3 d-flex align-items-left">
+                <i class="fas fa-paper-plane fa-2x"></i>
+              </div>
+              <div class="col-9 align-items-center">
+                <span>Today</span>
+                <p>Electric Bill</p>
+              </div>
             </div>
+            <div class="col-3 d-flex justify-content-right">
+              <span>$33.5</span>
+            </div>
+          </div>
 
-            <div class="row">
-                <div class="col-9 d-flex align-items-center">
-                    <div class="col-3 d-flex align-items-left">
-                        <i class="fas fa-paper-plane fa-2x"></i>
-                    </div>
-                    <div class="col-9 align-items-center">
-                        <span>Today</span>
-                        <p>Electric Bill</p>
-                    </div>
-                </div>
-                <div class="col-3 d-flex justify-content-right">
-                    <span>$33.5</span>
-                </div>
+          <div class="row story-2 stories">
+            <div class="col-9 d-flex align-items-center">
+              <div class="col-3 d-flex align-items-left">
+                <i class="fas fa-paper-plane fa-2x"></i>
+              </div>
+              <div class="col-9 align-items-center">
+                <span>Today</span>
+                <p>Electric Bill</p>
+              </div>
             </div>
+            <div class="col-3 d-flex justify-content-right">
+              <span>$33.5</span>
+            </div>
+          </div>
 
-            <div class="row">
-                <div class="col-9 d-flex align-items-center">
-                    <div class="col-3 d-flex align-items-left">
-                        <i class="fas fa-paper-plane fa-2x"></i>
-                    </div>
-                    <div class="col-9 align-items-center">
-                        <span>Today</span>
-                        <p>Electric Bill</p>
-                    </div>
-                </div>
-                <div class="col-3 d-flex justify-content-right">
-                    <span>$33.5</span>
-                </div>
+          <div class="row story-3 stories">
+            <div class="col-9 d-flex align-items-center">
+              <div class="col-3 d-flex align-items-left">
+                <i class="fas fa-paper-plane fa-2x"></i>
+              </div>
+              <div class="col-9 align-items-center">
+                <span>Today</span>
+                <p>Electric Bill</p>
+              </div>
             </div>
+            <div class="col-3 d-flex justify-content-right">
+              <span>$33.5</span>
+            </div>
+          </div>
 
-            <div class="row">
-                <div class="col-9 d-flex align-items-center">
-                    <div class="col-3 d-flex align-items-left">
-                        <i class="fas fa-paper-plane fa-2x"></i>
-                    </div>
-                    <div class="col-9 align-items-center">
-                        <span>Today</span>
-                        <p>Electric Bill</p>
-                    </div>
-                </div>
-                <div class="col-3 d-flex justify-content-right">
-                    <span>$33.5</span>
-                </div>
-            </div>
         </div>
     </div>
 

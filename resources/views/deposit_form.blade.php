@@ -40,7 +40,7 @@
     padding-bottom: 2%;
 }
 .top-left {
-    padding-left: 0;
+    padding-left: 15px;
 }
 .top-right {
     padding-right: 0;
@@ -118,6 +118,9 @@ header#header {
 .justify-content-center.m-2 fieldset {
     padding-top: 3%;
 }
+.card-body {
+    padding: 0.25rem !important;
+}
 </style>
 <body>
     <div class="container">
@@ -158,7 +161,7 @@ header#header {
           </div>
         </header>
         <main class="container-fluid">
-        <div class="row">
+            <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-content collapse show">
@@ -221,7 +224,7 @@ header#header {
                                                          style="border-top: 1px solid black">
                                                         <fieldset class="form-group center m-2">
                                                             <a href="{{route('welcome')}}"
-                                                               class="btn btn-primary">Back to Home</a>
+                                                               class="btn btn-primary">Home</a>
                                                             <button type="submit" class="btn btn-success">Next
                                                             </button>
                                                         </fieldset>

@@ -40,7 +40,7 @@
     padding-bottom: 2%;
 }
 .top-left {
-    padding-left: 0;
+    padding-left: 15px;
 }
 .top-right {
     padding-right: 0;

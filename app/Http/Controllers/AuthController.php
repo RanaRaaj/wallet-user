@@ -12,7 +12,7 @@ class AuthController extends Controller
 {
     public function adminLogin(Request $request) {
         $request->validate([
-            'email'=>'required | email',
+            'email'=>'required',
             'password'=>'required',
         ]);
 //        $user = User::where('email',$request['email'])->first();
@@ -27,7 +27,7 @@ class AuthController extends Controller
                 if($user->status == 1) {
 
                     $bank_detail = UserBank::where('user_id',Auth::user()->id)->get()->first();
-                    $balance = $bank_detail->amount;
+                    $balance = $bank_detail->amount ?? 00;
                     return redirect()->route('admin.dashboard', compact('balance'));
                 }
                 else {
