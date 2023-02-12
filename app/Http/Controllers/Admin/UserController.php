@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\CompanyBank;
 use App\Models\UserBank;
+use App\Models\Deposit;
 use App\Models\UserDeposit;
 use App\Models\UserSendMoney;
 use Illuminate\Http\Request;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Auth;
 use Pusher\Pusher;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -28,6 +30,37 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function welcome()
+    {
+        $user_id = Auth::user()->id;
+        $send_data = UserSendMoney::where('sender_id', $user_id)->latest()->get();
+        $rcv_data = UserSendMoney::where('receiver_id', $user_id)->latest()->get();
+        $rcv_amount = Deposit::where('send_to', $user_id)->latest()->get();
+        // dd($send_data);
+        $deposit = UserDeposit::where('user_id', $user_id)->latest()->get();
+
+        return view('welcome', compact('send_data','rcv_data', 'rcv_amount', 'deposit'));
+
+    }
+
+    public function detail_view($type)
+    {
+        $user_id = Auth::user()->id;
+        $type = $type;
+        if($type == 'send'){
+            $sendAmountDetails = UserSendMoney::where('sender_id', $user_id)->latest()->get();
+        }elseif($type == 'rcv'){
+            $sendAmountDetails = UserSendMoney::where('receiver_id', $user_id)->latest()->get();
+        }elseif($type == 'admin_rcv')
+        {
+            $sendAmountDetails = Deposit::where('send_to', $user_id)->latest()->get();
+        }elseif($type == 'deposit'){
+            $sendAmountDetails = UserDeposit::where('user_id', $user_id)->latest()->get();
+        }
+        
+        return view('detail_page', compact('sendAmountDetails','type'));
+    }
+
     public function index()
     {
         return view('admin.users.index');

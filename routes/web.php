@@ -28,14 +28,12 @@ Route::get('/config-cache', function() {\Illuminate\Support\Facades\Artisan::cal
 
 Route::get('/migrate', function() {\Illuminate\Support\Facades\Artisan::call('migrate');return "migration is done";});
 
-Route::get('/welcome', function () {
-    return view('welcome');
-})->name('welcome');
-
 Route::get('/', function () {
     return view('login');
 })->name('login');
 
+Route::get('welcome', [UserController::class, 'welcome'])->name('welcome');
+Route::get('detail-view/{type}', [UserController::class, 'detail_view'])->name('detail.view');
 
 Route::get('send-form', [UserController::class, 'send_form'])->name('send.form');
 

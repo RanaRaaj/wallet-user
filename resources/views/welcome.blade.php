@@ -153,7 +153,7 @@ header#header {
   }
 
   .justify-content-right span {
-    font-size: 20px;
+    font-size: 15px;
     font-weight: 500;
     color: #007bff;
   }
@@ -203,9 +203,6 @@ header#header {
                 <p>{{auth()->user()->name}}</p>
               </div>
               <div class="col-6 d-flex justify-content-right top-right">
-                <!-- <button id="sidebar-button">
-                    <img src="https://via.placeholder.com/30x30" alt="User Image" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                </button> -->
                 <button class="sidebar-toggle">
                   <img src="https://via.placeholder.com/50x50" alt="Toggle Sidebar">
                 </button>
@@ -232,16 +229,16 @@ header#header {
           </div>
         </header>
         <main class="container-fluid">
-        <div class="row mt-3">
-          <div class="col-12 bg-primary text-white d-flex align-items-center justify-content-center" style="height: 100px; border-radius: 5px; background: linear-gradient(to right, #00b4db, #0083b0); animation: AnimatedBackground 10s linear infinite;">
-              @php
-                  $user_id = Auth::user()->id;
-                  $bank_detail = DB::table('user_banks')->where('user_id', $user_id)->first();
-                  $balance = $bank_detail->amount ?? 0;
-              @endphp
-              <p class="m-0">Total Amount: {{$balance ?? 'no'}} VND</p>
+          <div class="row mt-3">
+            <div class="col-12 bg-primary text-white d-flex align-items-center justify-content-center" style="height: 100px; border-radius: 5px; background: linear-gradient(to right, #00b4db, #0083b0); animation: AnimatedBackground 10s linear infinite;">
+                @php
+                    $user_id = Auth::user()->id;
+                    $bank_detail = DB::table('user_banks')->where('user_id', $user_id)->first();
+                    $balance = $bank_detail->amount ?? 0;
+                @endphp
+                <p class="m-0">Total Amount: {{$balance ?? 'no'}} VND</p>
+            </div>
           </div>
-        </div>
 
           <div class="row mt-3 links">
               <div class="col-3 align-items-center justify-content-center">
@@ -269,81 +266,160 @@ header#header {
               </div>
           </div>
         </main>
-        <div class="container-fluid transaction">
-            
+
+        <div class="container-fluid transaction">            
         </div>
 
         <div class="container-fluid news">
           <div class="row">
-              <div class="col-6 d-flex align-items-center">
-                <p>News</p>
+              <div class="col-8 d-flex align-items-center">
+                <p><b>Sended Amount</b></p>
               </div>
-              <div class="col-6 d-flex justify-content-right">
-                <a href=""><span>See All</span></a>
+              <div class="col-4 d-flex justify-content-right">
+                <a href="{{route('detail.view',['type' => 'send'])}}"><span>See All</span></a>
               </div>
           </div>
           <hr>
-          <div class="row story-2 stories">
-            <div class="col-9 d-flex align-items-center">
-              <div class="col-3 d-flex align-items-left">
-                <i class="fas fa-paper-plane fa-2x"></i>
+          @if(isset($send_data[0]))
+            @foreach($send_data as $send)
+              <div class="row story-2 stories">
+                <div class="col-9 d-flex align-items-center">
+                  <div class="col-3 d-flex align-items-left">
+                    <i class="fas fa-paper-plane fa-2x"></i>
+                  </div>
+                  <div class="col-9 align-items-center">
+                    <span>{{ $send->created_at->diffForHumans() }}</span>
+                    <p>Send To: {{$send->receiver_name}}</p>
+                  </div>
+                </div>
+                <div class="col-3 d-flex justify-content-right">
+                  <span>{{$send->amount}} VND</span>
+                </div>
               </div>
-              <div class="col-9 align-items-center">
-                <span>Today</span>
-                <p>Electric Bill</p>
-              </div>
-            </div>
-            <div class="col-3 d-flex justify-content-right">
-              <span>$33.5</span>
-            </div>
-          </div>
-
-          <div class="row story-3 stories">
-            <div class="col-9 d-flex align-items-center">
-              <div class="col-3 d-flex align-items-left">
-                <i class="fas fa-paper-plane fa-2x"></i>
-              </div>
-              <div class="col-9 align-items-center">
-                <span>Today</span>
-                <p>Electric Bill</p>
+            @endforeach
+          @else
+            <div class="row story-2 stories">
+              <div class="col-9 d-flex align-items-center">
+                <p>No Record Found...</p>
               </div>
             </div>
-            <div class="col-3 d-flex justify-content-right">
-              <span>$33.5</span>
-            </div>
-          </div>
-
-          <div class="row story-2 stories">
-            <div class="col-9 d-flex align-items-center">
-              <div class="col-3 d-flex align-items-left">
-                <i class="fas fa-paper-plane fa-2x"></i>
-              </div>
-              <div class="col-9 align-items-center">
-                <span>Today</span>
-                <p>Electric Bill</p>
-              </div>
-            </div>
-            <div class="col-3 d-flex justify-content-right">
-              <span>$33.5</span>
-            </div>
-          </div>
-
-          <div class="row story-3 stories">
-            <div class="col-9 d-flex align-items-center">
-              <div class="col-3 d-flex align-items-left">
-                <i class="fas fa-paper-plane fa-2x"></i>
-              </div>
-              <div class="col-9 align-items-center">
-                <span>Today</span>
-                <p>Electric Bill</p>
-              </div>
-            </div>
-            <div class="col-3 d-flex justify-content-right">
-              <span>$33.5</span>
-            </div>
-          </div>
-
+          @endif
         </div>
+
+        <div class="container-fluid news">
+          <div class="row">
+              <div class="col-8 d-flex align-items-center">
+                <p><b>Received Amount</b></p>
+              </div>
+              <div class="col-4 d-flex justify-content-right">
+                <a href="{{route('detail.view',['type' => 'rcv'])}}"><span>See All</span></a>
+              </div>
+          </div>
+          <hr>
+          @if(isset($rcv_data[0]))
+            @foreach($rcv_data as $rcv)
+              <div class="row story-2 stories">
+                <div class="col-9 d-flex align-items-center">
+                  <div class="col-3 d-flex align-items-left">
+                    <i class="fas fa-paper-plane fa-2x"></i>
+                  </div>
+                  <div class="col-9 align-items-center">
+                    <span>{{ $rcv->created_at->diffForHumans() }}</span>
+                    <p>Received From: {{$rcv->receiver_name}}</p>
+                  </div>
+                </div>
+                <div class="col-3 d-flex justify-content-right">
+                  <span>{{$rcv->amount}} VND</span>
+                </div>
+              </div>
+            @endforeach
+          @else
+            <div class="row story-2 stories">
+              <div class="col-9 d-flex align-items-center">
+                <p>No Record Found...</p>
+              </div>
+            </div>
+          @endif
+        </div>
+
+        <div class="container-fluid news">
+          <div class="row">
+              <div class="col-8 d-flex align-items-center">
+                <p><b>Received From Admin</b></p>
+              </div>
+              <div class="col-4 d-flex justify-content-right">
+                <a href="{{route('detail.view',['type' => 'admin_rcv'])}}"><span>See All</span></a>
+              </div>
+          </div>
+          <hr>
+          @if(isset($rcv_amount[0]))
+            @foreach($rcv_amount as $rcv)
+              <div class="row story-2 stories">
+                <div class="col-9 d-flex align-items-center">
+                  <div class="col-3 d-flex align-items-left">
+                    <i class="fas fa-paper-plane fa-2x"></i>
+                  </div>
+                  <div class="col-9 align-items-center">
+                    <span>{{ $rcv->created_at->diffForHumans() }}</span>
+                    <p>Received From: Admin</p>
+                  </div>
+                </div>
+                <div class="col-3 d-flex justify-content-right">
+                  <span>{{$rcv->amount}} VND</span>
+                </div>
+              </div>
+            @endforeach
+          @else
+            <div class="row story-2 stories">
+              <div class="col-9 d-flex align-items-center">
+                <p>No Record Found...</p>
+              </div>
+            </div>
+          @endif
+        </div>
+
+        <div class="container-fluid news">
+          <div class="row">
+              <div class="col-8 d-flex align-items-center">
+                <p><b>Deposit Request</b></p>
+              </div>
+              <div class="col-4 d-flex justify-content-right">
+                <a href="{{route('detail.view',['type' => 'deposit'])}}"><span>See All</span></a>
+              </div>
+          </div>
+          <hr>
+          @if(isset($deposit[0]))
+            @foreach($deposit as $val)
+              <div class="row story-2 stories">
+                <div class="col-9 d-flex align-items-center">
+                  <div class="col-3 d-flex align-items-left">
+                    <i class="fas fa-paper-plane fa-2x"></i>
+                  </div>
+                  <div class="col-9 align-items-center">
+                    <span>{{ $val->created_at->diffForHumans() }}</span>
+                    @if($val->status == 1)
+                      <p style="color: green">Approved</p>
+                    @elseif($val->status == 0)
+                      <p style="color: red">Cancel</p>
+                    @else
+                      <p style="color: blue">Pending</p>
+                    @endif
+                  </div>
+                </div>
+                <div class="col-3 d-flex justify-content-right">
+                  <span>{{$val->amount}} VND</span>
+                </div>
+              </div>
+            @endforeach
+          @else
+            <div class="row story-2 stories">
+              <div class="col-9 d-flex align-items-center">
+                <p>No Record Found...</p>
+              </div>
+            </div>
+          @endif
+        </div>
+
     </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
