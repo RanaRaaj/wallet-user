@@ -33,11 +33,11 @@ class UserController extends Controller
     public function welcome()
     {
         $user_id = Auth::user()->id;
-        $send_data = UserSendMoney::where('sender_id', $user_id)->latest()->get();
-        $rcv_data = UserSendMoney::where('receiver_id', $user_id)->latest()->get();
-        $rcv_amount = Deposit::where('send_to', $user_id)->latest()->get();
+        $send_data = UserSendMoney::where('sender_id', $user_id)->take(4)->latest()->get();
+        $rcv_data = UserSendMoney::where('receiver_id', $user_id)->take(4)->latest()->get();
+        $rcv_amount = Deposit::where('send_to', $user_id)->take(4)->latest()->get();
         // dd($send_data);
-        $deposit = UserDeposit::where('user_id', $user_id)->latest()->get();
+        $deposit = UserDeposit::where('user_id', $user_id)->take(4)->latest()->get();
 
         return view('welcome', compact('send_data','rcv_data', 'rcv_amount', 'deposit'));
 
@@ -56,9 +56,18 @@ class UserController extends Controller
             $sendAmountDetails = Deposit::where('send_to', $user_id)->latest()->get();
         }elseif($type == 'deposit'){
             $sendAmountDetails = UserDeposit::where('user_id', $user_id)->latest()->get();
+        }elseif($type == 'status'){
+            $sendAmountDetails = UserDeposit::where('user_id', $user_id)->latest()->get();
+        }elseif($type == 'payment'){
+            $sendAmountDetails = UserSendMoney::where('sender_id', $user_id)->latest()->get();
         }
         
         return view('detail_page', compact('sendAmountDetails','type'));
+    }
+
+    public function payment_page()
+    {
+        return view('payment_page');
     }
 
     public function index()

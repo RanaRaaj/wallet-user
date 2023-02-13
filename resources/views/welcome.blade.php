@@ -184,7 +184,7 @@ header#header {
   .links a:hover p {
       transform: translateY(-20px);
   }
-  @keyframes AnimatedBackground {
+@keyframes AnimatedBackground {
   from {
     background-position: 0% 50%;
   }
@@ -192,6 +192,55 @@ header#header {
     background-position: 100% 50%;
   }
 }
+@media (max-width: 766px) {
+  .news {
+    margin: 15px;
+  }
+}
+
+/*.sidebar {
+    background-color: #f9f9f9;
+    width: 250px;
+    height: 100%;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .list-group-item {
+    border: none;
+  }
+
+  .list-group-item a {
+    display: block;
+    color: #333;
+    text-decoration: none;
+  }
+
+  .list-group-item:hover {
+    background-color: #f5f5f5;
+  }
+
+  .dropdown .dropdown-toggle::after {
+    display: none;
+  }
+
+  .dropdown .dropdown-menu {
+    background-color: #f9f9f9;
+    border: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .dropdown .dropdown-item {
+    color: #333;
+  }
+
+  .dropdown .dropdown-item:hover {
+    background-color: #f5f5f5;
+  }*/
+
 </style>
 <body>
     <div class="container">
@@ -207,20 +256,32 @@ header#header {
                   <img src="https://via.placeholder.com/50x50" alt="Toggle Sidebar">
                 </button>
                 <div class="sidebar">
-                  <h3>Sidebar Menu</h3>
-                  <ul>
-                    <li>Profile</li>
-                    <li class="has-submenu">
-                      Payment
-                      <ul class="submenu">
-                        <li>Option 1</li>
-                        <li>Option 2</li>   
-                        <li>Option 3</li>
-                      </ul>
+                  <h3 class="text-center text-light p-3 bg-primary">Sidebar Menu</h3>
+                  <ul class="list-group">
+                    <li class="list-group-item">
+                      <a href="#">
+                        <i class="fa fa-user mr-2"></i>Profile
+                      </a>
                     </li>
-                    <li>Setting</li>
-                    <li>
-                      <a href="{{url('/logout')}}" class="logout">Logout</a>
+                    <li class="list-group-item dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-dollar-sign mr-2"></i>Payment <i class="fa fa-caret-down ml-2"></i>
+                      </a>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Option 1</a>
+                        <a class="dropdown-item" href="#">Option 2</a>
+                        <a class="dropdown-item" href="#">Option 3</a>
+                      </div>
+                    </li>
+                    <li class="list-group-item">
+                      <a href="#">
+                        <i class="fa fa-cog mr-2"></i>Setting
+                      </a>
+                    </li>
+                    <li class="list-group-item">
+                      <a href="{{url('/logout')}}" class="logout">
+                        <i class="fa fa-sign-out-alt mr-2"></i>Logout
+                      </a>
                     </li>
                   </ul>
                 </div>
@@ -256,21 +317,25 @@ header#header {
               </div>
 
               <div class="col-3 align-items-center justify-content-center">
+                <a href="{{route('detail.view',['type' => 'status'])}}">
                   <i class="fas fa-check-circle fa-2x"></i>
                   <p class="mt-2">Status</p>
+                </a>
               </div>
 
               <div class="col-3 align-items-center justify-content-center">
+                <a href="{{route('payment.page')}}">
                   <i class="fas fa-credit-card fa-2x"></i>
                   <p class="mt-2">Payment</p>
+                </a>
               </div>
           </div>
         </main>
-
+      <div class="row">
         <div class="container-fluid transaction">            
         </div>
 
-        <div class="container-fluid news">
+        <div class="container-fluid news col-md-6">
           <div class="row">
               <div class="col-8 d-flex align-items-center">
                 <p><b>Sended Amount</b></p>
@@ -306,7 +371,7 @@ header#header {
           @endif
         </div>
 
-        <div class="container-fluid news">
+        <div class="container-fluid news col-md-6">
           <div class="row">
               <div class="col-8 d-flex align-items-center">
                 <p><b>Received Amount</b></p>
@@ -342,7 +407,7 @@ header#header {
           @endif
         </div>
 
-        <div class="container-fluid news">
+        <div class="container-fluid news col-md-6">
           <div class="row">
               <div class="col-8 d-flex align-items-center">
                 <p><b>Received From Admin</b></p>
@@ -378,7 +443,7 @@ header#header {
           @endif
         </div>
 
-        <div class="container-fluid news">
+        <div class="container-fluid news col-md-6">
           <div class="row">
               <div class="col-8 d-flex align-items-center">
                 <p><b>Deposit Request</b></p>
@@ -397,9 +462,9 @@ header#header {
                   </div>
                   <div class="col-9 align-items-center">
                     <span>{{ $val->created_at->diffForHumans() }}</span>
-                    @if($val->status == 1)
+                    @if($val->status == '1')
                       <p style="color: green">Approved</p>
-                    @elseif($val->status == 0)
+                    @elseif($val->status == '0')
                       <p style="color: red">Cancel</p>
                     @else
                       <p style="color: blue">Pending</p>
@@ -419,6 +484,7 @@ header#header {
             </div>
           @endif
         </div>
+      </div>
 
     </div>
 

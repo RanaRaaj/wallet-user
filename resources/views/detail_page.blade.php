@@ -207,10 +207,14 @@ body {
                         </button>
                       </div>
                       <div class="modal-body">
-                        <p><strong>Receiver Name:</strong> {{ $sendAmountDetail->receiver_name }}</p>
+                        <p><strong>Send To:</strong> {{ $sendAmountDetail->receiver_name }}</p>
                         <p><strong>Content:</strong> {{ $sendAmountDetail->content }}</p>
                         <p><strong>Amount:</strong> {{ $sendAmountDetail->amount }}</p>
                         <p><strong>Time:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
+                        <p><strong>From Bank Name:</strong> {{ $sendAmountDetail->sender_bank_name }}</p>
+                        <p><strong>From Bank Number:</strong> {{ $sendAmountDetail->sender_bank_number }}</p>
+                        <p><strong>To Bank Name:</strong> {{ $sendAmountDetail->receiver_bank_name }}</p>
+                        <p><strong>To Bank Number:</strong> {{ $sendAmountDetail->receiver_bank_number }}</p>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -223,7 +227,7 @@ body {
               <p>No Record Found...</p>
             @endif
           </div>
-          <a href="{{route('welcome')}}" class="btn btn-primary mt-3">Go Back</a>
+          <a href="{{ url()->previous() }}" class="btn btn-primary mt-3">Go Back</a>
         </div>
       @endif
 
@@ -269,7 +273,7 @@ body {
               <p>No Record Found...</p>
             @endif
           </div>
-          <a href="{{route('welcome')}}" class="btn btn-primary mt-3">Go Back</a>
+          <a href="{{ url()->previous() }}" class="btn btn-primary mt-3">Go Back</a>
         </div>
       @endif
 
@@ -315,7 +319,7 @@ body {
               <p>No Record Found...</p>
             @endif
           </div>
-          <a href="{{route('welcome')}}" class="btn btn-primary mt-3">Go Back</a>
+          <a href="{{ url()->previous() }}" class="btn btn-primary mt-3">Go Back</a>
         </div>
       @endif
 
@@ -328,9 +332,9 @@ body {
               @foreach($sendAmountDetails as $sendAmountDetail)
               <a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modal{{ $loop->index }}">
                 <div class="d-flex w-100 justify-content-between">
-                  @if($sendAmountDetail->status == 1)
+                  @if($sendAmountDetail->status == '1')
                     <h5 class="mb-1" style="color: green">Approved  </h5>
-                  @elseif($sendAmountDetail->status == 0)
+                  @elseif($sendAmountDetail->status == '0')
                     <h5 class="mb-1" style="color: red">Cancel</h5>
                   @else
                     <h5 class="mb-1" style="color: blue">Pending</h5>
@@ -353,9 +357,9 @@ body {
                       </div>
                       <div class="modal-body">
                         <p><strong>Status :</strong>
-                          @if($sendAmountDetail->status == 1)
+                          @if($sendAmountDetail->status == '1')
                           Approved
-                          @elseif($sendAmountDetail->status == 0)
+                          @elseif($sendAmountDetail->status == '0')
                           Cancel
                           @else
                           Pending
@@ -380,7 +384,118 @@ body {
               <p>No Record Found...</p>
             @endif
           </div>
-          <a href="{{route('welcome')}}" class="btn btn-primary mt-3">Go Back</a>
+          <a href="{{ url()->previous() }}" class="btn btn-primary mt-3">Go Back</a>
+        </div>
+      @endif
+
+      @if($type == 'status')
+        <div class="container my-5">
+          <h2 class="text-center mb-5">Deposit Requests</h2>
+
+          <div class="list-group">
+            @if(isset($sendAmountDetails[0]))
+              @foreach($sendAmountDetails as $sendAmountDetail)
+              <a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modal{{ $loop->index }}">
+                <div class="d-flex w-100 justify-content-between">
+                  @if($sendAmountDetail->status == '1')
+                    <h5 class="mb-1" style="color: green">Approved  </h5>
+                  @elseif($sendAmountDetail->status == '0')
+                    <h5 class="mb-1" style="color: red">Cancel</h5>
+                  @else
+                    <h5 class="mb-1" style="color: blue">Pending</h5>
+                  @endif
+                  
+                  <small>{{ $sendAmountDetail->created_at->diffForHumans() }}</small>
+                </div>
+                <p class="mb-1">{{ $sendAmountDetail->content ?? '' }}</p>
+                <small>Amount: {{ $sendAmountDetail->amount }}</small>
+              </a>
+              <!-- Modal -->
+                <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="sendAmountDetailModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="sendAmountDetailModalLabel">Deposit Detail</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <p><strong>Status :</strong>
+                          @if($sendAmountDetail->status == '1')
+                          Approved
+                          @elseif($sendAmountDetail->status == '0')
+                          Cancel
+                          @else
+                          Pending
+                          @endif
+                        </p>
+                        <p><strong>Content:</strong> {{ $sendAmountDetail->content }}</p>
+                        <p><strong>Amount:</strong> {{ $sendAmountDetail->amount }}</p>
+                        <p><strong>Time:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
+                        <p><strong>Bank Name:</strong> {{ $sendAmountDetail->bank_name }}</p>
+                        <p><strong>Account Name:</strong> {{ $sendAmountDetail->account_name }}</p>
+                        <p><strong>Account Number:</strong> {{ $sendAmountDetail->account_number }}</p>
+                        <p><strong>Approved Time:</strong> {{ $sendAmountDetail->approval_time }}</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              @endforeach
+            @else
+              <p>No Record Found...</p>
+            @endif
+          </div>
+          <a href="{{ url()->previous() }}" class="btn btn-primary mt-3">Go Back</a>
+        </div>
+      @endif
+
+      @if($type == 'payment')
+        <div class="container my-5">
+          <h2 class="text-center mb-5">Sended Amount</h2>
+
+          <div class="list-group">
+            @if(isset($sendAmountDetails[0]))
+              @foreach($sendAmountDetails as $sendAmountDetail)
+              <a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modal{{ $loop->index }}">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-1">{{ $sendAmountDetail->receiver_name }}</h5>
+                  <small>{{ $sendAmountDetail->created_at->diffForHumans() }}</small>
+                </div>
+                <p class="mb-1">{{ $sendAmountDetail->content }}</p>
+                <small>Amount: {{ $sendAmountDetail->amount }}</small>
+              </a>
+              <!-- Modal -->
+                <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="sendAmountDetailModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="sendAmountDetailModalLabel">Send Amount Detail</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <p><strong>Send To:</strong> {{ $sendAmountDetail->receiver_name }}</p>
+                        <p><strong>Content:</strong> {{ $sendAmountDetail->content }}</p>
+                        <p><strong>Amount:</strong> {{ $sendAmountDetail->amount }}</p>
+                        <p><strong>Time:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              @endforeach
+            @else
+              <p>No Record Found...</p>
+            @endif
+          </div>
+          <a href="{{ url()->previous() }}" class="btn btn-primary mt-3">Go Back</a>
         </div>
       @endif
 
