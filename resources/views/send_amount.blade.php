@@ -87,31 +87,6 @@ header#header {
 .container-fluid.news {
     padding-left: 0px;
 }
-.sidebar {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: -200px;
-    width: 200px;
-    background: #464545;
-    transition: left 0.3s ease-out;
-    color: #fff;
-    z-index: 999;
-}
-
-.sidebar.open {
-  left: 0;
-}
-
-.sidebar-toggle {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: transparent;
-  border: none;
-  outline: none;
-  cursor: pointer;
-}
 .justify-content-center fieldset {
     padding-top: 1%;
 }
@@ -124,42 +99,7 @@ header#header {
 </style>
 <body>
     <div class="container">
-        <header class="d-flex align-items-center" id="header">
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-6 align-items-center top-left">
-                <span>hello</span>
-                <p>Username</p>
-              </div>
-              <div class="col-6 d-flex justify-content-right top-right">
-                <!-- <button id="sidebar-button">
-                    <img src="https://via.placeholder.com/30x30" alt="User Image" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                </button> -->
-                <button class="sidebar-toggle">
-                  <img src="https://via.placeholder.com/50x50" alt="Toggle Sidebar">
-                </button>
-                <div class="sidebar">
-                  <h3>Sidebar Menu</h3>
-                  <ul>
-                    <li>Profile</li>
-                    <li class="has-submenu">
-                      Payment
-                      <ul class="submenu">
-                        <li>Option 1</li>
-                        <li>Option 2</li>   
-                        <li>Option 3</li>
-                      </ul>
-                    </li>
-                    <li>Setting</li>
-                    <li>
-                      <a href="{{url('/logout')}}" class="logout">Logout</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </header>
+        <x-side-bar />
         <main class="container-fluid">
         <div class="row">
                 <div class="col-12">

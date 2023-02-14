@@ -79,41 +79,10 @@ header {
     padding: 5%;
     border-radius: 20px;
 }
-header#header {
-    padding-top: 4%;
-}
-
 .links .justify-content-center p{
     font-size: 12px;
     font-weight: 700;
 }
-.sidebar {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: -200px;
-    width: 200px;
-    background: #464545;
-    transition: left 0.3s ease-out;
-    color: #fff;
-    z-index: 999;
-}
-
-.sidebar.open {
-  left: 0;
-}
-
-.sidebar-toggle {
-  position: absolute;
-  top: 10px;
-  /* right: 10px; */
-  background: transparent;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding-right: 0;
-}
-
 /*header close*/
 
 /* Add your custom CSS here */
@@ -166,39 +135,7 @@ body {
   <body>
     <div class="container">
 
-      <header class="d-flex align-items-center" id="header">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-6 align-items-center top-left">
-              <span>hello</span>
-              <p>{{auth()->user()->name}}</p>
-            </div>
-            <div class="col-6 d-flex justify-content-right top-right">
-              <button class="sidebar-toggle">
-                <img src="https://via.placeholder.com/50x50" alt="Toggle Sidebar">
-              </button>
-              <div class="sidebar">
-                <h3>Sidebar Menu</h3>
-                <ul>
-                  <li>Profile</li>
-                  <li class="has-submenu">
-                    Payment
-                    <ul class="submenu">
-                      <li>Option 1</li>
-                      <li>Option 2</li>   
-                      <li>Option 3</li>
-                    </ul>
-                  </li>
-                  <li>Setting</li>
-                  <li>
-                    <a href="{{url('/logout')}}" class="logout">Logout</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+      <x-side-bar />
       
       <div class="container my-5">
         <h2 class="text-center mb-5">Payment View</h2>
