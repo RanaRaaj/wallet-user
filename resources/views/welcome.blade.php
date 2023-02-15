@@ -1,21 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+<style>
+.justify-content-right > span {
+    color: #fff !important;
+    font-size: 12px !important;
+}
+.col-9.align-items-center > span {
+    font-size: 10px;
+    font-weight: 500;
+}
+.col-9.align-items-center p {
+    font-size: 14px;
+    font-weight: 700;
+}
+.container-fluid.col-md-6 {
+    padding: 0px 10px;
+}
+
+</style>
 <body>
     <div class="container">
       <x-side-bar />  
         <main class="container-fluid">
 
           <div class="row mt-3">
-            <div class="col-12 bg-primary text-white d-flex align-items-center justify-content-center" style="height: 100px; border-radius: 5px; background: linear-gradient(to right, #00b4db, #0083b0); animation: AnimatedBackground 10s linear infinite;">
+            <div class="col-12 bg-primary text-white d-flex align-items-center justify-content-center banner" style="border-radius: 5px;">
                 @php
                     $user_id = Auth::user()->id;
                     $bank_detail = DB::table('user_banks')->where('user_id', $user_id)->first();
                     $balance = $bank_detail->amount ?? 0;
                 @endphp
-                <span>{{$bank_detail->bank_name ?? ''}}</span>
-                <p class="m-0">{{$bank_detail->account_number ?? ''}}</p>
-                <span>{{$bank_detail->account_name ?? ''}}</span>
-                <span class="m-0">Total Amount: {{$balance ?? 'not connected'}} VND</span>
+                <div class="row" style="width: 100%;">
+
+                  <div class="col-12 top-banner">
+                    <span>{{$bank_detail->account_name ?? ''}}</span>
+                  </div>
+
+                  <div class="col-12 mid-banner">
+                    <p class="m-0">{{$bank_detail->account_number ?? ''}}</p>
+                  </div>
+                  
+                  <div class="bottom-banner row">
+                    <div class="col-6">
+                      <span>{{$bank_detail->bank_name ?? ''}}</span>
+                    </div>
+                    <div class="col-6" style="text-align: right;">
+                      <span class="m-0">{{number_format($balance ?? 'not connected')}} VND</span>
+                    </div>
+                  </div>
+
+                </div>
             </div>
           </div>
 
@@ -65,8 +99,8 @@
               @if(isset($send_data[0]))
                 @foreach($send_data as $send)
                   <div class="row story-2 stories">
-                    <div class="col-9 d-flex align-items-center">
-                      <div class="col-3 d-flex align-items-left">
+                    <div class="col-8 d-flex align-items-center">
+                      <div class="col-4 d-flex align-items-left">
                         <i class="fas fa-paper-plane fa-2x"></i>
                       </div>
                       <div class="col-9 align-items-center">
@@ -74,8 +108,8 @@
                         <p>Send To: {{$send->receiver_name}}</p>
                       </div>
                     </div>
-                    <div class="col-3 d-flex justify-content-right">
-                      <span>{{$send->amount}} VND</span>
+                    <div class="col-4 d-flex justify-content-right">
+                      <span>{{number_format($send->amount)}} VND</span>
                     </div>
                   </div>
                 @endforeach
@@ -89,7 +123,7 @@
           </div>
         </div>
 
-        <div class="container-fluid col-md-6">
+        <div class="container-fluid col-md-6 home-div-bottom-space">
           <div class="row news">
               <div class="col-8 d-flex align-items-center">
                 <p><b>Received Amount</b></p>
@@ -101,8 +135,8 @@
               @if(isset($rcv_data[0]))
                 @foreach($rcv_data as $rcv)
                   <div class="row story-2 stories">
-                    <div class="col-9 d-flex align-items-center">
-                      <div class="col-3 d-flex align-items-left">
+                    <div class="col-8 d-flex align-items-center">
+                      <div class="col-4 d-flex align-items-left">
                         <i class="fas fa-paper-plane fa-2x"></i>
                       </div>
                       <div class="col-9 align-items-center">
@@ -110,8 +144,8 @@
                         <p>Received From: {{$rcv->receiver_name}}</p>
                       </div>
                     </div>
-                    <div class="col-3 d-flex justify-content-right">
-                      <span>{{$rcv->amount}} VND</span>
+                    <div class="col-4 d-flex justify-content-right">
+                      <span>{{number_format($rcv->amount)}} VND</span>
                     </div>
                   </div>
                 @endforeach
@@ -125,10 +159,10 @@
           </div>
         </div>
 
-        <div class="container-fluid col-md-6">
+        <div class="container-fluid col-md-6 home-div-bottom-space">
           <div class="row news">
               <div class="col-8 d-flex align-items-center">
-                <p><b>Received From Admin</b></p>
+                <p><b>Received From System</b></p>
               </div>
               <div class="col-4 d-flex justify-content-right">
                 <a href="{{route('detail.view',['type' => 'admin_rcv'])}}"><span>See All</span></a>
@@ -138,8 +172,8 @@
               @if(isset($rcv_amount[0]))
                 @foreach($rcv_amount as $rcv)
                   <div class="row story-2 stories">
-                    <div class="col-9 d-flex align-items-center">
-                      <div class="col-3 d-flex align-items-left">
+                    <div class="col-8 d-flex align-items-center">
+                      <div class="col-4 d-flex align-items-left">
                         <i class="fas fa-paper-plane fa-2x"></i>
                       </div>
                       <div class="col-9 align-items-center">
@@ -147,8 +181,8 @@
                         <p>Received From: Admin</p>
                       </div>
                     </div>
-                    <div class="col-3 d-flex justify-content-right">
-                      <span>{{$rcv->amount}} VND</span>
+                    <div class="col-4 d-flex justify-content-right">
+                      <span>{{number_format($rcv->amount)}} VND</span>
                     </div>
                   </div>
                 @endforeach
@@ -162,7 +196,7 @@
           </div>
         </div>
 
-        <div class="container-fluid col-md-6">
+        <div class="container-fluid col-md-6 home-div-bottom-space">
           <div class="row news">
               <div class="col-8 d-flex align-items-center">
                 <p><b>Deposit Request</b></p>
@@ -174,8 +208,8 @@
               @if(isset($deposit[0]))
                 @foreach($deposit as $val)
                   <div class="row story-2 stories">
-                    <div class="col-9 d-flex align-items-center">
-                      <div class="col-3 d-flex align-items-left">
+                    <div class="col-8 d-flex align-items-center">
+                      <div class="col-4 d-flex align-items-left">
                         <i class="fas fa-paper-plane fa-2x"></i>
                       </div>
                       <div class="col-9 align-items-center">
@@ -189,8 +223,8 @@
                         @endif
                       </div>
                     </div>
-                    <div class="col-3 d-flex justify-content-right">
-                      <span>{{$val->amount}} VND</span>
+                    <div class="col-4 d-flex justify-content-right">
+                      <span>{{number_format($val->amount)}} VND</span>
                     </div>
                   </div>
                 @endforeach
@@ -206,23 +240,5 @@
       </div>
 
     </div>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-  $(document).ready(function() {
-    $(".sidebar-toggle").click(function() {
-      $(".sidebar").toggleClass("open");
-    });
-  });
-</script>
-<script>
-  $(window).scroll(function() {
-    if ($(this).scrollTop() > 100) {
-      $('#header').addClass('fixed-top');
-    } else {
-      $('#header').removeClass('fixed-top');
-    }
-  });
-</script>
 
 </body>

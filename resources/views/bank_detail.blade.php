@@ -123,42 +123,7 @@ header#header {
 </style>
 <body>
     <div class="container">
-        <header class="d-flex align-items-center" id="header">
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-6 align-items-center top-left">
-                <span>hello</span>
-                <p>{{auth()->user()->name}}</p>
-              </div>
-              <div class="col-6 d-flex justify-content-right top-right">
-                <!-- <button id="sidebar-button">
-                    <img src="https://via.placeholder.com/30x30" alt="User Image" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                </button> -->
-                <button class="sidebar-toggle">
-                  <img src="https://via.placeholder.com/50x50" alt="Toggle Sidebar">
-                </button>
-                <div class="sidebar">
-                  <h3>Sidebar Menu</h3>
-                  <ul>
-                    <li>Profile</li>
-                    <li class="has-submenu">
-                      Payment
-                      <ul class="submenu">
-                        <li>Option 1</li>
-                        <li>Option 2</li>   
-                        <li>Option 3</li>
-                      </ul>
-                    </li>
-                    <li>Setting</li>
-                    <li>
-                      <a href="{{url('/logout')}}" class="logout">Logout</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </header>
+      <x-side-bar />
         <main class="container-fluid">
         <div class="row">
                 <div class="col-12">
@@ -241,34 +206,5 @@ header#header {
         </main>
         
     </div>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-// $('#deposit_form').on('submit', function(e) {
-//     e.preventDefault(); 
-//     $.ajax({
-//         type: "POST",
-//         url: '',
-//         data: $(this).serialize(),
-//         success: function(msg) {
-//         alert(msg);
-//         }
-//     });
-// });
-
-  $(document).ready(function() {
-    $(".sidebar-toggle").click(function() {
-      $(".sidebar").toggleClass("open");
-    });
-  });
-
-  $(window).scroll(function() {
-    if ($(this).scrollTop() > 100) {
-      $('#header').addClass('fixed-top');
-    } else {
-      $('#header').removeClass('fixed-top');
-    }
-  });
-</script>
 
 </body>

@@ -58,8 +58,6 @@
                     <!-- <a class="dropdown-item" href="#">Option 3</a> -->
                   </div>
                 </li>
-
-
                 <li class="list-group-item">
                   <a href="#">
                     <i class="fa fa-cog mr-2"></i>Setting
@@ -77,3 +75,22 @@
       </div>
     </header>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $(".sidebar-toggle").click(function() {
+      $(".sidebar").toggleClass("open");
+    });
+  });
+
+  $(window).scroll(function() {
+    if ($(this).scrollTop() > 100) {
+      $('#header').addClass('fixed-top');
+      $('#header').addClass('container');
+    } else {
+      $('#header').removeClass('fixed-top');
+      $('#header').removeClass('container');
+    }
+  });
+</script>
