@@ -66,8 +66,8 @@
 /*//old page header css*/
 /*header*/
 .justify-content-center > i, .justify-content-center > a > i {
-    background: #52459de0;
-    border-radius: 5px;
+    background: #403395;
+    border-radius: 15px;
     padding: 18%;
     font-size: 2.5pc;
     color: #fff;
@@ -89,7 +89,7 @@
   justify-content: flex-end;
 }
 .links {
-    padding-bottom: 5%;
+    padding-bottom: 2%;
     text-align: center;
 }
 .transaction {
@@ -147,9 +147,9 @@ header {
   padding: 20px;
   box-shadow: 0px 0px 10px 0px #ccc;
   margin: 15px 0px;
-  border-radius: 10px;
+  border-radius: 20px;
   height: 94%;
-  background: #52459de0;
+  background: #403395;
   color: #fff;
 }
 

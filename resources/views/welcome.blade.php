@@ -24,7 +24,7 @@
         <main class="container-fluid">
 
           <div class="row mt-3">
-            <div class="col-12 bg-primary text-white d-flex align-items-center justify-content-center banner" style="border-radius: 5px;">
+            <div class="col-12 bg-primary text-white d-flex align-items-center justify-content-center banner" style="border-radius: 20px;">
                 @php
                     $user_id = Auth::user()->id;
                     $bank_detail = DB::table('user_banks')->where('user_id', $user_id)->first();
@@ -54,12 +54,6 @@
           </div>
 
           <div class="row mt-3 links">
-              <div class="col-3 align-items-center justify-content-center">
-                  <a href="{{route('send.form')}}">
-                      <i class="fas fa-paper-plane fa-2x"></i>
-                      <p class="mt-2">Send</p>
-                  </a>
-              </div>
 
               <div class="col-3 align-items-center justify-content-center">
                   <a href="{{route('deposit.form')}}">
@@ -71,15 +65,44 @@
               <div class="col-3 align-items-center justify-content-center">
                 <a href="{{route('detail.view',['type' => 'status'])}}">
                   <i class="fas fa-check-circle fa-2x"></i>
-                  <p class="mt-2">Status</p>
+                  <p class="mt-2">Withdraw</p>
                 </a>
               </div>
+
+              <div class="col-3 align-items-center justify-content-center">
+                  <a href="{{route('send.form')}}">
+                      <i class="fas fa-paper-plane fa-2x"></i>
+                      <p class="mt-2">Send</p>
+                  </a>
+              </div>
+
+              <div class="col-3 align-items-center justify-content-center">
+                <a href="{{route('payment.page')}}">
+                  <i class="fas fa-credit-card fa-2x"></i>
+                  <p class="mt-2">Profit</p>
+                </a>
+              </div>
+              
+          </div>
+          <div class="row mt-3 links">
 
               <div class="col-3 align-items-center justify-content-center">
                 <a href="{{route('payment.page')}}">
                   <i class="fas fa-credit-card fa-2x"></i>
                   <p class="mt-2">Payment</p>
                 </a>
+              </div>
+              
+              <div class="col-3 align-items-center justify-content-center">
+                <a href="{{route('detail.view',['type' => 'status'])}}">
+                  <i class="fas fa-check-circle fa-2x"></i>
+                  <p class="mt-2">Status</p>
+                </a>
+              </div>
+              
+              <div class="col-3 align-items-center justify-content-center">
+              </div>
+              <div class="col-3 align-items-center justify-content-center">
               </div>
           </div>
         </main>
