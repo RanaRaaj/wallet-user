@@ -64,7 +64,7 @@
 
               <div class="col-3 align-items-center justify-content-center">
                 <a href="{{route('detail.view',['type' => 'status'])}}">
-                  <i class="fas fa-check-circle fa-2x"></i>
+                  <i class="fas fa-credit-card fa-2x"></i>
                   <p class="mt-2">Withdraw</p>
                 </a>
               </div>
@@ -78,7 +78,7 @@
 
               <div class="col-3 align-items-center justify-content-center">
                 <a href="{{route('payment.page')}}">
-                  <i class="fas fa-credit-card fa-2x"></i>
+                  <i class="fas fa-money-bill fa-2x"></i>
                   <p class="mt-2">Profit</p>
                 </a>
               </div>
@@ -88,7 +88,7 @@
 
               <div class="col-3 align-items-center justify-content-center">
                 <a href="{{route('payment.page')}}">
-                  <i class="fas fa-credit-card fa-2x"></i>
+                  <i class="fas fa-money-check fa-2x"></i>
                   <p class="mt-2">Payment</p>
                 </a>
               </div>
