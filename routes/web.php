@@ -27,6 +27,7 @@ Route::get('/clear-route', function() {\Illuminate\Support\Facades\Artisan::call
 Route::get('/config-cache', function() {\Illuminate\Support\Facades\Artisan::call('config:cache');    return "Cache is Configed";});
 
 Route::get('/migrate', function() {\Illuminate\Support\Facades\Artisan::call('migrate');return "migration is done";});
+Route::get('/optimize', function() {\Illuminate\Support\Facades\Artisan::call('optimize');return "optimization is done";});
 
 Route::get('/', function () {
     return view('login');
@@ -49,6 +50,9 @@ Route::middleware('auth')->group(function () {
 
 
 	Route::post('send-confirm', [UserController::class, 'send_confirm'])->name('send.confirm');
+
+	Route::get('withdraw-form', [UserController::class, 'withdraw_form'])->name('withdraw.form');
+	Route::post('withdraw.confirm', [UserController::class, 'withdraw_confirm'])->name('withdraw.confirm');
 
 	Route::get('deposit-form', [UserController::class, 'deposit_form'])->name('deposit.form');
 	Route::post('bank.confirm', [UserController::class, 'bank_confirm'])->name('bank.confirm');

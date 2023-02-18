@@ -63,7 +63,7 @@
               </div>
 
               <div class="col-3 align-items-center justify-content-center">
-                <a href="{{route('detail.view',['type' => 'status'])}}">
+                <a href="{{route('withdraw.form')}}">
                   <i class="fas fa-credit-card fa-2x"></i>
                   <p class="mt-2">Withdraw</p>
                 </a>

@@ -8,6 +8,7 @@ use App\Models\CompanyBank;
 use App\Models\UserBank;
 use App\Models\Deposit;
 use App\Models\UserDeposit;
+use App\Models\UserWithdraw;
 use App\Models\UserSendMoney;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -306,6 +307,36 @@ class UserController extends Controller
             return view('deposit_form', compact('active_bank'));
         }
         return view('bank_detail', compact('user_id'));
+    }
+
+    public function withdraw_form()
+    {
+        $user_id = Auth::user()->id;
+        $bank = UserBank::where('user_id', $user_id)->get()->first();
+        if(isset($bank->id)){
+            $active_bank = CompanyBank::where('status',1)->get()->first();
+            return view('withdraw_form', compact('bank','active_bank'));
+        }
+        return view('bank_detail', compact('user_id'));
+    }
+
+    public function withdraw_confirm(Request $request)
+    {
+        dd($request->all());
+        $user_id = Auth::user()->id;
+
+        $withdraw = new UserWithdraw();
+
+        $withdraw->user_id = $user_id;
+        $withdraw->user_name - Auth::user()->name;
+        $withdraw->amount = $request->amount;
+        $withdraw->bank_name = $request->bank_name;
+        $withdraw->acount_name = $request->account_name;
+        $withdraw->account_number = $request->account_number;
+        $withdraw->content = $request->content;
+
+        $withdraw->save();
+        return view('deposit_success');
     }
 
     public function send_form()

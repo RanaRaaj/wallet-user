@@ -60,7 +60,10 @@
 }
 .text-light.bg-primary {
   color: #f8f9fa!important;
-  background: linear-gradient(to right, #00b4db, #0083b0);
+  background-image: url(/images/purple.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 /*//old page header css*/
