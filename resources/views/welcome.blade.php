@@ -77,7 +77,7 @@
               </div>
 
               <div class="col-3 align-items-center justify-content-center">
-                <a href="{{route('payment.page')}}">
+                <a href="{{route('detail.view',['type' => 'profit'])}}">
                   <i class="fas fa-money-bill fa-2x"></i>
                   <p class="mt-2">Profit</p>
                 </a>
@@ -101,6 +101,10 @@
               </div>
               
               <div class="col-3 align-items-center justify-content-center">
+                <a href="{{route('bank.view')}}">
+                  <i class="fas fa-cog fa-2x"></i>
+                  <p class="mt-2">Setting</p>
+                </a>
               </div>
               <div class="col-3 align-items-center justify-content-center">
               </div>
@@ -108,6 +112,42 @@
         </main>
       <div class="row">
         <div class="container-fluid transaction">            
+        </div>
+
+        <div class="container-fluid col-md-6">
+          <div class="row news">
+              <div class="col-8 d-flex align-items-center">
+                <p><b>Profits</b></p>
+              </div>
+              <div class="col-4 d-flex justify-content-right">
+                <a href="{{route('detail.view',['type' => 'profit'])}}"><span>See All</span></a>
+              </div>
+              <div class="col-12"><hr></div>
+              @if(isset($profits[0]))
+                @foreach($profits as $profit)
+                  <div class="row story-2 stories">
+                    <div class="col-8 d-flex align-items-center">
+                      <div class="col-4 d-flex align-items-left">
+                        <i class="fas fa-paper-plane fa-2x"></i>
+                      </div>
+                      <div class="col-9 align-items-center">
+                        <span>{{ $profit->created_at->diffForHumans() }}</span>
+                        <p>Bank Name: {{$profit->bank_name}}</p>
+                      </div>
+                    </div>
+                    <div class="col-4 d-flex justify-content-right">
+                      <span>{{$profit->amount}} VND</span>
+                    </div>
+                  </div>
+                @endforeach
+              @else
+                <div class="row story-2 stories">
+                  <div class="col-12 d-flex align-items-center">
+                    <p>No Record Found...</p>
+                  </div>
+                </div>
+              @endif
+          </div>
         </div>
 
         <div class="container-fluid col-md-6">

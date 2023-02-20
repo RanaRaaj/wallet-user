@@ -138,7 +138,7 @@ header#header {
                                                 <form id="deposit_form" action="{{route('bank.confirm')}}" method="post"
                                                       enctype="multipart/form-data">
                                                     @csrf
-
+                                                    <input type="hidden" @if(isset($bank->id)) name="id" value="{{$bank->id}}" @endif>
                                                     <fieldset class="form-group">
                                                         <label for="" class="label_edit">@if(Session::get('language') == 'vie')Tên người dùng @else User Name @endif</label>
                                                         <input type="text" name="name" value="{{auth()->user()->name}}" class="form-control"
@@ -166,7 +166,7 @@ header#header {
 
                                                     <fieldset class="form-group">
                                                         <label for="" class="label_edit">@if(Session::get('language') == 'vie')Tên người dùng @else Account Name @endif</label>
-                                                        <input type="text" name="account_name" value="" class="form-control"
+                                                        <input type="text" name="account_name" value="{{$bank->account_name ?? ''}}" class="form-control"
                                                                id="basicInput" require>
                                                         @if($errors->has('account_name'))
                                                             <div class="error"
@@ -176,7 +176,7 @@ header#header {
 
                                                     <fieldset class="form-group">
                                                         <label for="" class="label_edit">@if(Session::get('language') == 'vie')Tên người dùng @else Account Number @endif</label>
-                                                        <input type="number" name="account_number" value="" class="form-control"
+                                                        <input type="number" name="account_number" value="{{$bank->account_number ?? ''}}" class="form-control"
                                                                id="basicInput" require>
                                                         @if($errors->has('account_number'))
                                                             <div class="error"

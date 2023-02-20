@@ -10,6 +10,7 @@ use App\Models\Deposit;
 use App\Models\UserDeposit;
 use App\Models\UserWithdraw;
 use App\Models\UserSendMoney;
+use App\Models\Interest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -40,7 +41,11 @@ class UserController extends Controller
         // dd($send_data);
         $deposit = UserDeposit::where('user_id', $user_id)->take(4)->latest()->get();
 
-        return view('welcome', compact('send_data','rcv_data', 'rcv_amount', 'deposit'));
+        $profits = Interest::leftJoin('user_banks','interests.user_id','=','user_banks.user_id')
+            ->select('interests.amount as amount', 'interests.created_at as created_at', 'user_banks.bank_name as bank_name', 'user_banks.account_name as account_name', 'user_banks.account_number as account_number')
+            ->where('interests.user_id', $user_id)->latest()->get();
+
+        return view('welcome', compact('send_data','rcv_data', 'rcv_amount', 'deposit', 'profits'));
 
     }
 
@@ -61,9 +66,20 @@ class UserController extends Controller
             $sendAmountDetails = UserDeposit::where('user_id', $user_id)->latest()->get();
         }elseif($type == 'payment'){
             $sendAmountDetails = UserSendMoney::where('sender_id', $user_id)->latest()->get();
+        }elseif ($type == 'profit') {
+            $sendAmountDetails = Interest::leftJoin('user_banks','interests.user_id','=','user_banks.user_id')
+            ->select('interests.amount as amount', 'interests.created_at as created_at', 'user_banks.bank_name as bank_name', 'user_banks.account_name as account_name', 'user_banks.account_number as account_number')
+            ->where('interests.user_id', $user_id)->latest()->get();
         }
         
         return view('detail_page', compact('sendAmountDetails','type'));
+    }
+
+    public function bank_view()
+    {
+        $user_id = Auth::user()->id;
+        $bank = UserBank::where('user_id', $user_id)->get()->first();
+        return view('bank_detail', compact('bank'));
     }
 
     public function payment_page()
@@ -416,13 +432,15 @@ class UserController extends Controller
 
     public function bank_confirm(Request $request)
     {
-        $user_id = Auth::user()->id;
-        $user_bank = new UserBank();
-        $user_bank->user_id = $user_id;
-        $user_bank->bank_name = $request->bank_name;
-        $user_bank->account_name = $request->account_name;
-        $user_bank->account_number = $request->account_number;
-        $user_bank->save();
+
+        $user_bank = UserBank::firstOrCreate(
+            ['user_id' => $user_id],
+            [
+                'bank_name' => $request->bank_name,
+                'account_name' => $request->account_name,
+                'account_number' => $request->account_number,
+            ]
+        );
 
         return view('deposit_success');
     }

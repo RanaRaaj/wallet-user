@@ -14,6 +14,10 @@
       margin-bottom: 10px;
       padding: 10px;
     }
+    a.list-group-item.list-group-item-action {
+        background-color: rgb(100 112 255 / 50%);
+        color: #ffff;
+    }
 
     @keyframes fadein {
       from { opacity: 0; }
@@ -37,7 +41,7 @@
         <div class="container my-5">
           <h2 class="text-center mb-5">Sended Amount</h2>
 
-          <div class="list-group">
+          <div class="list-group news">
             @if(isset($sendAmountDetails[0]))
               @foreach($sendAmountDetails as $sendAmountDetail)
               <a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modal{{ $loop->index }}">
@@ -51,7 +55,7 @@
               <!-- Modal -->
                 <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="sendAmountDetailModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
-                    <div class="modal-content">
+                    <div class="modal-content news">
                       <div class="modal-header">
                         <h5 class="modal-title" id="sendAmountDetailModalLabel">Send Amount Detail</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -87,7 +91,7 @@
         <div class="container my-5">
           <h2 class="text-center mb-5">Received Amount</h2>
 
-          <div class="list-group">
+          <div class="list-group news">
             @if(isset($sendAmountDetails[0]))
               @foreach($sendAmountDetails as $sendAmountDetail)
               <a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modal{{ $loop->index }}">
@@ -101,7 +105,7 @@
               <!-- Modal -->
                 <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="sendAmountDetailModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
-                    <div class="modal-content">
+                    <div class="modal-content news">
                       <div class="modal-header">
                         <h5 class="modal-title" id="sendAmountDetailModalLabel">Amount Detail</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -133,7 +137,7 @@
         <div class="container my-5">
           <h2 class="text-center mb-5">Received From Admin</h2>
 
-          <div class="list-group">
+          <div class="list-group news">
             @if(isset($sendAmountDetails[0]))
               @foreach($sendAmountDetails as $sendAmountDetail)
               <a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modal{{ $loop->index }}">
@@ -147,7 +151,7 @@
               <!-- Modal -->
                 <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="sendAmountDetailModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
-                    <div class="modal-content">
+                    <div class="modal-content news">
                       <div class="modal-header">
                         <h5 class="modal-title" id="sendAmountDetailModalLabel">Amount Detail</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -175,17 +179,64 @@
         </div>
       @endif
 
+      @if($type == 'profit')
+        <div class="container my-5">
+          <h2 class="text-center mb-5">Daily Interest Profit</h2>
+
+          <div class="list-group news">
+            @if(isset($sendAmountDetails[0]))
+              @foreach($sendAmountDetails as $sendAmountDetail)
+              <a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modal{{ $loop->index }}">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-1">{{ $sendAmountDetail->bank_name }}</h5>
+                  <small>{{ $sendAmountDetail->created_at->diffForHumans() }}</small>
+                </div>
+                <!-- <p class="mb-1">{{ $sendAmountDetail->content ?? '' }}</p> -->
+                <small>Amount: {{ $sendAmountDetail->amount }}</small>
+              </a>
+              <!-- Modal -->
+                <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="sendAmountDetailModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content news">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="sendAmountDetailModalLabel">Amount Detail</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <p><strong>Bank Name :</strong> {{ $sendAmountDetail->bank_name }}</p>
+                        <p><strong>Bank Account Name:</strong> {{ $sendAmountDetail->account_name }}</p>
+                        <p><strong>Bank Account Number:</strong> {{ $sendAmountDetail->account_number }}</p>
+                        <p><strong>Added Amount:</strong> {{ $sendAmountDetail->amount }}</p>
+                        <p><strong>Time:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              @endforeach
+            @else
+              <p>No Record Found...</p>
+            @endif
+          </div>
+          <a href="{{ url()->previous() }}" class="btn btn-primary mt-3">Go Back</a>
+        </div>
+      @endif
+
       @if($type == 'deposit')
         <div class="container my-5">
           <h2 class="text-center mb-5">Deposit Requests</h2>
 
-          <div class="list-group">
+          <div class="list-group news">
             @if(isset($sendAmountDetails[0]))
               @foreach($sendAmountDetails as $sendAmountDetail)
               <a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modal{{ $loop->index }}">
                 <div class="d-flex w-100 justify-content-between">
                   @if($sendAmountDetail->status == '1')
-                    <h5 class="mb-1" style="color: green">Approved  </h5>
+                    <h5 class="mb-1" style="color: #03ff03">Approved  </h5>
                   @elseif($sendAmountDetail->status == '0')
                     <h5 class="mb-1" style="color: red">Cancel</h5>
                   @else
@@ -200,7 +251,7 @@
               <!-- Modal -->
                 <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="sendAmountDetailModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
-                    <div class="modal-content">
+                    <div class="modal-content news">
                       <div class="modal-header">
                         <h5 class="modal-title" id="sendAmountDetailModalLabel">Deposit Detail</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -244,7 +295,7 @@
         <div class="container my-5">
           <h2 class="text-center mb-5">Deposit Requests</h2>
 
-          <div class="list-group">
+          <div class="list-group news">
             @if(isset($sendAmountDetails[0]))
               @foreach($sendAmountDetails as $sendAmountDetail)
               <a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modal{{ $loop->index }}">
@@ -265,7 +316,7 @@
               <!-- Modal -->
                 <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="sendAmountDetailModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
-                    <div class="modal-content">
+                    <div class="modal-content news">
                       <div class="modal-header">
                         <h5 class="modal-title" id="sendAmountDetailModalLabel">Deposit Detail</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -309,7 +360,7 @@
         <div class="container my-5">
           <h2 class="text-center mb-5">Sended Amount</h2>
 
-          <div class="list-group">
+          <div class="list-group news">
             @if(isset($sendAmountDetails[0]))
               @foreach($sendAmountDetails as $sendAmountDetail)
               <a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modal{{ $loop->index }}">
@@ -323,7 +374,7 @@
               <!-- Modal -->
                 <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="sendAmountDetailModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
-                    <div class="modal-content">
+                    <div class="modal-content news">
                       <div class="modal-header">
                         <h5 class="modal-title" id="sendAmountDetailModalLabel">Send Amount Detail</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
