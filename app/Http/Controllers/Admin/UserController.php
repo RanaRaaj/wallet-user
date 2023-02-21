@@ -43,7 +43,7 @@ class UserController extends Controller
 
         $profits = Interest::leftJoin('user_banks','interests.user_id','=','user_banks.user_id')
             ->select('interests.amount as amount', 'interests.created_at as created_at', 'user_banks.bank_name as bank_name', 'user_banks.account_name as account_name', 'user_banks.account_number as account_number')
-            ->where('interests.user_id', $user_id)->latest()->get();
+            ->where('interests.user_id', $user_id)->take(4)->latest()->get();
 
         return view('welcome', compact('send_data','rcv_data', 'rcv_amount', 'deposit', 'profits'));
 
