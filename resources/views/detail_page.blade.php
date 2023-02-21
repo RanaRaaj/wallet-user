@@ -46,10 +46,10 @@
       <x-side-bar />
 
       @if($type == 'send')
-        <div class="container my-5">
+        <div class="container my-5 news">
           <h2 class="text-center mb-5">Sended Amount</h2>
 
-          <div class="list-group news">
+          <div class="list-group">
             @if(isset($sendAmountDetails[0]))
               @foreach($sendAmountDetails as $sendAmountDetail)
               <a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modal{{ $loop->index }}">
@@ -96,10 +96,10 @@
       @endif
 
       @if($type == 'rcv')
-        <div class="container my-5">
+        <div class="container my-5 news">
           <h2 class="text-center mb-5">Received Amount</h2>
 
-          <div class="list-group news">
+          <div class="list-group">
             @if(isset($sendAmountDetails[0]))
               @foreach($sendAmountDetails as $sendAmountDetail)
               <a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modal{{ $loop->index }}">
@@ -142,10 +142,10 @@
       @endif
 
       @if($type == 'admin_rcv')
-        <div class="container my-5">
+        <div class="container my-5 news">
           <h2 class="text-center mb-5">Received From Admin</h2>
 
-          <div class="list-group news">
+          <div class="list-group">
             @if(isset($sendAmountDetails[0]))
               @foreach($sendAmountDetails as $sendAmountDetail)
               <a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modal{{ $loop->index }}">
@@ -188,10 +188,10 @@
       @endif
 
       @if($type == 'profit')
-        <div class="container my-5">
+        <div class="container my-5 news">
           <h2 class="text-center mb-5">Daily Interest Profit</h2>
 
-          <div class="list-group news">
+          <div class="list-group">
             @if(isset($sendAmountDetails[0]))
               @foreach($sendAmountDetails as $sendAmountDetail)
               <a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modal{{ $loop->index }}">
@@ -235,10 +235,10 @@
       @endif
 
       @if($type == 'deposit')
-        <div class="container my-5">
+        <div class="container my-5 news">
           <h2 class="text-center mb-5">Deposit Requests</h2>
 
-          <div class="list-group news">
+          <div class="list-group">
             @if(isset($sendAmountDetails[0]))
               @foreach($sendAmountDetails as $sendAmountDetail)
               <a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modal{{ $loop->index }}">
@@ -300,10 +300,10 @@
       @endif
 
       @if($type == 'status')
-        <div class="container my-5">
+        <div class="container my-5 news">
           <h2 class="text-center mb-5">Deposit Requests</h2>
 
-          <div class="list-group news">
+          <div class="list-group">
             @if(isset($sendAmountDetails[0]))
               @foreach($sendAmountDetails as $sendAmountDetail)
               <a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modal{{ $loop->index }}">
@@ -365,10 +365,10 @@
       @endif
 
       @if($type == 'payment')
-        <div class="container my-5">
+        <div class="container my-5 news">
           <h2 class="text-center mb-5">Sended Amount</h2>
 
-          <div class="list-group news">
+          <div class="list-group">
             @if(isset($sendAmountDetails[0]))
               @foreach($sendAmountDetails as $sendAmountDetail)
               <a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modal{{ $loop->index }}">

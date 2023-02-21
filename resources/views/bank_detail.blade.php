@@ -120,6 +120,9 @@ header#header {
 .justify-content-center.m-2 fieldset {
     padding-top: 3%;
 }
+.card-body {
+    padding: 0.25rem !important;
+}
 </style>
 <body>
     <div class="container">

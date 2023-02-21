@@ -51,7 +51,7 @@
                 </li>
 
                 <li class="list-group-item">
-                  <a href="#">
+                  <a href="{{route('detail.view',['type' => 'profit'])}}">
                     <i class="fa fa-user mr-2"></i>Profile
                   </a>
                 </li>
@@ -67,7 +67,7 @@
                   </div>
                 </li>
                 <li class="list-group-item">
-                  <a href="#">
+                  <a href="{{route('bank.view')}}">
                     <i class="fa fa-cog mr-2"></i>Setting
                   </a>
                 </li>
