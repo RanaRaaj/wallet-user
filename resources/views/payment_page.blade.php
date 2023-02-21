@@ -11,79 +11,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <!-- Custom CSS -->
     <style>
-/*header*/
-.justify-content-center > i, .justify-content-center > a > i {
-    background: #748EF2;
-    border-radius: 5px;
-    padding: 18%;
-    font-size: 2.5pc;
-    color: #fff;
-    margin: 0;
-}
-.fixed-top {
-    position: sticky !important;
-}
-.justify-content-center:nth-child(2) > i{
-    background: #FFCBCD;
-}
-.justify-content-center:nth-child(4) > i{
-    background: #CF83DA;
-}
-.col-3.align-items-center.justify-content-center {
-    padding: 0 !important;
-}
-.d-flex.justify-content-right {
-  justify-content: flex-end;
-}
-.links {
-    padding-bottom: 5%;
-    text-align: center;
-}
-.transaction {
-    padding-bottom: 2%;
-}
-.top-left {
-    padding-left: 0;
-}
-.top-right {
-    padding-right: 0;
-}
-header.d-flex.align-items-center.bg-light {
-    padding-top: 2%;
-}
-.top-left span {
-    font-size: 14px;
-    text-transform: capitalize;
-    color: #8b8484;
-}
-.top-left p {
-    font-weight: 700;
-    font-size: 16px;
-    text-transform: capitalize;
-}
-header {
-    top: -100px;
-    left: 0;
-    right: 0;
-    z-index: 999;
-    transition: top 0.5s ease;
-}
-
-.fixed-top {
-    background-color: #fff !important;
-    top: 0;
-}
-.top-right > img {
-    vertical-align: middle;
-    border-style: none;
-    padding: 5%;
-    border-radius: 20px;
-}
-.links .justify-content-center p{
-    font-size: 12px;
-    font-weight: 700;
-}
-/*header close*/
 
 /* Add your custom CSS here */
 body {
@@ -95,7 +22,7 @@ body {
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 5px;
-  box-shadow: 2px 2px 10px #ccc;
+  /*box-shadow: 2px 2px 10px #ccc;*/
   margin-bottom: 10px;
   padding: 10px;
 }
@@ -137,10 +64,10 @@ body {
 
       <x-side-bar />
       
-      <div class="container my-5">
+      <div class="container my-5 news">
         <h2 class="text-center mb-5">Payment View</h2>
           <div class="list-group">
-            <ul class="list-group list-group-horizontal">
+            <ul class="list-group list-group-horizontal" style="display: block;">
               <li class="list-group-item">
                 <a href="{{route('detail.view',['type' => 'send'])}}" class="btn btn-primary" id="sendAmountBtn">
                   <i class="fas fa-paper-plane"></i> Send Amount
@@ -151,32 +78,22 @@ body {
                   <i class="fas fa-money-bill-alt"></i> Received Amount
                 </a>
               </li>
+              <li class="list-group-item">
+                <a href="{{route('detail.view',['type' => 'deposit'])}}" class="btn btn-primary" id="sendAmountBtn">
+                  <i class="fas fa-money-bill-alt"></i> Deposit Amount
+                </a>
+              </li>
+              <li class="list-group-item">
+                <a href="{{route('detail.view',['type' => 'profit'])}}" class="btn btn-success" id="receiveAmountBtn">
+                  <i class="fas fa-money-bill-alt"></i> Profit Details
+                </a>
+              </li>
             </ul>
             <a href="{{route('welcome')}}" class="btn btn-primary mt-3">Go Back</a>
         </div>
       </div>
 
     </div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpG<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script>
 
-      $(document).ready(function() {
-        $(".sidebar-toggle").click(function() {
-          $(".sidebar").toggleClass("open");
-        });
-      });
-
-      $(window).scroll(function() {
-        if ($(this).scrollTop() > 100) {
-          $('#header').addClass('fixed-top');
-        } else {
-          $('#header').removeClass('fixed-top');
-        }
-      });
-
-    </script>
   </body>
 </html>

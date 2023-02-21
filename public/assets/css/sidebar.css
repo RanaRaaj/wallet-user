@@ -9,12 +9,27 @@
     color: #fff;
     z-index: 999;
 }
+/*//avatar*/
+.avatar {
+    margin-right: 10%;
+    width: 16%;
+}
+.avatar > img {
+    width: 100%;
+    border-radius: 50%;
+}
+/*end avatar*/
 
 .sidebar.open {
   left: 0;
   overflow: scroll;
 }
-
+button:focus {
+    outline: none !important;
+}
+.avatar {
+    margin-right: 10%;
+}
 .sidebar-toggle {
   position: absolute;
   top: 10px;
@@ -241,6 +256,13 @@ header {
       padding: 0px 10px;
       margin: 0% 1.5%;
   }
+  .avatar {
+      padding-top: 5%;
+  }
+  .bell-icon {
+      padding-top: 5%;
+  }
+  
 }
 .col-12.d-flex.align-items-center > p {
     text-align: center;

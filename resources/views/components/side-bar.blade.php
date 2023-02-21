@@ -28,10 +28,18 @@
             <span>hello</span>
             <p>{{auth()->user()->name}}</p>
           </div>
-          <div class="col-6 d-flex justify-content-right top-right">
-            <button class="sidebar-toggle">
-              <img src="https://via.placeholder.com/50x50" alt="Toggle Sidebar">
-            </button>
+          <div class="col-6 row d-flex justify-content-right top-right">
+            <!-- <div class="avatar">
+              <img src="{{asset('assets/avatar.jpg')}}" alt="Toggle Sidebar">
+            </div> -->
+            <div class="col-2 bell-icon">
+              <a href="{{route('payment.page')}}"><i class="fas fa-bell"></i></a>
+            </div>
+            <div class="col-2">
+              <button class="sidebar-toggle">
+                <i class="fas fa-bars"></i>
+              </button>
+            </div>
             <div class="sidebar">
               <h3 class="text-center text-light p-3 bg-primary">Sidebar Menu</h3>
               <ul class="list-group">

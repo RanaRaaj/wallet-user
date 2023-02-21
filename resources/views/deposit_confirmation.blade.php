@@ -163,7 +163,7 @@ div#imgTest img {
         <main class="container-fluid">
         <div class="row">
                 <div class="col-12">
-                    <div class="card">
+                    <div class="card news">
                         <div class="card-content collapse show">
                             <div class="card-body card-dashboard">
                                 <div class="row justify-content-center">
