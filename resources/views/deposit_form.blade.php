@@ -80,14 +80,14 @@
                                                         @endif
                                                     </fieldset>
 
-                                                    <fieldset class="form-group">
+                                                    <!-- <fieldset class="form-group">
                                                         <label for="" class="label_edit">@if(Session::get('language') == 'vie')Nhóm quyền @else Content @endif</label>
-                                                        <textarea name="content" class="form-control" cols="30" rows="10"></textarea>
+                                                        <textarea name="content" class="form-control" cols="30" rows="3"></textarea>
                                                         @if($errors->has('content'))
                                                             <div class="error"
                                                                 style="color:red">{{$errors->first('content')}}</div>
                                                         @endif
-                                                    </fieldset>
+                                                    </fieldset> -->
 
                                                     <div class="row justify-content-center m-2"
                                                          style="border-top: 1px solid black">

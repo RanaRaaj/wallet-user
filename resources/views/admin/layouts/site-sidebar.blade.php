@@ -18,7 +18,7 @@ span.ht {
     padding: 0px 6px;
 }
 span.act {
-    background: green;
+    background: #94dd94;
     color: #fff;
     display: inline-flex;
     padding: 5%;

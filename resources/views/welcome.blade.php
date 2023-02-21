@@ -94,7 +94,7 @@
               </div>
               
               <div class="col-3 align-items-center justify-content-center">
-                <a href="{{route('detail.view',['type' => 'status'])}}">
+                <a href="{{route('status.view')}}">
                   <i class="fas fa-check-circle fa-2x"></i>
                   <p class="mt-2">Status</p>
                 </a>
@@ -106,8 +106,10 @@
                   <p class="mt-2">Setting</p>
                 </a>
               </div>
+
               <div class="col-3 align-items-center justify-content-center">
               </div>
+              
           </div>
         </main>
       <div class="row">
@@ -278,7 +280,7 @@
                       <div class="col-9 align-items-center">
                         <span>{{ $val->created_at->diffForHumans() }}</span>
                         @if($val->status == '1')
-                          <p style="color: green">Approved</p>
+                          <p style="color: #94dd94">Approved</p>
                         @elseif($val->status == '0')
                           <p style="color: red">Cancel</p>
                         @else

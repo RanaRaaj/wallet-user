@@ -23,7 +23,8 @@
       padding: 10px;
     }
     a.list-group-item.list-group-item-action {
-        background-color: rgb(100 112 255 / 50%);
+        background-color: hsl(273deg 77% 55%);
+        border-radius: 16px !important;
         color: #ffff;
     }
 
@@ -309,7 +310,7 @@
               <a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modal{{ $loop->index }}">
                 <div class="d-flex w-100 justify-content-between">
                   @if($sendAmountDetail->status == '1')
-                    <h5 class="mb-1" style="color: green">Approved  </h5>
+                    <h5 class="mb-1" style="color: #94dd94">Approved  </h5>
                   @elseif($sendAmountDetail->status == '0')
                     <h5 class="mb-1" style="color: red">Cancel</h5>
                   @else

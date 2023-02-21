@@ -8,110 +8,6 @@
   <title>Mobile Responsive Website</title>
 </head>
 <style type="text/css">
-
-.justify-content-center > i, .justify-content-center > a > i {
-    background: #748EF2;
-    border-radius: 5px;
-    padding: 18%;
-    font-size: 2.5pc;
-    color: #fff;
-    margin: 0;
-}
-.fixed-top {
-    position: sticky !important;
-}
-.justify-content-center:nth-child(2) > i{
-    background: #FFCBCD;
-}
-.justify-content-center:nth-child(4) > i{
-    background: #CF83DA;
-}
-.col-3.align-items-center.justify-content-center {
-    padding: 0 !important;
-}
-.d-flex.justify-content-right {
-  justify-content: flex-end;
-}
-.links {
-    padding-bottom: 5%;
-    text-align: center;
-}
-.transaction {
-    padding-bottom: 2%;
-}
-.top-left {
-    padding-left: 0;
-}
-.top-right {
-    padding-right: 0;
-}
-header.d-flex.align-items-center.bg-light {
-    padding-top: 2%;
-}
-.top-left span {
-    font-size: 14px;
-    text-transform: capitalize;
-    color: #8b8484;
-}
-.top-left p {
-    font-weight: 700;
-    font-size: 16px;
-    text-transform: capitalize;
-}
-header {
-    top: -100px;
-    left: 0;
-    right: 0;
-    z-index: 999;
-    transition: top 0.5s ease;
-}
-
-.fixed-top {
-    background-color: #fff !important;
-    top: 0;
-}
-.top-right > img {
-    vertical-align: middle;
-    border-style: none;
-    padding: 5%;
-    border-radius: 20px;
-}
-header#header {
-    padding-top: 4%;
-}
-
-.links .justify-content-center p{
-    font-size: 12px;
-    font-weight: 700;
-}
-.container-fluid.news {
-    padding-left: 0px;
-}
-.sidebar {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: -200px;
-    width: 200px;
-    background: #464545;
-    transition: left 0.3s ease-out;
-    color: #fff;
-    z-index: 999;
-}
-
-.sidebar.open {
-  left: 0;
-}
-
-.sidebar-toggle {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: transparent;
-  border: none;
-  outline: none;
-  cursor: pointer;
-}
 .justify-content-center fieldset {
     padding-top: 1%;
 }
@@ -121,45 +17,24 @@ header#header {
 div#imgTest img {
     width: 100%;
 }
+.mt-2, .my2 {
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+}
+.text-dan {
+    color: #000102 !important;
+}
+ul.d-inline-block.mb-0 {
+    padding: 0;
+    list-style-type: none;
+}
+.card-body {
+    padding: 0.25rem !important;
+}
 </style>
 <body>
     <div class="container">
-        <header class="d-flex align-items-center" id="header">
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-6 align-items-center top-left">
-                <span>hello</span>
-                <p>Username</p>
-              </div>
-              <div class="col-6 d-flex justify-content-right top-right">
-                <!-- <button id="sidebar-button">
-                    <img src="https://via.placeholder.com/30x30" alt="User Image" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                </button> -->
-                <button class="sidebar-toggle">
-                  <img src="https://via.placeholder.com/50x50" alt="Toggle Sidebar">
-                </button>
-                <div class="sidebar">
-                  <h3>Sidebar Menu</h3>
-                  <ul>
-                    <li>Profile</li>
-                    <li class="has-submenu">
-                      Payment
-                      <ul class="submenu">
-                        <li>Option 1</li>
-                        <li>Option 2</li>   
-                        <li>Option 3</li>
-                      </ul>
-                    </li>
-                    <li>Setting</li>
-                    <li>
-                      <a href="{{url('/logout')}}" class="logout">Logout</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </header>
+        <x-side-bar />
         <main class="container-fluid">
         <div class="row">
                 <div class="col-12">
@@ -176,27 +51,27 @@ div#imgTest img {
                                                     @csrf
 
                                                     <ul class="d-inline-block mb-0">
-                                                        <li class="my-2">
-                                                        Bank Name: <b class="text-danger fs-6" id="txtBankName">{{$active_bank->bank_name}}</b>
+                                                        <li class="my2">
+                                                        Bank Name: <b class="text-dan fs-6" id="txtBankName">{{$active_bank->bank_name}}</b>
                                                             <span id="btnCopyBankName" style="cursor:pointer;background-color:#ffe180;border-radius:3px" class="px-1 ms-2">copy</span>
                                                             <input type="text" name="BankName" value="{{$active_bank->bank_name}}" hidden="">
                                                         </li>
-                                                        <li class="my-2">
-                                                            Account Name: <b class="text-danger fs-6" id="txtBankAccountname">{{$active_bank->account_name}}</b>
+                                                        <li class="my2">
+                                                            Account Name: <b class="text-dan fs-6" id="txtBankAccountname">{{$active_bank->account_name}}</b>
                                                             <span id="btnCopyBankAccountname" style="cursor:pointer;background-color:#ffe180;border-radius:3px" class="px-1 ms-2">copy</span>
                                                             <input type="text" name="BankAccountname" value="{{$active_bank->account_name}}" hidden="">
                                                         </li>
-                                                        <li class="my-2">
-                                                            Account Number: <b class="text-danger fs-6" id="txtBankAccountNumber">{{$active_bank->bank_account_number}}</b>
+                                                        <li class="my2">
+                                                            Account Number: <b class="text-dan fs-6" id="txtBankAccountNumber">{{$active_bank->bank_account_number}}</b>
                                                             <span id="btnCopyBankAccountNumber" style="cursor:pointer;background-color:#ffe180;border-radius:3px" class="px-1 ms-2">copy</span>
                                                             <input type="text" name="BankAccountNumber" value="{{$active_bank->bank_account_number}}" hidden="">
                                                         </li>
-                                                        <li class="my-2">
-                                                        Your Deposit Amount: <b class="text-danger fs-6">{{$amount}}</b>
+                                                        <li class="my2">
+                                                        Your Deposit Amount: <b class="text-dan fs-6">{{$amount}}</b>
                                                             <input type="text" value="{{$amount}}" hidden=""> VND
                                                         </li>
-                                                        <li class="my-2">
-                                                            Content : <b class="text-danger fs-6" >{{$content}}</b>
+                                                        <li class="my2">
+                                                            Content : <b class="text-dan fs-6" >{{$content}}</b>
                                                             <input type="text" name="content" value="{{$content}}" hidden="">
                                                         </li>
                                                     </ul>
@@ -285,20 +160,6 @@ $(document).ready(function () {
     });
     
 });
-
-  $(document).ready(function() {
-    $(".sidebar-toggle").click(function() {
-      $(".sidebar").toggleClass("open");
-    });
-  });
-
-  $(window).scroll(function() {
-    if ($(this).scrollTop() > 100) {
-      $('#header').addClass('fixed-top');
-    } else {
-      $('#header').removeClass('fixed-top');
-    }
-  });
 </script>
 
 </body>

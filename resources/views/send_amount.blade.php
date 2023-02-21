@@ -78,7 +78,7 @@
 
                                                     <fieldset class="form-group">
                                                         <label for="" class="label_edit">@if(Session::get('language') == 'vie')Nhóm quyền @else Content @endif</label>
-                                                        <textarea name="content" class="form-control" cols="30" rows="10"></textarea>
+                                                        <textarea name="content" class="form-control" cols="30" rows="3"></textarea>
                                                         @if($errors->has('role'))
                                                             <div class="error"
                                                                 style="color:red">{{$errors->first('role')}}</div>
@@ -138,7 +138,7 @@ $(document).ready(function() {
             success: function(data) {
             	console.log(data);
                 if (data == "available") {
-                    $('#username-check-result').html('<i class="fa fa-check-circle" style="color: green;"></i>');
+                    $('#username-check-result').html('<i class="fa fa-check-circle" style="color: #94dd94;"></i>');
                 } else {
                     $('#username-check-result').html('<i class="fa fa-times-circle" style="color: red;"></i>');
                 }

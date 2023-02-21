@@ -81,7 +81,7 @@ textarea {display:block;}
                                                         </fieldset>
                                                         </div>
                                                         <div  class="col-md-6">
-                                                        <p style="text-align: right;width: 100%;color: green;font-weight: bold;font-size: 20px;margin-bottom: 0">
+                                                        <p style="text-align: right;width: 100%;color: #94dd94;font-weight: bold;font-size: 20px;margin-bottom: 0">
                                                             @if($data['status'] == 1)
                                                             Complete
                                                             @elseif($data['status'] == 2)

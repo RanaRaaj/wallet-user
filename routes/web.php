@@ -50,6 +50,8 @@ Route::middleware('auth')->group(function () {
 
 	Route::get('check-receiver', [UserController::class, 'check_receiver'])->name('check.receiver');
 
+	Route::get('status-view', [UserController::class, 'status_view'])->name('status.view');
+
 
 	Route::post('send-confirm', [UserController::class, 'send_confirm'])->name('send.confirm');
 

@@ -68,7 +68,7 @@
 
                                                     <fieldset class="form-group">
                                                         <label for="" class="label_edit">@if(Session::get('language') == 'vie')Tên người dùng @else Your Account Name @endif</label>
-                                                        <input type="text" name="account_name" value="Admin test" class="form-control"
+                                                        <input type="text" name="account_name" class="form-control"
                                                                id="basicInput" value="{{$bank->account_name}}" disabled>
                                                         @if($errors->has('account_name'))
                                                             <div class="error"
@@ -86,14 +86,14 @@
                                                         @endif
                                                     </fieldset>
 
-                                                    <fieldset class="form-group">
+                                                    <!-- <fieldset class="form-group">
                                                         <label for="" class="label_edit">@if(Session::get('language') == 'vie')Nhóm quyền @else Content @endif</label>
                                                         <textarea name="content" class="form-control" cols="30" rows="10"></textarea>
                                                         @if($errors->has('content'))
                                                             <div class="error"
                                                                 style="color:red">{{$errors->first('content')}}</div>
                                                         @endif
-                                                    </fieldset>
+                                                    </fieldset> -->
 
                                                     <div class="row justify-content-center m-2"
                                                          style="border-top: 1px solid black">

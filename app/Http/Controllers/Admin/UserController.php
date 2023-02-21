@@ -338,18 +338,19 @@ class UserController extends Controller
 
     public function withdraw_confirm(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         $user_id = Auth::user()->id;
 
         $withdraw = new UserWithdraw();
 
         $withdraw->user_id = $user_id;
-        $withdraw->user_name - Auth::user()->name;
+        $withdraw->user_name = Auth::user()->name;
         $withdraw->amount = $request->amount;
         $withdraw->bank_name = $request->bank_name;
-        $withdraw->acount_name = $request->account_name;
+        $withdraw->account_name = $request->account_name;
         $withdraw->account_number = $request->account_number;
-        $withdraw->content = $request->content;
+        $withdraw->content = $request->content ?? '';
+        $withdraw->file = $request->file ?? '';
 
         $withdraw->save();
         return view('deposit_success');
@@ -484,6 +485,12 @@ class UserController extends Controller
         $pusher->trigger('deposit-request', 'deposit-event', $data);
 
         return view('deposit_success');
+    }
+
+    public function status_view()
+    {
+        $user = Auth::user();
+        return view('status_view', compact('user'));
     }
 
 }
