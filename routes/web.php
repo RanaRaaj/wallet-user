@@ -52,6 +52,15 @@ Route::middleware('auth')->group(function () {
 
 	Route::get('status-view', [UserController::class, 'status_view'])->name('status.view');
 
+	Route::get('setting-view', [UserController::class, 'setting_view'])->name('setting.view');
+	
+	Route::get('profile-view', [UserController::class, 'profile_view'])->name('profile.view');
+
+	Route::get('language-view', [UserController::class, 'language_view'])->name('language.view');
+
+	Route::get('currency-exchange', [UserController::class, 'currency_exchange'])->name('currency.exchange');
+
+	Route::post('profile-update', [UserController::class, 'profile_update'])->name('profile.update');
 
 	Route::post('send-confirm', [UserController::class, 'send_confirm'])->name('send.confirm');
 

@@ -101,13 +101,17 @@
               </div>
               
               <div class="col-3 align-items-center justify-content-center">
-                <a href="{{route('bank.view')}}">
+                <a href="{{route('setting.view')}}">
                   <i class="fas fa-cog fa-2x"></i>
                   <p class="mt-2">Setting</p>
                 </a>
               </div>
 
               <div class="col-3 align-items-center justify-content-center">
+                <a href="{{route('currency.exchange')}}">
+                  <i class="fas fa-money-bill-alt fa-2x"></i>
+                  <p class="mt-2">Payment</p>
+                </a>
               </div>
               
           </div>
@@ -302,6 +306,49 @@
               @endif
           </div>
         </div>
+
+        <div class="container-fluid col-md-6 home-div-bottom-space">
+          <div class="row news">
+              <div class="col-8 d-flex align-items-center">
+                <p><b>Withdraw Request</b></p>
+              </div>
+              <div class="col-4 d-flex justify-content-right">
+                <a href="{{route('detail.view',['type' => 'withdraw'])}}"><span>See All</span></a>
+              </div>
+              <div class="col-12"><hr></div>
+              @if(isset($withdraw[0]))
+                @foreach($withdraw as $val)
+                  <div class="row story-2 stories">
+                    <div class="col-8 d-flex align-items-center">
+                      <div class="col-4 d-flex align-items-left">
+                        <i class="fas fa-paper-plane fa-2x"></i>
+                      </div>
+                      <div class="col-9 align-items-center">
+                        <span>{{ $val->created_at->diffForHumans() }}</span>
+                        @if($val->status == '1')
+                          <p style="color: #94dd94">Approved</p>
+                        @elseif($val->status == '0')
+                          <p style="color: red">Cancel</p>
+                        @else
+                          <p style="color: blue">Pending</p>
+                        @endif
+                      </div>
+                    </div>
+                    <div class="col-4 d-flex justify-content-right">
+                      <span>{{number_format($val->amount)}} VND</span>
+                    </div>
+                  </div>
+                @endforeach
+              @else
+                <div class="row story-2 stories">
+                  <div class="col-12 d-flex align-items-center">
+                    <p>No Record Found...</p>
+                  </div>
+                </div>
+              @endif
+          </div>
+        </div>
+
       </div>
 
     </div>

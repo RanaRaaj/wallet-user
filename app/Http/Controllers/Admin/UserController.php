@@ -8,12 +8,15 @@ use App\Models\CompanyBank;
 use App\Models\UserBank;
 use App\Models\Deposit;
 use App\Models\UserDeposit;
+use App\Models\UserPanelBank;
 use App\Models\UserWithdraw;
 use App\Models\UserSendMoney;
+use App\Models\CurrencyRate;
 use App\Models\Interest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 use Auth;
 use Pusher\Pusher;
 use Carbon\Carbon;
@@ -38,14 +41,13 @@ class UserController extends Controller
         $send_data = UserSendMoney::where('sender_id', $user_id)->take(4)->latest()->get();
         $rcv_data = UserSendMoney::where('receiver_id', $user_id)->take(4)->latest()->get();
         $rcv_amount = Deposit::where('send_to', $user_id)->take(4)->latest()->get();
-        // dd($send_data);
         $deposit = UserDeposit::where('user_id', $user_id)->take(4)->latest()->get();
-
+        $withdraw = UserWithdraw::where('user_id', $user_id)->take(4)->latest()->get();
         $profits = Interest::leftJoin('user_banks','interests.user_id','=','user_banks.user_id')
             ->select('interests.amount as amount', 'interests.created_at as created_at', 'user_banks.bank_name as bank_name', 'user_banks.account_name as account_name', 'user_banks.account_number as account_number')
             ->where('interests.user_id', $user_id)->take(4)->latest()->get();
 
-        return view('welcome', compact('send_data','rcv_data', 'rcv_amount', 'deposit', 'profits'));
+        return view('welcome', compact('send_data','rcv_data', 'rcv_amount', 'deposit', 'profits', 'withdraw'));
 
     }
 
@@ -64,6 +66,8 @@ class UserController extends Controller
             $sendAmountDetails = UserDeposit::where('user_id', $user_id)->latest()->get();
         }elseif($type == 'status'){
             $sendAmountDetails = UserDeposit::where('user_id', $user_id)->latest()->get();
+        }elseif($type == 'withdraw'){
+            $sendAmountDetails = UserWithdraw::where('user_id', $user_id)->latest()->get();
         }elseif($type == 'payment'){
             $sendAmountDetails = UserSendMoney::where('sender_id', $user_id)->latest()->get();
         }elseif ($type == 'profit') {
@@ -79,7 +83,8 @@ class UserController extends Controller
     {
         $user_id = Auth::user()->id;
         $bank = UserBank::where('user_id', $user_id)->get()->first();
-        return view('bank_detail', compact('bank'));
+        $panel_bank = UserPanelBank::all();
+        return view('bank_detail', compact('bank', 'panel_bank'));
     }
 
     public function payment_page()
@@ -432,10 +437,9 @@ class UserController extends Controller
     }
 
     public function bank_confirm(Request $request)
-    {
-
-        $user_bank = UserBank::firstOrCreate(
-            ['user_id' => $user_id],
+    {   
+        UserBank::updateOrCreate(
+            ['id' => $request->id],
             [
                 'bank_name' => $request->bank_name,
                 'account_name' => $request->account_name,
@@ -491,6 +495,55 @@ class UserController extends Controller
     {
         $user = Auth::user();
         return view('status_view', compact('user'));
+    }
+
+    public function setting_view()
+    {
+        $user = Auth::user();
+        return view('setting_view', compact('user'));
+    }
+
+    public function profile_view()
+    {
+        $user = Auth::user();
+        return view('profile', compact('user'));
+    }
+
+    public function profile_update(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'phone' => 'required | min:10 | max:12',
+            'password' => 'required|confirmed|min:6',
+            'password_confirmation' => 'required|min:6',
+        ], [
+            'phone.min' => 'The phone number must be at least 10 characters.',
+            'phone.max' => 'The phone number may not be greater than 12 characters.',
+            'phone.required' => 'Please provide a phone number.',
+            'password.required' => 'Please provide a password.',
+            'password.confirmed' => 'The password and confirmation must match.',
+            'password.min' => 'The password must be at least 6 characters.',
+        ]);
+        $user = User::find(Auth::user()->id);
+
+        $user->phone = $request->phone;
+        if($request->password != ''){
+            $user->password = Hash::make($request->password);
+        }
+        $user->save();
+        
+        return view('deposit_success');
+    }
+
+    public function language_view()
+    {
+        $user = Auth::user();
+        return view('setting_view', compact('user'));
+    }
+
+    public function currency_exchange()
+    {
+        $data = CurrencyRate::first();
+        return view('currency', compact('data'));
     }
 
 }

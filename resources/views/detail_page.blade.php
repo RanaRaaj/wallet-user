@@ -11,8 +11,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <!-- Custom CSS -->
     <style>
-
-  <style>
     .list-group-item {
       animation: fadein 0.5s;
       background-color: #fff;
@@ -62,11 +60,11 @@
                 <small>Amount: {{ $sendAmountDetail->amount }}</small>
               </a>
               <!-- Modal -->
-                <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="sendAmountDetailModalLabel" aria-hidden="true">
+                <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content news">
                       <div class="modal-header">
-                        <h5 class="modal-title" id="sendAmountDetailModalLabel">Send Amount Detail</h5>
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Send Amount Detail</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
@@ -112,11 +110,11 @@
                 <small>Amount: {{ $sendAmountDetail->amount }}</small>
               </a>
               <!-- Modal -->
-                <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="sendAmountDetailModalLabel" aria-hidden="true">
+                <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content news">
                       <div class="modal-header">
-                        <h5 class="modal-title" id="sendAmountDetailModalLabel">Amount Detail</h5>
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Amount Detail</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
@@ -158,11 +156,11 @@
                 <small>Amount: {{ $sendAmountDetail->amount }}</small>
               </a>
               <!-- Modal -->
-                <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="sendAmountDetailModalLabel" aria-hidden="true">
+                <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content news">
                       <div class="modal-header">
-                        <h5 class="modal-title" id="sendAmountDetailModalLabel">Amount Detail</h5>
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Amount Detail</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
@@ -204,11 +202,11 @@
                 <small>Amount: {{ $sendAmountDetail->amount }}</small>
               </a>
               <!-- Modal -->
-                <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="sendAmountDetailModalLabel" aria-hidden="true">
+                <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content news">
                       <div class="modal-header">
-                        <h5 class="modal-title" id="sendAmountDetailModalLabel">Amount Detail</h5>
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Amount Detail</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
@@ -258,11 +256,11 @@
                 <small>Amount: {{ $sendAmountDetail->amount }}</small>
               </a>
               <!-- Modal -->
-                <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="sendAmountDetailModalLabel" aria-hidden="true">
+                <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content news">
                       <div class="modal-header">
-                        <h5 class="modal-title" id="sendAmountDetailModalLabel">Deposit Detail</h5>
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Deposit Detail</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
@@ -323,11 +321,76 @@
                 <small>Amount: {{ $sendAmountDetail->amount }}</small>
               </a>
               <!-- Modal -->
-                <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="sendAmountDetailModalLabel" aria-hidden="true">
+                <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content news">
                       <div class="modal-header">
-                        <h5 class="modal-title" id="sendAmountDetailModalLabel">Deposit Detail</h5>
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Deposit Detail</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <p><strong>Status :</strong>
+                          @if($sendAmountDetail->status == '1')
+                          Approved
+                          @elseif($sendAmountDetail->status == '0')
+                          Cancel
+                          @else
+                          Pending
+                          @endif
+                        </p>
+                        <p><strong>Content:</strong> {{ $sendAmountDetail->content }}</p>
+                        <p><strong>Amount:</strong> {{ $sendAmountDetail->amount }}</p>
+                        <p><strong>Time:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
+                        <p><strong>Bank Name:</strong> {{ $sendAmountDetail->bank_name }}</p>
+                        <p><strong>Account Name:</strong> {{ $sendAmountDetail->account_name }}</p>
+                        <p><strong>Account Number:</strong> {{ $sendAmountDetail->account_number }}</p>
+                        <p><strong>Approved Time:</strong> {{ $sendAmountDetail->approval_time }}</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              @endforeach
+            @else
+              <p>No Record Found...</p>
+            @endif
+          </div>
+          <a href="{{ url()->previous() }}" class="btn btn-primary mt-3">Go Back</a>
+        </div>
+      @endif
+
+      @if($type == 'withdraw')
+        <div class="container my-5 news">
+          <h2 class="text-center mb-5">Withdraw Requests</h2>
+
+          <div class="list-group">
+            @if(isset($sendAmountDetails[0]))
+              @foreach($sendAmountDetails as $sendAmountDetail)
+              <a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modal{{ $loop->index }}">
+                <div class="d-flex w-100 justify-content-between">
+                  @if($sendAmountDetail->status == '1')
+                    <h5 class="mb-1" style="color: #94dd94">Approved  </h5>
+                  @elseif($sendAmountDetail->status == '0')
+                    <h5 class="mb-1" style="color: red">Cancel</h5>
+                  @else
+                    <h5 class="mb-1" style="color: blue">Pending</h5>
+                  @endif
+                  
+                  <small>{{ $sendAmountDetail->created_at->diffForHumans() }}</small>
+                </div>
+                <p class="mb-1">{{ $sendAmountDetail->content ?? '' }}</p>
+                <small>Amount: {{ $sendAmountDetail->amount }}</small>
+              </a>
+              <!-- Modal -->
+                <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content news">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Withdraw Detail</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
@@ -381,11 +444,11 @@
                 <small>Amount: {{ $sendAmountDetail->amount }}</small>
               </a>
               <!-- Modal -->
-                <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="sendAmountDetailModalLabel" aria-hidden="true">
+                <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content news">
                       <div class="modal-header">
-                        <h5 class="modal-title" id="sendAmountDetailModalLabel">Send Amount Detail</h5>
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Send Amount Detail</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>

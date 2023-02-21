@@ -18,7 +18,18 @@
   <title>Mobile Responsive Website</title>
   <link rel="stylesheet" type="text/css" href="{{asset('assets/css/sidebar.css')}}">
 </head>
-
+<style>
+  ul.list-group {
+    padding: 0% 6%;
+  }
+  .list-group-item {
+    background-color: hsl(273deg 77% 55%) !important;
+    border-radius: 16px !important;
+  }
+  .list-group-item > a {
+    color: #fff !important;
+  }
+</style>
 <div>
     <!-- Very little is needed to make a happy life. - Marcus Aurelius -->
     <header class="d-flex align-items-center" id="header">
@@ -41,7 +52,10 @@
               </button>
             </div>
             <div class="sidebar">
-              <h3 class="text-center text-light p-3 bg-primary">Sidebar Menu</h3>
+              @php
+                $data = DB::table('user_panel_sidebars')->first();
+              @endphp
+              <h3 class="text-center text-light p-3 bg-primary">{{$data->text}}</h3>
               <ul class="list-group">
 
                 <li class="list-group-item">
