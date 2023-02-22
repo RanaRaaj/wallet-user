@@ -16,7 +16,10 @@
 .container-fluid.col-md-6 {
     padding: 0px 10px;
 }
-
+span.usdt_data {
+    font-size: 12px;
+    float: right;
+}
 </style>
 <body>
     <div class="container">
@@ -38,6 +41,7 @@
 
                   <div class="col-12 mid-banner">
                     <p class="m-0">{{$bank_detail->account_number ?? ''}}</p>
+                    <span class="usdt_data">@if($profits[0]->usdt != '') {{$profits[0]->usdt}} @else 00 @endif USDT</span>
                   </div>
                   
                   <div class="bottom-banner row">

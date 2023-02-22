@@ -36,19 +36,6 @@ body {
   background-color: #007bff;
   border-color: #007bff;
 }
-
-
-/* #sendAmountBtn {
-  background-color: #007bff;
-  border-color: #007bff;
-  animation: pulse 1s infinite;
-}
-
-#receiveAmountBtn {
-  background-color: #28a745;
-  border-color: #28a745;
-  animation: pulse 1s infinite;
-} */
 #sendAmountBtn, #receiveAmountBtn {
     background: hsl(273deg 77% 55%);
     color: #fff;
@@ -56,12 +43,6 @@ body {
     padding: 4%;
     margin: 2% 0%;
 }
-
-/* @keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.02); }
-  100% { transform: scale(1); }
-} */
 </style>
 
   <title>Sended Amount</title>

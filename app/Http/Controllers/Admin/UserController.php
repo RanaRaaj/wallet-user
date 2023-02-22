@@ -44,9 +44,9 @@ class UserController extends Controller
         $deposit = UserDeposit::where('user_id', $user_id)->take(4)->latest()->get();
         $withdraw = UserWithdraw::where('user_id', $user_id)->take(4)->latest()->get();
         $profits = Interest::leftJoin('user_banks','interests.user_id','=','user_banks.user_id')
-            ->select('interests.amount as amount', 'interests.created_at as created_at', 'user_banks.bank_name as bank_name', 'user_banks.account_name as account_name', 'user_banks.account_number as account_number')
+            ->select('interests.amount as amount', 'interests.created_at as created_at', 'user_banks.bank_name as bank_name', 'user_banks.usdt as usdt', 'user_banks.account_name as account_name', 'user_banks.account_number as account_number')
             ->where('interests.user_id', $user_id)->take(4)->latest()->get();
-
+                
         return view('welcome', compact('send_data','rcv_data', 'rcv_amount', 'deposit', 'profits', 'withdraw'));
 
     }
@@ -543,7 +543,34 @@ class UserController extends Controller
     public function currency_exchange()
     {
         $data = CurrencyRate::first();
-        return view('currency', compact('data'));
+        $bank = UserBank::where('user_id',Auth::user()->id)->first();
+        return view('currency', compact('data','bank'));
+    }
+
+    public function currency_buy(Request $request)
+    {
+        $user_id = Auth::user()->id;
+        $first = $request->vnd;
+        $second = $request->usdt;
+        $data = UserBank::where('user_id',$user_id)->first();
+        if($first > $second){
+            if($data['amount'] >= $first){
+                $vnd = $data['amount'] - $first;
+                $usdt = $second;
+                $data->amount = $vnd;
+                $data->usdt = $usdt;
+                $data->save();
+                return view('deposit_success');
+            }else{
+                return redirect()->back();
+            }
+        }else{
+            if($data['usdt'] >= $second){
+                
+            }else{
+                return redirect()->back();
+            }
+        }    
     }
 
 }

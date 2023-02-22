@@ -25,6 +25,12 @@
 .card-body {
     padding: 0.25rem !important;
 }
+fieldset.form-group > label {
+    width: 100%;
+}
+fieldset.form-group > label  > span{
+    float: right;
+}
 </style>
 <body>
     <div class="container">
@@ -40,30 +46,29 @@
                                         <div class="card-block">
                                             <div class="card-body">
                                                 <h2>Send Amount</h2>
-                                                <form id="deposit_form" action="" method="post"
+                                                <form id="deposit_form" action="{{route('currency.buy')}}" method="post"
                                                       enctype="multipart/form-data">
                                                     @csrf
 
                                                     <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')ID đăng nhập @else USDT @endif</label>
-                                                        <input type="text" name="usdt" value="{{old('usdt')}}" id="usdt" class="form-control"
-                                                            id="basicInput" required><span id="username-check-result"></span>
-
-                                                        @if($errors->has('usdt'))
-                                                            <div class="error"
-                                                                style="color:red">{{$errors->first('usdt')}}</div>
-                                                        @endif
+                                                      <label for="" class="label_edit">VND <span>balance : {{$bank['amount']}} VND</span></label>
+                                                      <input type="number" name="vnd" class="form-control" max="{{$bank['amount']}}" id="currency1" value="0.00" min="0" step="0.000001">
+                                                      <span id="username-check-result">Exchange Rate: {{$data['usdt']}} USDT = {{$data['vnd']}} VND</span>
+                                                      @if($errors->has('usdt'))
+                                                        <div class="error" style="color:red">{{$errors->first('usdt')}}</div>
+                                                      @endif
                                                     </fieldset>
 
-                                                    <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')ID đăng nhập @else VND @endif</label>
-                                                        <input type="text" name="vnd" value="{{old('vnd')}}" class="form-control"
-                                                            id="basicInput" max="" required>
+                                                    <div class="col-sm-2 mt-4 text-center">
+                                                      <button id="toggle-currencies-btn" class="btn btn-primary"><span class="fa fa-exchange fa-2x"></span></button>
+                                                    </div>
 
-                                                        @if($errors->has('vnd'))
-                                                            <div class="error"
-                                                                style="color:red">{{$errors->first('vnd')}}</div>
-                                                        @endif
+                                                    <fieldset class="form-group">
+                                                      <label for="" class="label_edit">USDT <span>balance : {{$bank['usdt']}} USDT</span></label>
+                                                      <input type="number" name="usdt" class="form-control" id="currency2" value="" min="0" step="0.000001">
+                                                      @if($errors->has('vnd'))
+                                                        <div class="error" style="color:red">{{$errors->first('vnd')}}</div>
+                                                      @endif
                                                     </fieldset>
 
                                                     <div class="row justify-content-center m-2"
@@ -71,7 +76,7 @@
                                                         <fieldset class="form-group center m-2">
                                                             <a href="{{route('welcome')}}"
                                                                class="btn btn-primary">Home</a>
-                                                            <button type="submit" class="btn btn-success">Changes
+                                                            <button type="submit" class="btn btn-success">Buy
                                                             </button>
                                                         </fieldset>
                                                     </div>
@@ -90,6 +95,46 @@
     </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  var usdt = "{{ $data['usdt'] }}";
+  var vnd = "{{ $data['vnd'] }}";
+  
+  // Swap the positions and IDs of the input fields
+  function swapCurrencies() {
+    var currency1 = $('#currency1');
+    var currency2 = $('#currency2');
+    var tempVal = currency1.val();
+    var tempId = currency1.attr('id');
+    currency1.val(currency2.val());
+    currency2.val(tempVal);
+    currency1.attr('id', currency2.attr('id'));
+    currency2.attr('id', tempId);
+  }
+  
+  // Set up event listener for the toggle button
+  $('#toggle-currencies-btn').on('click', function(e) {
+    e.preventDefault();
+    swapCurrencies();
+  });
+  
+  // Set up event listeners for the input fields
+  $('#currency1, #currency2').on('input', function() {
+    // Get the values of the input fields
+    var currency1Val = $('#currency1').val();
+    var currency2Val = $('#currency2').val();
+    
+    // Check which field triggered the event
+    if ($(this).attr('id') === 'currency1') {
+      // Convert from currency 1 to currency 2
+      var convertedVal = currency1Val / vnd; // Replace 2 with the exchange rate
+      $('#currency2').val(convertedVal.toFixed(6));
+    } else {
+      // Convert from currency 2 to currency 1
+      var convertedVal = currency2Val * vnd; // Replace 2 with the exchange rate
+      $('#currency1').val(convertedVal.toFixed(6));
+    }
+  });
+</script>
 <script>
 $(document).ready(function() {
     $('#receiver').on('input', function() {
