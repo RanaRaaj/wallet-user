@@ -80,7 +80,7 @@
                                     <form class="form-horizontal" action="{{route('admin.register')}}" method="post" novalidate>
                                         @csrf
                                         <fieldset class="form-group position-relative has-icon-left">
-                                            <input type="text" class="form-control round" id="user-name" name="name" placeholder="Enter Name">
+                                            <input type="text" class="form-control round" id="user-name" name="name" placeholder="Full Name">
                                             <div class="form-control-position">
                                                 <i class="ft-user"></i>
                                             </div>
@@ -90,9 +90,9 @@
                                             @endif
                                         </fieldset>
                                         <fieldset class="form-group position-relative has-icon-left">
-                                            <input type="text" class="form-control round" id="user-name" name="email" placeholder="Enter Email">
+                                            <input type="text" class="form-control round" id="user-name" name="email" placeholder="User Name">
                                             <div class="form-control-position">
-                                                <i class="ft-mail"></i>
+                                                <i class="ft-user"></i>
                                             </div>
                                             @if($errors->has('email'))
                                                 <div class="error"

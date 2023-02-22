@@ -37,7 +37,7 @@
         <div class="row">
           <div class="col-6 align-items-center top-left">
             <span>hello</span>
-            <p>{{auth()->user()->name}}</p>
+            <p><span style="text-transform: uppercase;color:hsl(273deg 100% 69%);font-family:inherit;">{{auth()->user()->name}}</span> ({{auth()->user()->email}})</p>
           </div>
           <div class="col-6 row d-flex justify-content-right top-right">
             <!-- <div class="avatar">
