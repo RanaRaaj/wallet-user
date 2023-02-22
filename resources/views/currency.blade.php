@@ -45,27 +45,27 @@ fieldset.form-group > label  > span{
                                     <div class="col-xl-8 col-md-8 col-sm-12">
                                         <div class="card-block">
                                             <div class="card-body">
-                                                <h2>Send Amount</h2>
+                                                <h2>Exchange Amount</h2>
                                                 <form id="deposit_form" action="{{route('currency.buy')}}" method="post"
                                                       enctype="multipart/form-data">
                                                     @csrf
-
+                                                    <input type="hidden" name="exchange_rate" value="{{$data['vnd']}}">
                                                     <fieldset class="form-group">
-                                                      <label for="" class="label_edit">VND <span>balance : {{$bank['amount']}} VND</span></label>
-                                                      <input type="number" name="vnd" class="form-control" max="{{$bank['amount']}}" id="currency1" value="0.00" min="0" step="0.000001">
-                                                      <span id="username-check-result">Exchange Rate: {{$data['usdt']}} USDT = {{$data['vnd']}} VND</span>
+                                                      <label for="" class="label_edit" id="vnd_field">VND <span>balance : {{number_format($bank['amount'])}} VND</span></label>
+                                                      <input type="number" name="vnd" class="form-control" max="{{$bank['amount']}}" id="currency1" value="" min="0" step="0.000001" required>
+                                                      <span id="username-check-result">Exchange Rate: {{$data['usdt']}} USDT = {{number_format($data['vnd'])}} VND</span>
                                                       @if($errors->has('usdt'))
                                                         <div class="error" style="color:red">{{$errors->first('usdt')}}</div>
                                                       @endif
                                                     </fieldset>
 
                                                     <div class="col-sm-2 mt-4 text-center">
-                                                      <button id="toggle-currencies-btn" class="btn btn-primary"><span class="fa fa-exchange fa-2x"></span></button>
+                                                      <button id="toggle-currencies-btn" class="btn btn-primary"><span class="fa fa-exchange-alt fa-2x"></span></button>
                                                     </div>
 
                                                     <fieldset class="form-group">
-                                                      <label for="" class="label_edit">USDT <span>balance : {{$bank['usdt']}} USDT</span></label>
-                                                      <input type="number" name="usdt" class="form-control" id="currency2" value="" min="0" step="0.000001">
+                                                      <label for="" class="label_edit" id="usdt_field">USDT <span>balance : {{$bank['usdt']}} USDT</span></label>
+                                                      <input type="number" name="usdt" class="form-control" id="currency2" value="" min="0" step="0.000001" required>
                                                       @if($errors->has('vnd'))
                                                         <div class="error" style="color:red">{{$errors->first('vnd')}}</div>
                                                       @endif
@@ -76,7 +76,7 @@ fieldset.form-group > label  > span{
                                                         <fieldset class="form-group center m-2">
                                                             <a href="{{route('welcome')}}"
                                                                class="btn btn-primary">Home</a>
-                                                            <button type="submit" class="btn btn-success">Buy
+                                                            <button type="submit" class="btn btn-success" id="submitBtn">Exchange
                                                             </button>
                                                         </fieldset>
                                                     </div>
@@ -95,16 +95,71 @@ fieldset.form-group > label  > span{
     </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- BEGIN: Page Vendor JS-->
+<script src="https://unpkg.com/promise-polyfill" type="text/javascript"></script>
+<script src="{{asset('assets/dashboard/app-assets/vendors/js/extensions/sweetalert2.all.js')}}" type="text/javascript"></script>
+<!-- END: Page Vendor JS-->
 <script>
+//
+document.getElementById("submitBtn").addEventListener("click", function(event){
+    event.preventDefault(); 
+    validateForm(event);
+});
+
+function validateForm() {
+    let nameInput = document.getElementById("currency1");
+    let emailInput = document.getElementById("currency2");
+    if (nameInput.value.trim() === '' || emailInput.value.trim() === '') {
+        swal({
+            title: 'Please Fill All Fields.',
+            type: 'error',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            closeOnConfirm: true,
+            closeOnCancel: true
+        })
+        return false;
+    }
+    swal({
+        title: 'Are you sure you want to Exchnage Your Amount?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Exchange',
+        closeOnConfirm: true,
+        closeOnCancel: true
+    }).then(function (isConfirm) {
+        if (isConfirm) {
+            if(isConfirm.dismiss){
+                return false;
+            }
+            event.preventDefault(); // prevent form submission
+            document.getElementById("deposit_form").submit();
+        }
+    });
+    return false;
+}
+
   var usdt = "{{ $data['usdt'] }}";
   var vnd = "{{ $data['vnd'] }}";
   
   // Swap the positions and IDs of the input fields
   function swapCurrencies() {
+    var vndLabel = document.getElementById('vnd_field');
+    var usdtLabel = document.getElementById('usdt_field');
+    var vndText = vndLabel.innerHTML;
+    vndLabel.innerHTML = usdtLabel.innerHTML;
+    usdtLabel.innerHTML = vndText;
+
     var currency1 = $('#currency1');
     var currency2 = $('#currency2');
     var tempVal = currency1.val();
     var tempId = currency1.attr('id');
+
+    console.log(vnd_field);
+    console.log(usdt_field);
+
     currency1.val(currency2.val());
     currency2.val(tempVal);
     currency1.attr('id', currency2.attr('id'));

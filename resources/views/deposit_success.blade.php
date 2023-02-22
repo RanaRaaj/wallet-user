@@ -31,6 +31,9 @@
 .justify-content-center.m-2 fieldset {
     padding-top: 3%;
 }
+.btn:not(:disabled):not(.disabled) {
+    width: 100% !important;
+}
 </style>
 <body>
     <div class="container">

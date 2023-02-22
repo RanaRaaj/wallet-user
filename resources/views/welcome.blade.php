@@ -17,8 +17,19 @@
     padding: 0px 10px;
 }
 span.usdt_data {
-    font-size: 12px;
+    font-size: 14px;
     float: right;
+}
+span.exchange_value > span {
+    font-size: 11px !important;
+    color: #fff !important;
+}
+span.exchange_value {
+    font-size: 11px !important;
+    color: #fff !important;
+    text-align: center;
+    margin-top: 11%;
+    line-height: 19px;
 }
 </style>
 <body>
@@ -41,7 +52,6 @@ span.usdt_data {
 
                   <div class="col-12 mid-banner">
                     <p class="m-0">{{$bank_detail->account_number ?? ''}}</p>
-                    <span class="usdt_data">@if($profits[0]->usdt != '') {{$profits[0]->usdt}} @else 00 @endif USDT</span>
                   </div>
                   
                   <div class="bottom-banner row">
@@ -49,6 +59,7 @@ span.usdt_data {
                       <span>{{$bank_detail->bank_name ?? ''}}</span>
                     </div>
                     <div class="col-6" style="text-align: right;">
+                      <span class="usdt_data">@if($profits[0]->usdt != '') {{$profits[0]->usdt}} @else 00 @endif USDT</span><br>
                       <span class="m-0">{{number_format($balance ?? 'not connected')}} VND</span>
                     </div>
                   </div>
@@ -74,7 +85,7 @@ span.usdt_data {
               </div>
 
               <div class="col-3 align-items-center justify-content-center">
-                  <a href="{{route('send.form')}}">
+                  <a href="{{route('send.form.view')}}">
                       <i class="fas fa-paper-plane fa-2x"></i>
                       <p class="mt-2">Send</p>
                   </a>
@@ -114,7 +125,8 @@ span.usdt_data {
               <div class="col-3 align-items-center justify-content-center">
                 <a href="{{route('currency.exchange')}}">
                   <i class="fas fa-money-bill-alt fa-2x"></i>
-                  <p class="mt-2">Payment</p>
+                  <!-- <img src="{{asset('assets/usdt.jpg')}}" alt=""> -->
+                  <p class="mt-2">Buy/Sell USDT</p>
                 </a>
               </div>
               
@@ -146,7 +158,50 @@ span.usdt_data {
                       </div>
                     </div>
                     <div class="col-4 d-flex justify-content-right">
+                      <br><br>
                       <span>{{$profit->amount}} VND</span>
+                    </div>
+                  </div>
+                @endforeach
+              @else
+                <div class="row story-2 stories">
+                  <div class="col-12 d-flex align-items-center">
+                    <p>No Record Found...</p>
+                  </div>
+                </div>
+              @endif
+          </div>
+        </div>
+
+        <div class="container-fluid col-md-6 home-div-bottom-space">
+          <div class="row news">
+              <div class="col-8 d-flex align-items-center">
+                <p><b>Exchange Amount</b></p>
+              </div>
+              <div class="col-4 d-flex justify-content-right">
+                <a href="{{route('detail.view',['type' => 'exchange'])}}"><span>See All</span></a>
+              </div>
+          
+              <div class="col-12"><hr></div>
+              @if(isset($exchange[0]))
+                @foreach($exchange as $exc)
+                  <div class="row story-2 stories">
+                    <div class="col-8 d-flex align-items-center">
+                      <div class="col-4 d-flex align-items-left">
+                        <i class="fas fa-paper-plane fa-2x"></i>
+                      </div>
+                      <div class="col-9 align-items-center">
+                        <span>{{ $exc->created_at->diffForHumans() }}</span>
+                        <!-- <p>Received From: Admin</p> -->
+                      </div>
+                    </div>
+                    <div class="col-4 d-flex justify-content-right">
+                      @php
+                        $amount = json_decode($exc->exchange);
+                      @endphp
+                      <span class="exchange_value">{{number_format($amount[0]->first, 3, '.', ',')}} @if($exc->type == 'vnd') VND @else USDT @endif<br>
+                      <span>To</span><br>
+                      <span>{{number_format($amount[0]->second, 3, '.', ',')}} @if($exc->type == 'vnd') USDT @else VND @endif</span></span>
                     </div>
                   </div>
                 @endforeach
@@ -182,7 +237,7 @@ span.usdt_data {
                       </div>
                     </div>
                     <div class="col-4 d-flex justify-content-right">
-                      <span>{{number_format($send->amount)}} VND</span>
+                      <span style="text-transform: uppercase;">{{number_format($send->amount, 3, '.', ',')}} {{$send->type}}</span>
                     </div>
                   </div>
                 @endforeach

@@ -241,7 +241,7 @@ header {
 .justify-content-right span {
   font-size: 15px;
   font-weight: 500;
-  color: #000;
+  color: #fff;
 }
 .links {
     display: flex;
@@ -327,3 +327,85 @@ body {
     font-size: 17px;
     font-weight: 700;
 }
+
+/* //customer support fixed icon css start */
+
+.support-icon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+}
+
+.support-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #007bff;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+  transition: all 0.3s ease;
+}
+
+.support-main:hover {
+  transform: scale(1.0);
+  cursor: pointer;
+}
+
+.support-main i {
+  color: #fff;
+}
+
+.support-sub {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  right: 70px;
+  bottom: 65px;
+  width: 60px;
+  height: auto;
+  border-radius: 8px;
+  background-color: #b861ffe3;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  padding-top: 12%;
+}
+
+.support-icon.active .support-sub {
+  opacity: 1;
+  visibility: visible;
+  right: 2px;
+}
+
+.support-sub a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  height: 45px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  background-color: #007bff;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+  transition: all 0.3s ease;
+}
+.fa-2x {
+  font-size: 1.5em !important;
+}
+
+.support-sub a:hover {
+  transform: scale(1.1);
+}
+
+.support-sub i {
+  color: #fff;
+}
+
+
+/* //customer support fixed icon css end */

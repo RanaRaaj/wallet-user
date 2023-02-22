@@ -39,11 +39,11 @@
                                     <div class="col-xl-8 col-md-8 col-sm-12">
                                         <div class="card-block">
                                             <div class="card-body">
-                                                <h2>Send Amount</h2>
+                                                <h2 style="text-transform: uppercase;">Send {{$type}}</h2>
                                                 <form id="deposit_form" action="{{route('send.confirm')}}" method="post"
                                                       enctype="multipart/form-data">
                                                     @csrf
-
+                                                    <input type="hidden" name="type" value="{{$type}}">
                                                     <fieldset class="form-group" style="display: none;">
                                                         <label for="" class="label_edit">@if(Session::get('language') == 'vie')Tên người dùng @else Name @endif</label>
                                                         <input type="text" name="name" value="Admin test" class="form-control"
@@ -66,9 +66,9 @@
                                                     </fieldset>
 
                                                     <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')ID đăng nhập @else Amount : Maximum {{$bank->amount}} VND @endif</label>
-                                                        <input type="number" name="amount" value="{{old('amount')}}" class="form-control"
-                                                            id="basicInput" max="{{$bank->amount}}" required>
+                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')ID đăng nhập @else Amount : Maximum @if($type=='vnd') {{number_format($bank->amount, 3, '.', ',')}} VND @else {{number_format($bank->usdt, 4, '.', ',')}} USDT @endif @endif</label>
+                                                        <input type="number" name="amount" value="{{old('amount')}}" class="form-control" step="0.000001"
+                                                            id="basicInput" max="@if($type=='vnd') {{$bank->amount}} @else {{$bank->usdt}} @endif" required>
 
                                                         @if($errors->has('amount'))
                                                             <div class="error"
@@ -85,27 +85,12 @@
                                                         @endif
                                                     </fieldset>
 
-                                                    <!-- <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Nhóm quyền @else Bank Name @endif</label>
-                                                        <select name="bank_name" class="form-control" id="basicInput" disabled>
-                                                            <option value="{{$bank->amount}}">{{$bank->amount}}</option>
-                                                            <option value="BIDV">BIDV</option>
-                                                            <option value="ACB">ACB</option>
-                                                            <option value="VCB">VCB</option>
-                                                        </select>
-
-                                                        @if($errors->has('role'))
-                                                            <div class="error"
-                                                                style="color:red">{{$errors->first('role')}}</div>
-                                                        @endif
-                                                    </fieldset> -->
-
                                                     <div class="row justify-content-center m-2"
                                                          style="border-top: 1px solid black">
                                                         <fieldset class="form-group center m-2">
-                                                            <a href="{{route('welcome')}}"
-                                                               class="btn btn-primary">Home</a>
-                                                            <button type="submit" class="btn btn-success">Send
+                                                            <a href="{{ url()->previous() }}"
+                                                               class="btn btn-primary">Go Back</a>
+                                                            <button type="submit" id="submitBtn" class="btn btn-success">Send
                                                             </button>
                                                         </fieldset>
                                                     </div>
@@ -123,8 +108,40 @@
         
     </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- BEGIN: Page Vendor JS-->
+<script src="https://unpkg.com/promise-polyfill" type="text/javascript"></script>
+<script src="{{asset('assets/dashboard/app-assets/vendors/js/extensions/sweetalert2.all.js')}}" type="text/javascript"></script>
+<!-- END: Page Vendor JS-->
 <script>
+//
+document.getElementById("submitBtn").addEventListener("click", function(event){
+    event.preventDefault(); 
+    validateForm(event);
+});
+
+function validateForm() {
+    swal({
+        title: 'Are you sure you want to Send Amount?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Send',
+        closeOnConfirm: true,
+        closeOnCancel: true
+    }).then(function (isConfirm) {
+        if (isConfirm) {
+            if(isConfirm.dismiss){
+                return false;
+            }
+            event.preventDefault(); // prevent form submission
+            document.getElementById("deposit_form").submit();
+        }
+    });
+    return false;
+}
+
 $(document).ready(function() {
     $('#receiver').on('input', function() {
         var receiver = $(this).val();

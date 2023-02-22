@@ -98,13 +98,43 @@
     </header>
 </div>
 
+<div class="support-icon">
+  <div class="support-main">
+    <a href="#">
+      <i class="fas fa-headset fa-2x"></i>
+    </a>
+  </div>
+  <div class="support-sub">
+    <a href="#">
+      <i class="fas fa-envelope fa-2x"></i>
+    </a>
+    <a href="#">
+      <i class="fas fa-phone fa-2x"></i>
+    </a>
+    <a href="#">
+      <i class="fas fa-comments fa-2x"></i>
+    </a>
+    <a href="#">
+      <i class="fas fa-comments fa-2x"></i>
+    </a>
+  </div>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
   $(document).ready(function() {
     $(".sidebar-toggle").click(function() {
       $(".sidebar").toggleClass("open");
     });
   });
+
+  $(document).ready(function() {
+    $('.support-icon .support-main').click(function() {
+      $('.support-icon').toggleClass('active');
+    });
+  });
+
 
   $(window).scroll(function() {
     if ($(this).scrollTop() > 100) {

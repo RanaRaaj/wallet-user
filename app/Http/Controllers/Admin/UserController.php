@@ -8,6 +8,7 @@ use App\Models\CompanyBank;
 use App\Models\UserBank;
 use App\Models\Deposit;
 use App\Models\UserDeposit;
+use App\Models\ExchangeRecord;
 use App\Models\UserPanelBank;
 use App\Models\UserWithdraw;
 use App\Models\UserSendMoney;
@@ -46,8 +47,9 @@ class UserController extends Controller
         $profits = Interest::leftJoin('user_banks','interests.user_id','=','user_banks.user_id')
             ->select('interests.amount as amount', 'interests.created_at as created_at', 'user_banks.bank_name as bank_name', 'user_banks.usdt as usdt', 'user_banks.account_name as account_name', 'user_banks.account_number as account_number')
             ->where('interests.user_id', $user_id)->take(4)->latest()->get();
+        $exchange = ExchangeRecord::where('user_id', $user_id)->take(4)->latest()->get();
                 
-        return view('welcome', compact('send_data','rcv_data', 'rcv_amount', 'deposit', 'profits', 'withdraw'));
+        return view('welcome', compact('send_data','rcv_data', 'rcv_amount', 'deposit', 'profits', 'withdraw', 'exchange'));
 
     }
 
@@ -74,6 +76,8 @@ class UserController extends Controller
             $sendAmountDetails = Interest::leftJoin('user_banks','interests.user_id','=','user_banks.user_id')
             ->select('interests.amount as amount', 'interests.created_at as created_at', 'user_banks.bank_name as bank_name', 'user_banks.account_name as account_name', 'user_banks.account_number as account_number')
             ->where('interests.user_id', $user_id)->latest()->get();
+        }elseif ($type == 'exchange') {
+            $sendAmountDetails = ExchangeRecord::where('user_id', $user_id)->latest()->get();
         }
         
         return view('detail_page', compact('sendAmountDetails','type'));
@@ -361,12 +365,19 @@ class UserController extends Controller
         return view('deposit_success');
     }
 
-    public function send_form()
+    public function send_form_view()
     {
+        $user = Auth::user();
+        return view('send_view', compact('user'));
+    }
+
+    public function send_form($type)
+    {
+        $type = $type;
         $user_id = Auth::user()->id;
         $bank = UserBank::where('user_id', $user_id)->get()->first();
         if(isset($bank->id)){
-            return view('send_amount', compact('bank'));
+            return view('send_amount', compact('bank','type'));
         }
         return view('bank_detail', compact('user_id'));
     }
@@ -386,6 +397,7 @@ class UserController extends Controller
 
     public function send_confirm(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'receiver' => 'required',
             'amount' => 'required',
@@ -398,12 +410,23 @@ class UserController extends Controller
         if(!isset($receiver->id)){
             return 'Recever Account Not Exists';
         }
-
-        $sender->amount = $sender->amount - $request->amount;
-        $sender->save();
-
-        $receiver->amount = $receiver->amount + $request->amount;
-        $receiver->save();
+        if($request->type == 'vnd'){
+            if($sender->amount < $request->amount){
+                return redirect()->back();
+            }
+            $sender->amount = $sender->amount - $request->amount;
+            $sender->save();
+            $receiver->amount = $receiver->amount + $request->amount;
+            $receiver->save();
+        }else{
+            if($sender->usdt < $request->amount){
+                return redirect()->back();
+            }
+            $sender->usdt = $sender->usdt - $request->amount;
+            $sender->save();
+            $receiver->usdt = $receiver->usdt + $request->amount;
+            $receiver->save();
+        }
         
         $send = new UserSendMoney();
         $send->sender_name = Auth::user()->email;
@@ -415,6 +438,7 @@ class UserController extends Controller
         $send->sender_bank_number = $sender->account_number;
         $send->receiver_bank_number = $receiver->account_number;
         $send->amount = $request->amount;
+        $send->type = $request->type;
         $send->content = $request->content;
 
         $send->save();
@@ -553,24 +577,43 @@ class UserController extends Controller
         $first = $request->vnd;
         $second = $request->usdt;
         $data = UserBank::where('user_id',$user_id)->first();
+        $user_usdt = (float)$data['usdt'];
+        $exchange = new ExchangeRecord();
         if($first > $second){
             if($data['amount'] >= $first){
                 $vnd = $data['amount'] - $first;
-                $usdt = $second;
+                $usdt = $second + (float)$data['usdt'];
                 $data->amount = $vnd;
                 $data->usdt = $usdt;
                 $data->save();
-                return view('deposit_success');
+                $exchange->type = 'vnd';
             }else{
                 return redirect()->back();
             }
         }else{
-            if($data['usdt'] >= $second){
-                
+            if($user_usdt >= $first){
+                $vnd = $data['amount'] + $second;
+                $usdt = (float)$data['usdt'] - $first;
+                $data->amount = $vnd;
+                $data->usdt = $usdt;
+                $data->save();
+                $exchange->type = 'usdt';
+
             }else{
                 return redirect()->back();
             }
         }    
+        $exc_amount = array([
+            'first' => $first,
+            'second' => $second
+        ]);
+        
+        $exchange->user_id = $user_id;
+        $exchange->exchange = json_encode($exc_amount);
+        $exchange->exchange_rate = $request->exchange_rate;
+        $exchange->save();
+
+        return view('deposit_success');
     }
 
 }
