@@ -125,7 +125,6 @@ span.exchange_value {
               <div class="col-3 align-items-center justify-content-center">
                 <a href="{{route('currency.exchange')}}">
                   <i class="fas fa-money-bill-alt fa-2x"></i>
-                  <!-- <img src="{{asset('assets/usdt.jpg')}}" alt=""> -->
                   <p class="mt-2">Buy/Sell USDT</p>
                 </a>
               </div>
@@ -150,7 +149,7 @@ span.exchange_value {
                   <div class="row story-2 stories">
                     <div class="col-8 d-flex align-items-center">
                       <div class="col-4 d-flex align-items-left">
-                        <i class="fas fa-paper-plane fa-2x"></i>
+                        <i class="fas fa-money-bill fa-2x"></i>
                       </div>
                       <div class="col-9 align-items-center">
                         <span>{{ $profit->created_at->diffForHumans() }}</span>
@@ -188,7 +187,7 @@ span.exchange_value {
                   <div class="row story-2 stories">
                     <div class="col-8 d-flex align-items-center">
                       <div class="col-4 d-flex align-items-left">
-                        <i class="fas fa-paper-plane fa-2x"></i>
+                        <i class="fas fa-money-bill-alt fa-2x"></i>
                       </div>
                       <div class="col-9 align-items-center">
                         <span>{{ $exc->created_at->diffForHumans() }}</span>
@@ -302,7 +301,7 @@ span.exchange_value {
                   <div class="row story-2 stories">
                     <div class="col-8 d-flex align-items-center">
                       <div class="col-4 d-flex align-items-left">
-                        <i class="fas fa-paper-plane fa-2x"></i>
+                        <i class="fas fa-store-alt fa-2x"></i>
                       </div>
                       <div class="col-9 align-items-center">
                         <span>{{ $rcv->created_at->diffForHumans() }}</span>
@@ -338,7 +337,7 @@ span.exchange_value {
                   <div class="row story-2 stories">
                     <div class="col-8 d-flex align-items-center">
                       <div class="col-4 d-flex align-items-left">
-                        <i class="fas fa-paper-plane fa-2x"></i>
+                        <i class="fas fa-list-ul fa-2x"></i>
                       </div>
                       <div class="col-9 align-items-center">
                         <span>{{ $val->created_at->diffForHumans() }}</span>
@@ -380,7 +379,7 @@ span.exchange_value {
                   <div class="row story-2 stories">
                     <div class="col-8 d-flex align-items-center">
                       <div class="col-4 d-flex align-items-left">
-                        <i class="fas fa-paper-plane fa-2x"></i>
+                        <i class="fas fa-credit-card fa-2x"></i>
                       </div>
                       <div class="col-9 align-items-center">
                         <span>{{ $val->created_at->diffForHumans() }}</span>
