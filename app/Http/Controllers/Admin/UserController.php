@@ -23,7 +23,30 @@ use Pusher\Pusher;
 use Carbon\Carbon;
 
 class UserController extends Controller
-{
+{   
+    // Notifications functions start
+
+    public function updated_notification()
+    {
+        $user_id = Auth::user()->id;
+        $withdraw_count = UserWithdraw::where('user_id', $user_id)->where('seen',0)->count();
+        $deposit_count = UserDeposit::where('user_id', $user_id)->where('seen',0)->count();
+        $admin_deposit_count = Deposit::where('send_to', $user_id)->where('seen',0)->count();
+        $user_deposit_count = UserSendMoney::where('receiver_id', $user_id)->where('seen',0)->count();
+        $total = $withdraw_count + $deposit_count + $admin_deposit_count + $user_deposit_count;
+        $all_count = array([
+            'withdraw' => $withdraw_count,
+            'deposit' => $deposit_count,
+            'admin_deposit' => $admin_deposit_count,
+            'user_deposit' => $user_deposit_count,
+            'total' => $total,
+        ]);
+        return $all_count;
+
+    }
+
+    // Notifications functions end
+
     /**
      * Class User
      * @package App\Models\User
@@ -48,8 +71,18 @@ class UserController extends Controller
             ->select('interests.amount as amount', 'interests.created_at as created_at', 'user_banks.bank_name as bank_name', 'user_banks.usdt as usdt', 'user_banks.account_name as account_name', 'user_banks.account_number as account_number')
             ->where('interests.user_id', $user_id)->take(4)->latest()->get();
         $exchange = ExchangeRecord::where('user_id', $user_id)->take(4)->latest()->get();
+
+        $graph = CurrencyRate::all();
+        foreach($graph as $gp){
+            $date[] = $gp['date'];
+            $rate[] = $gp['vnd'];
+        }
+
+        $date_data = json_encode($date);
+        $rate_data = json_encode($rate);
+        // dd($graph, $date_data);
                 
-        return view('welcome', compact('send_data','rcv_data', 'rcv_amount', 'deposit', 'profits', 'withdraw', 'exchange'));
+        return view('welcome', compact('send_data','rcv_data', 'rcv_amount', 'deposit', 'profits', 'withdraw', 'exchange', 'date_data', 'rate_data'));
 
     }
 
@@ -61,15 +94,88 @@ class UserController extends Controller
             $sendAmountDetails = UserSendMoney::where('sender_id', $user_id)->latest()->get();
         }elseif($type == 'rcv'){
             $sendAmountDetails = UserSendMoney::where('receiver_id', $user_id)->latest()->get();
-        }elseif($type == 'admin_rcv')
-        {
+            foreach($sendAmountDetails as $send){
+                if($send['seen'] == 0){
+                    $record = UserSendMoney::find($send['id']);
+                    $record->seen = 1;
+                    $record->save();
+                }
+            }
+            $options = array(
+                'cluster' => 'ap2',
+                'encrypted' => true
+            );
+            $pusher = new Pusher(
+                '57313b8085a7707d1c7e',
+                'a261134581d511f071f4',
+                '1548715',
+                $options
+            );
+        }elseif($type == 'admin_rcv'){
             $sendAmountDetails = Deposit::where('send_to', $user_id)->latest()->get();
+            foreach($sendAmountDetails as $send){
+                if($send['seen'] == 0){
+                    $record = Deposit::find($send['id']);
+                    $record->seen = 1;
+                    $record->save();
+                }
+            }
+            $options = array(
+                'cluster' => 'ap2',
+                'encrypted' => true
+            );
+            $pusher = new Pusher(
+                '57313b8085a7707d1c7e',
+                'a261134581d511f071f4',
+                '1548715',
+                $options
+            );
         }elseif($type == 'deposit'){
             $sendAmountDetails = UserDeposit::where('user_id', $user_id)->latest()->get();
+            foreach($sendAmountDetails as $send){
+                if($send['seen'] == 0){
+                    $record = UserDeposit::find($send['id']);
+                    $record->seen = 1;
+                    $record->save();
+                }
+            }
+            $options = array(
+                'cluster' => 'ap2',
+                'encrypted' => true
+            );
+            $pusher = new Pusher(
+                '57313b8085a7707d1c7e',
+                'a261134581d511f071f4',
+                '1548715',
+                $options
+            );
+            $data = 'new withdraw request aprove';
+            $pusher->trigger('withdraw-request-aprove', 'withdraw-event-aprove', $data);
+            
         }elseif($type == 'status'){
             $sendAmountDetails = UserDeposit::where('user_id', $user_id)->latest()->get();
         }elseif($type == 'withdraw'){
             $sendAmountDetails = UserWithdraw::where('user_id', $user_id)->latest()->get();
+            foreach($sendAmountDetails as $send){
+                if($send['seen'] == 0){
+                    $record = UserWithdraw::find($send['id']);
+                    $record->seen = 1;
+                    $record->save();
+                }
+            }
+            $options = array(
+                'cluster' => 'ap2',
+                'encrypted' => true
+            );
+            $pusher = new Pusher(
+                '57313b8085a7707d1c7e',
+                'a261134581d511f071f4',
+                '1548715',
+                $options
+            );
+            $data = 'new withdraw request aprove';
+            $pusher->trigger('withdraw-request-aprove', 'withdraw-event-aprove', $data);
+
         }elseif($type == 'payment'){
             $sendAmountDetails = UserSendMoney::where('sender_id', $user_id)->latest()->get();
         }elseif ($type == 'profit') {
@@ -347,8 +453,9 @@ class UserController extends Controller
 
     public function withdraw_confirm(Request $request)
     {
-        // dd($request->all());
         $user_id = Auth::user()->id;
+        $userBank = UserBank::where('user_id',$user_id)->first();
+        $user_balance = $userBank['amount'] - $request->amount;
 
         $withdraw = new UserWithdraw();
 
@@ -362,6 +469,23 @@ class UserController extends Controller
         $withdraw->file = $request->file ?? '';
 
         $withdraw->save();
+        
+        $userBank->amount = $user_balance;
+        $userBank->save();
+
+        $options = array(
+            'cluster' => 'ap2',
+            'encrypted' => true
+        );
+        $pusher = new Pusher(
+            '57313b8085a7707d1c7e',
+            'a261134581d511f071f4',
+            '1548715',
+            $options
+        );
+        $data = 'new withdraw request';
+        $pusher->trigger('withdraw-request', 'withdraw-event', $data);
+
         return view('deposit_success');
     }
 
@@ -455,6 +579,19 @@ class UserController extends Controller
         );
         $data = 'new transection request';
         $pusher->trigger('transection-request', 'transection-event', $data);
+
+        $options = array(
+            'cluster' => 'ap2',
+            'encrypted' => true
+        );
+        $pusher = new Pusher(
+            '57313b8085a7707d1c7e',
+            'a261134581d511f071f4',
+            '1548715',
+            $options
+        );
+        $data = 'new withdraw request aprove';
+        $pusher->trigger('withdraw-request-aprove', 'withdraw-event-aprove', $data);
 
         return view('deposit_success');
 
@@ -566,7 +703,7 @@ class UserController extends Controller
 
     public function currency_exchange()
     {
-        $data = CurrencyRate::first();
+        $data = CurrencyRate::latest()->first();
         $bank = UserBank::where('user_id',Auth::user()->id)->first();
         return view('currency', compact('data','bank'));
     }

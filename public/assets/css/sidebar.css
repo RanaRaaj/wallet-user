@@ -61,7 +61,7 @@ button:focus {
 }
 .sidebar-toggle {
   position: absolute;
-  top: 10px;
+  top: 15px;
   /* right: 10px; */
   background: transparent;
   border: none;
@@ -145,6 +145,7 @@ button:focus {
 }
 .top-left {
     padding-left: 0;
+    padding-top: 5px;
 }
 .top-right {
     padding-right: 0;
@@ -212,7 +213,7 @@ header {
 }
 
 .stories:hover {
-  background-color: #1d3676;
+  /* background-color: #1d3676; */
   transition: all 0.3s ease-in-out;
   cursor: pointer;
 }
@@ -290,9 +291,18 @@ header {
       padding-top: 5%;
   }
   .bell-icon {
-      padding-top: 5%;
+      padding-top: 8% !important;
+      position: relative;
+  }
+  span#notify_count {
+      right: -16px;
   }
   
+}
+.bell-icon {
+  padding-top: 2%;
+  position: relative;
+  margin-right: 10px;
 }
 .col-12.d-flex.align-items-center > p {
     text-align: center;
@@ -336,7 +346,6 @@ body {
   right: 20px;
   z-index: 999;
 }
-
 .support-main {
   display: flex;
   justify-content: center;
@@ -348,16 +357,13 @@ body {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
   transition: all 0.3s ease;
 }
-
 .support-main:hover {
   transform: scale(1.0);
   cursor: pointer;
 }
-
 .support-main i {
   color: #fff;
 }
-
 .support-sub {
   display: flex;
   justify-content: center;
@@ -396,14 +402,30 @@ body {
 .support-sub > a > .fa-2x {
   font-size: 1.5em !important;
 }
-
 .support-sub a:hover {
   transform: scale(1.1);
 }
-
 .support-sub i {
   color: #fff;
 }
-
+span#notify_count {
+  position: absolute;
+  top: 0px;
+  background: red;
+  border-radius: 50%;
+  padding: 0px 5px;
+  font-size: 10px;
+  text-align: center;
+}
+header#header {
+  padding-top: 2%;
+}
+i.fas.fa-bars {
+  font-size: 27px;
+  color: hsl(273deg 100% 69%);
+}
+i.fas.fa-bell {
+  font-size: 27px;
+}
 
 /* //customer support fixed icon css end */

@@ -47,7 +47,8 @@
               <img src="{{asset('assets/avatar.jpg')}}" alt="Toggle Sidebar">
             </div> -->
             <div class="col-2 bell-icon">
-              <a href="{{route('payment.page')}}"><i class="fas fa-bell"></i></a>
+              <a style="color:hsl(273deg 100% 69%);" href="{{route('payment.page')}}"><i class="fas fa-bell"></i></a>
+              <span id="notify_count"></span>
             </div>
             <div class="col-2">
               <button class="sidebar-toggle">
@@ -101,7 +102,7 @@
     </header>
 </div>
 @php
-  $links = DB::table('links')->get();
+  $links = DB::table('links')->where('status',1)->get();
 @endphp
 <div class="support-icon">
   <div class="support-main">
@@ -120,10 +121,68 @@
     @endif
   </div>
 </div>
-
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
+$(document).ready(function() {
+  $.ajax({
+    url: "{{ url('updated_notification') }}",
+    type: 'GET',
+    dataType: 'JSON',
+    success: function(data) {
+      console.log(data);
+      $('#notify_count').text(data[0].total);
+      if($('#deposit') && $('#withdraw')){
+        if(data[0].deposit > 0){
+          $('#deposit').text('new : ' + data[0].deposit);
+        }
+        if(data[0].withdraw > 0){
+          $('#withdraw').text('new : ' + data[0].withdraw);
+        }
+        if(data[0].admin_deposit > 0){
+          $('#deposit_admin').text('new : ' + data[0].admin_deposit);
+        }
+        if(data[0].user_deposit > 0){
+          $('#received').text('new : ' + data[0].user_deposit);
+        }
+      }
+    }
+  });
+});
+
+$("#generateForm").hide();
+var pusher = new Pusher('57313b8085a7707d1c7e', {
+    cluster: 'ap2',
+    encrypted: true
+});
+
+var channel = pusher.subscribe('withdraw-request-aprove');
+channel.bind('withdraw-event-aprove', function(data) {
+    $.ajax({
+      url: "{{ url('updated_notification') }}",
+      type: 'GET',
+      dataType: 'JSON',
+      success: function(data) {
+        $('#notify_count').text(data[0].total);
+          if($('#deposit') && $('#withdraw')){
+            if(data[0].deposit > 0){
+              $('#deposit').text('new : ' + data[0].deposit);
+            }
+            if(data[0].withdraw > 0){
+              $('#withdraw').text('new : ' + data[0].withdraw);
+            }
+            if(data[0].admin_deposit > 0){
+              $('#deposit_admin').text('new : ' + data[0].admin_deposit);
+            }
+            if(data[0].user_deposit > 0){
+              $('#received').text('new : ' + data[0].user_deposit);
+            }
+          }
+        }
+    });
+});
+
   $(document).ready(function() {
     $(".sidebar-toggle").click(function() {
       $(".sidebar").toggleClass("open");

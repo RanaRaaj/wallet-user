@@ -43,6 +43,10 @@ body {
     padding: 4%;
     margin: 2% 0%;
 }
+span.new_right {
+    float: right;
+    color: #ff4949;
+}
 </style>
 
   <title>Sended Amount</title>
@@ -56,19 +60,22 @@ body {
         <h2 class="text-center mb-5">Notifications</h2>
           <div class="list-group">
                 <a href="{{route('detail.view',['type' => 'admin_rcv'])}}" class="list-group-item list-group-item-action" id="sendAmountBtn">
-                  <i class="fas fas fa-receipt"></i>&nbsp&nbsp&nbsp Received From System
+                  <i class="fas fas fa-receipt"></i>&nbsp&nbsp&nbsp Received From System <span class="new_right" id="deposit_admin"> <span></span></span>
                 </a>
                 <a href="{{route('detail.view',['type' => 'send'])}}" class="list-group-item list-group-item-action" id="sendAmountBtn">
                   <i class="fas fa-paper-plane"></i>&nbsp&nbsp&nbsp Send Amount
                 </a>
                 <a href="{{route('detail.view',['type' => 'rcv'])}}" class="list-group-item list-group-item-action" id="receiveAmountBtn">
-                  <i class="fas fa-money-bill-alt"></i>&nbsp&nbsp&nbsp Received Amount
+                  <i class="fas fa-money-bill-alt"></i>&nbsp&nbsp&nbsp Received Amount <span class="new_right withdraw" id="received"> <span></span></span>
                 </a>
                 <a href="{{route('detail.view',['type' => 'deposit'])}}" class="list-group-item list-group-item-action" id="sendAmountBtn">
-                  <i class="fas fa-money-bill-alt"></i>&nbsp&nbsp&nbsp Deposit Amount
+                  <i class="fas fa-money-bill-alt"></i>&nbsp&nbsp&nbsp Deposit Amount <span class="new_right" id="deposit"> <span></span></span>
                 </a>
                 <a href="{{route('detail.view',['type' => 'profit'])}}" class="list-group-item list-group-item-action" id="receiveAmountBtn">
                   <i class="fas fa-money-bill-alt"></i>&nbsp&nbsp&nbsp Profit Details
+                </a>
+                <a href="{{route('detail.view',['type' => 'withdraw'])}}" class="list-group-item list-group-item-action" id="receiveAmountBtn">
+                  <i class="fas fa-credit-card"></i>&nbsp&nbsp&nbsp Withdraw Details <span class="new_right withdraw" id="withdraw"> <span></span></span>
                 </a>
             <a href="{{route('welcome')}}" class="btn btn-primary mt-3">Go Back</a>
         </div>

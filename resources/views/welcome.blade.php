@@ -32,6 +32,14 @@ span.exchange_value {
     margin-top: 11%;
     line-height: 19px;
 }
+p#current_rate {
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 13px;
+    color: #606060;
+    font-family: math;
+}
 </style>
 <body>
     <div class="container">
@@ -150,8 +158,9 @@ span.exchange_value {
         </div>
 
         <div class="container-fluid col-md-6">
-          <div class="row news">
+          <div class="row news" style="background-color: hsl(273deg 100% 93%) !important;">
               <!-- <canvas id="myChart"></canvas> -->
+              <p id="current_rate"></p>
               <canvas id="dailyChart"></canvas>
 
           </div>
@@ -433,7 +442,9 @@ span.exchange_value {
 
     </div>
 
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <script type="text/javascript">
+
 // var chartData = {
 //     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
 //     datasets: [{
@@ -578,46 +589,22 @@ span.exchange_value {
 // });
 
 // Daily graph
+var date = {!! $date_data !!};
+var rate = {!! $rate_data !!};
+
+var num = rate[rate.length - 1];
+
+var formattedNum = num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+$('#current_rate').text('Exchange Rate: 1 USDT = '+formattedNum+' VND');
 
 var dailyData = {
-    labels: ['Jan 1', 'Jan 2', 'Jan 3', 'Jan 4', 'Jan 5', 'Jan 6', 'Jan 7', 'Jan 8', 'Jan 9', 'Jan 10', 'Jan 11', 'Jan 12', 'Jan 13', 'Jan 14', 'Jan 15', 'Jan 16', 'Jan 17', 'Jan 18', 'Jan 19', 'Jan 20', 'Jan 21', 'Jan 22', 'Jan 23', 'Jan 24', 'Jan 25', 'Jan 26', 'Jan 27', 'Jan 28', 'Jan 29', 'Jan 30', 'Jan 31'],
+    labels : date,
     datasets: [{
         label: 'Exchange Rate',
-        data: [
-            23175.00,
-            23150.00,
-            23180.00,
-            23200.00,
-            23190.00,
-            23160.00,
-            23170.00,
-            23155.00,
-            23145.00,
-            23120.00,
-            23130.00,
-            23140.00,
-            23135.00,
-            23150.00,
-            23170.00,
-            23180.00,
-            23190.00,
-            23195.00,
-            23200.00,
-            23190.00,
-            23180.00,
-            23175.00,
-            23160.00,
-            23155.00,
-            23150.00,
-            23140.00,
-            23135.00,
-            23150.00,
-            23170.00,
-            23190.00,
-            23185.00
-        ],
+        data: rate,
         backgroundColor: 'rgba(255, 99, 132, 0.2)',
-        borderColor: 'white',
+        borderColor: 'hsl(273deg 77% 55%)',
         borderWidth: 1
     }]
 };
@@ -645,8 +632,6 @@ var dailyChart = new Chart(document.getElementById('dailyChart'), {
     data: dailyData,
     options: dailyOptions
 });
-
-
 
 </script>
 

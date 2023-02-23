@@ -84,6 +84,9 @@ Route::middleware('auth')->group(function () {
 
 	Route::get('settings/profile', [DashboardController::class, 'profileIndex'])->name('admin.settings.profile');
 	Route::post('profile/update', [DashboardController::class, 'updateProfile'])->name('admin.update.profile');
+
+	//notifications Routes
+	Route::get('updated_notification', [UserController::class, 'updated_notification']);
 });
 
 // Sign Up

@@ -66,7 +66,7 @@
                   <small>{{ $sendAmountDetail->created_at->diffForHumans() }}</small>
                 </div>
                 <p class="mb-1">{{ $sendAmountDetail->content }}</p>
-                <small>Amount: {{number_format($sendAmountDetail->amount, 3, '.', ',')}} {{$sendAmountDetail->type}}</small>
+                <small>Amount: {{number_format($sendAmountDetail->amount, 2, '.', ',')}} {{$sendAmountDetail->type}}</small>
               </a>
               <!-- Modal -->
                 <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -81,7 +81,7 @@
                       <div class="modal-body">
                         <p><strong>Send To:</strong> {{ $sendAmountDetail->receiver_name }}</p>
                         <p><strong>Content:</strong> {{ $sendAmountDetail->content }}</p>
-                        <p style="text-transform: uppercase;"><strong>Amount:</strong> {{number_format($sendAmountDetail->amount, 3, '.', ',')}} {{$sendAmountDetail->type}}</p>
+                        <p style="text-transform: uppercase;"><strong>Amount:</strong> {{number_format($sendAmountDetail->amount, 2, '.', ',')}} {{$sendAmountDetail->type}}</p>
                         <p><strong>Time:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
                         <p><strong>From Bank Name:</strong> {{ $sendAmountDetail->sender_bank_name }}</p>
                         <p><strong>From Bank Number:</strong> {{ $sendAmountDetail->sender_bank_number }}</p>
@@ -117,7 +117,7 @@
                   <small>{{ $sendAmountDetail->created_at->diffForHumans() }}</small>
                 </div>
                 <p class="mb-1">{{ $sendAmountDetail->content }}</p>
-                <small>Amount: {{ $sendAmountDetail->amount }}</small>
+                <small>Amount: {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</small>
               </a>
               <!-- Modal -->
                 <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -132,7 +132,7 @@
                       <div class="modal-body">
                         <p><strong>Sender Name:</strong> {{ $sendAmountDetail->sender_name }}</p>
                         <p><strong>Content:</strong> {{ $sendAmountDetail->content }}</p>
-                        <p><strong>Amount:</strong> {{ $sendAmountDetail->amount }}</p>
+                        <p><strong>Amount:</strong> {{number_format($sendAmountDetail->amount, 2, '.', ',')}}</p>
                         <p><strong>Time:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
                       </div>
                       <div class="modal-footer">
@@ -180,7 +180,7 @@
                       <div class="modal-body">
                         <p><strong>Exchange Rate:</strong> {{number_format($sendAmountDetail->exchange_rate, 2, '.', ',')}}</p>
                         <!-- <p><strong>Content:</strong> {{ $sendAmountDetail->content }}</p> -->
-                        <p><strong>Amount:</strong> {{number_format($amount[0]->first, 3, '.', ',')}} @if($sendAmountDetail->type == 'vnd') VND @else USDT @endif To {{number_format($amount[0]->second, 2, '.', ',')}} @if($sendAmountDetail->type == 'vnd') USDT @else VND @endif</p>
+                        <p><strong>Amount:</strong> {{number_format($amount[0]->first, 2, '.', ',')}} @if($sendAmountDetail->type == 'vnd') VND @else USDT @endif To {{number_format($amount[0]->second, 2, '.', ',')}} @if($sendAmountDetail->type == 'vnd') USDT @else VND @endif</p>
                         <p><strong>Time:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
                       </div>
                       <div class="modal-footer">
@@ -212,7 +212,7 @@
                   <small>{{ $sendAmountDetail->created_at->diffForHumans() }}</small>
                 </div>
                 <p class="mb-1">{{ $sendAmountDetail->content ?? '' }}</p>
-                <small>Amount: {{ $sendAmountDetail->amount }}</small>
+                <small>Amount: {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</small>
               </a>
               <!-- Modal -->
                 <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -227,7 +227,7 @@
                       <div class="modal-body">
                         <p><strong>Sender :</strong> Admin</p>
                         <p><strong>Content:</strong> {{ $sendAmountDetail->content }}</p>
-                        <p><strong>Amount:</strong> {{ $sendAmountDetail->amount }}</p>
+                        <p><strong>Amount:</strong> {{number_format($sendAmountDetail->amount, 2, '.', ',')}}</p>
                         <p><strong>Time:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
                       </div>
                       <div class="modal-footer">
@@ -259,7 +259,7 @@
                   <small>{{ $sendAmountDetail->created_at->diffForHumans() }}</small>
                 </div>
                 <!-- <p class="mb-1">{{ $sendAmountDetail->content ?? '' }}</p> -->
-                <small>Amount: {{ $sendAmountDetail->amount }}</small>
+                <small>Amount: {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</small>
               </a>
               <!-- Modal -->
                 <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -275,7 +275,7 @@
                         <p><strong>Bank Name :</strong> {{ $sendAmountDetail->bank_name }}</p>
                         <p><strong>Bank Account Name:</strong> {{ $sendAmountDetail->account_name }}</p>
                         <p><strong>Bank Account Number:</strong> {{ $sendAmountDetail->account_number }}</p>
-                        <p><strong>Added Amount:</strong> {{ $sendAmountDetail->amount }}</p>
+                        <p><strong>Added Amount:</strong> {{number_format($sendAmountDetail->amount, 2, '.', ',')}}</p>
                         <p><strong>Time:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
                       </div>
                       <div class="modal-footer">
@@ -314,7 +314,7 @@
                   <small>{{ $sendAmountDetail->created_at->diffForHumans() }}</small>
                 </div>
                 <p class="mb-1">{{ $sendAmountDetail->content ?? '' }}</p>
-                <small>Amount: {{ $sendAmountDetail->amount }}</small>
+                <small>Amount: {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</small>
               </a>
               <!-- Modal -->
                 <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -337,12 +337,13 @@
                           @endif
                         </p>
                         <p><strong>Content:</strong> {{ $sendAmountDetail->content }}</p>
-                        <p><strong>Amount:</strong> {{ $sendAmountDetail->amount }}</p>
+                        <p><strong>Amount:</strong> {{number_format($sendAmountDetail->amount, 2, '.', ',')}}</p>
                         <p><strong>Time:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
                         <p><strong>Bank Name:</strong> {{ $sendAmountDetail->bank_name }}</p>
                         <p><strong>Account Name:</strong> {{ $sendAmountDetail->account_name }}</p>
                         <p><strong>Account Number:</strong> {{ $sendAmountDetail->account_number }}</p>
                         <p><strong>Approved Time:</strong> {{ $sendAmountDetail->approval_time }}</p>
+                        <p><strong>Reason:</strong> {{ $sendAmountDetail->reason }}</p>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -380,7 +381,7 @@
                   <small>{{ $sendAmountDetail->created_at->diffForHumans() }}</small>
                 </div>
                 <p class="mb-1">{{ $sendAmountDetail->content ?? '' }}</p>
-                <small>Amount: {{ $sendAmountDetail->amount }}</small>
+                <small>Amount: {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</small>
               </a>
               <!-- Modal -->
                 <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -403,7 +404,7 @@
                           @endif
                         </p>
                         <p><strong>Content:</strong> {{ $sendAmountDetail->content }}</p>
-                        <p><strong>Amount:</strong> {{ $sendAmountDetail->amount }}</p>
+                        <p><strong>Amount:</strong> {{number_format($sendAmountDetail->amount, 2, '.', ',')}}</p>
                         <p><strong>Time:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
                         <p><strong>Bank Name:</strong> {{ $sendAmountDetail->bank_name }}</p>
                         <p><strong>Account Name:</strong> {{ $sendAmountDetail->account_name }}</p>
@@ -446,7 +447,7 @@
                   <small>{{ $sendAmountDetail->created_at->diffForHumans() }}</small>
                 </div>
                 <p class="mb-1">{{ $sendAmountDetail->content ?? '' }}</p>
-                <small>Amount: {{ $sendAmountDetail->amount }}</small>
+                <small>Amount: {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</small>
               </a>
               <!-- Modal -->
                 <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -469,7 +470,7 @@
                           @endif
                         </p>
                         <p><strong>Content:</strong> {{ $sendAmountDetail->content }}</p>
-                        <p><strong>Amount:</strong> {{ $sendAmountDetail->amount }}</p>
+                        <p><strong>Amount:</strong> {{number_format($sendAmountDetail->amount, 2, '.', ',')}}</p>
                         <p><strong>Time:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
                         <p><strong>Bank Name:</strong> {{ $sendAmountDetail->bank_name }}</p>
                         <p><strong>Account Name:</strong> {{ $sendAmountDetail->account_name }}</p>
@@ -505,7 +506,7 @@
                   <small>{{ $sendAmountDetail->created_at->diffForHumans() }}</small>
                 </div>
                 <p class="mb-1">{{ $sendAmountDetail->content }}</p>
-                <small>Amount: {{number_format($sendAmountDetail->amount, 3, '.', ',')}}</small>
+                <small>Amount: {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</small>
               </a>
               <!-- Modal -->
                 <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -520,7 +521,7 @@
                       <div class="modal-body">
                         <p><strong>Send To:</strong> {{ $sendAmountDetail->receiver_name }}</p>
                         <p><strong>Content:</strong> {{ $sendAmountDetail->content }}</p>
-                        <p><strong>Amount:</strong> {{ $sendAmountDetail->amount }}</p>
+                        <p><strong>Amount:</strong> {{number_format($sendAmountDetail->amount, 2, '.', ',')}}</p>
                         <p><strong>Time:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
                       </div>
                       <div class="modal-footer">
