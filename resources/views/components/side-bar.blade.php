@@ -29,6 +29,9 @@
   .list-group-item > a {
     color: #fff !important;
   }
+  .support-sub > a > img {
+    width: 100%;
+  }
 </style>
 <div>
     <!-- Very little is needed to make a happy life. - Marcus Aurelius -->
@@ -97,7 +100,9 @@
       </div>
     </header>
 </div>
-
+@php
+  $links = DB::table('links')->get();
+@endphp
 <div class="support-icon">
   <div class="support-main">
     <a href="#">
@@ -105,18 +110,14 @@
     </a>
   </div>
   <div class="support-sub">
-    <a href="#">
-      <i class="fas fa-envelope fa-2x"></i>
-    </a>
-    <a href="#">
-      <i class="fas fa-phone fa-2x"></i>
-    </a>
-    <a href="#">
-      <i class="fas fa-comments fa-2x"></i>
-    </a>
-    <a href="#">
-      <i class="fas fa-comments fa-2x"></i>
-    </a>
+    @if($links)
+    @foreach($links as $link)
+      <a href="{{$link->link}}" target="_blank">
+        <img src="{{$link->icon}}">
+        <!-- <i class="fas fa-envelope fa-2x"></i> -->
+      </a>
+      @endforeach
+    @endif
   </div>
 </div>
 

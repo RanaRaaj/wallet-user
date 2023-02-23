@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 .justify-content-right > span {
     color: #fff !important;
@@ -132,7 +133,28 @@ span.exchange_value {
           </div>
         </main>
       <div class="row">
+        <!-- <select id="currency-select-1" onchange="updateChart()">
+          <option value="usdt">USDT</option>
+          <option value="vnd">VND</option>
+          <option value="usd" selected>USD</option>
+        </select>
+        <select id="currency-select-2" onchange="updateChart()">
+          <option value="usdt" selected>USDT</option>
+          <option value="vnd">VND</option>
+          <option value="usd">USD</option>
+        </select>
+        <canvas id="myChart"></canvas> -->
+
+
         <div class="container-fluid transaction">            
+        </div>
+
+        <div class="container-fluid col-md-6">
+          <div class="row news">
+              <!-- <canvas id="myChart"></canvas> -->
+              <canvas id="dailyChart"></canvas>
+
+          </div>
         </div>
 
         <div class="container-fluid col-md-6">
@@ -410,5 +432,222 @@ span.exchange_value {
       </div>
 
     </div>
+
+<script type="text/javascript">
+// var chartData = {
+//     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+//     datasets: [{
+//         label: 'Exchange Rate',
+//         data: [
+//             {x: 0, y: 23175/1.0001},
+//             {x: 1, y: 23150/1.0002},
+//             {x: 2, y: 23180/1.0005},
+//             {x: 3, y: 23200/1.0008},
+//             {x: 4, y: 23220/1.0012},
+//             {x: 5, y: 23250/1.0015},
+//         ],
+//         borderColor: 'blue',
+//         backgroundColor: 'rgba(0, 0, 255, 0.2)',
+//         borderWidth: 1,
+//     }]
+// };
+
+// var ctx = document.getElementById('myChart').getContext('2d');
+// var myChart = new Chart(ctx, {
+//     type: 'line',
+//     data: chartData,
+//     options: {
+//         scales: {
+//             yAxes: [{
+//                 ticks: {
+//                     beginAtZero: false,
+//                     callback: function(value, index, values) {
+//                         if (value >= 1000) {
+//                             return '$' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+//                         } else {
+//                             return '$' + value.toFixed(4);
+//                         }
+//                     }
+//                 }
+//             }]
+//         },
+//         tooltips: {
+//             callbacks: {
+//                 label: function(tooltipItem, data) {
+//                     var datasetLabel = data.datasets[tooltipItem.datasetIndex].label || '';
+//                     var value = tooltipItem.yLabel.toFixed(4);
+//                     if (value >= 1000) {
+//                         value = '$' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+//                     } else {
+//                         value = '$' + value;
+//                     }
+//                     return datasetLabel + ': ' + value;
+//                 }
+//             }
+//         }
+//     }
+// });
+
+// function updateChart() {
+//     var select1 = document.getElementById("currency-select-1");
+//     var value1 = select1.options[select1.selectedIndex].value;
+//     var select2 = document.getElementById("currency-select-2");
+//     var value2 = select2.options[select2.selectedIndex].value;
+//     var chartDataset = myChart.data.datasets[0];
+//     chartDataset.label = value1.toUpperCase() + ' to ' + value2.toUpperCase() + ' Exchange Rate';
+//     chartDataset.data = [
+//         {x: 0, y: getExchangeRate(value1, value2, '2022-01-01')},
+//         {x: 1, y: getExchangeRate(value1, value2, '2022-02-01')},
+//         {x: 2, y: getExchangeRate(value1, value2, '2022-03-01')},
+//         {x: 3, y: getExchangeRate(value1, value2, '2022-04-01')},
+//         {x: 4, y: getExchangeRate(value1, value2, '2022-05-01')},
+//         {x: 5, y: getExchangeRate(value1, value2, '2022-06-01')},
+//         ];
+//         myChart.update();
+//       }
+
+//   function getExchangeRate(fromCurrency, toCurrency, date) {
+//   var exchangeRates = {
+//   usdt: {vnd: 23175.00, usd: 1.0001},
+//   vnd: {usdt: 0.000043, usd: 0.000042},
+//   usd: {vnd: 23150.00, usdt: 1.0002},
+//   };
+//   return exchangeRates[fromCurrency][toCurrency];
+// }
+
+//while graph
+
+// var chartData = {
+//     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+//     datasets: [{
+//         label: 'Exchange Rate',
+//         data: [
+//             {x: 0, y: 23175.00},
+//             {x: 1, y: 23150.00},
+//             {x: 2, y: 23180.00},
+//             {x: 3, y: 23200.00},
+//             {x: 4, y: 23220.00},
+//             {x: 5, y: 23250.00},
+//         ],
+//         borderColor: 'white',
+//         backgroundColor: 'rgba(255, 255, 255, 0.2)',
+//         borderWidth: 1,
+//     }]
+// };
+
+// var ctx = document.getElementById('myChart').getContext('2d');
+// var myChart = new Chart(ctx, {
+//     type: 'line',
+//     data: chartData,
+//     options: {
+//         scales: {
+//             xAxes: [{
+//                 ticks: {
+//                     fontColor: 'white'
+//                 }
+//             }],
+//             yAxes: [{
+//                 ticks: {
+//                     fontColor: 'white',
+//                     beginAtZero: false,
+//                     callback: function(value, index, values) {
+//                         return value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+//                     }
+//                 }
+//             }]
+//         },
+//         legend: {
+//             labels: {
+//                 fontColor: 'lightgray'
+//             }
+//         },
+//         tooltips: {
+//             callbacks: {
+//                 label: function(tooltipItem, data) {
+//                     var datasetLabel = data.datasets[tooltipItem.datasetIndex].label || '';
+//                     var value = tooltipItem.yLabel.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+//                     return datasetLabel + ': ' + value;
+//                 }
+//             },
+//             backgroundColor: 'white',
+//             titleFontColor: 'black',
+//             bodyFontColor: 'black',
+//             displayColors: false
+//         }
+//     }
+// });
+
+// Daily graph
+
+var dailyData = {
+    labels: ['Jan 1', 'Jan 2', 'Jan 3', 'Jan 4', 'Jan 5', 'Jan 6', 'Jan 7', 'Jan 8', 'Jan 9', 'Jan 10', 'Jan 11', 'Jan 12', 'Jan 13', 'Jan 14', 'Jan 15', 'Jan 16', 'Jan 17', 'Jan 18', 'Jan 19', 'Jan 20', 'Jan 21', 'Jan 22', 'Jan 23', 'Jan 24', 'Jan 25', 'Jan 26', 'Jan 27', 'Jan 28', 'Jan 29', 'Jan 30', 'Jan 31'],
+    datasets: [{
+        label: 'Exchange Rate',
+        data: [
+            23175.00,
+            23150.00,
+            23180.00,
+            23200.00,
+            23190.00,
+            23160.00,
+            23170.00,
+            23155.00,
+            23145.00,
+            23120.00,
+            23130.00,
+            23140.00,
+            23135.00,
+            23150.00,
+            23170.00,
+            23180.00,
+            23190.00,
+            23195.00,
+            23200.00,
+            23190.00,
+            23180.00,
+            23175.00,
+            23160.00,
+            23155.00,
+            23150.00,
+            23140.00,
+            23135.00,
+            23150.00,
+            23170.00,
+            23190.00,
+            23185.00
+        ],
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderColor: 'white',
+        borderWidth: 1
+    }]
+};
+
+var dailyOptions = {
+    scales: {
+        yAxes: [{
+            ticks: {
+                beginAtZero: false
+            },
+            gridLines: {
+                display: true
+            }
+        }],
+        xAxes: [{
+            gridLines: {
+                display: false
+            }
+        }]
+    }
+};
+
+var dailyChart = new Chart(document.getElementById('dailyChart'), {
+    type: 'line',
+    data: dailyData,
+    options: dailyOptions
+});
+
+
+
+</script>
 
 </body>
