@@ -58,7 +58,7 @@
                                                             <option value="">Select You Bank</option>
                                                             @if(isset($panel_bank[0]))
                                                                 @foreach($panel_bank as $bank_name)
-                                                                    <option value="{{$bank_name->name}}" @if($bank->bank_name == $bank_name->name) selected @endif>{{$bank_name->name}}</option>
+                                                                    <option value="{{$bank_name->name ?? ''}}" @if(isset($bank->bank_name)) @if($bank->bank_name == $bank_name->name) selected @endif @endif>{{$bank_name->name ?? ''}}</option>
                                                                 @endforeach
                                                             @endif
                                                         </select>

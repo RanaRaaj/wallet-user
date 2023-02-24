@@ -71,7 +71,7 @@ ul.d-inline-block.mb-0 {
                                                             <input type="text" value="{{$amount}}" hidden=""> VND
                                                         </li>
                                                         <li class="my2">
-                                                            Content : <b class="text-dan fs-6" >{{$content}}</b>
+                                                            Content : <b class="text-dan fs-6" >{{$active_bank->content}}</b>
                                                             <input type="text" name="content" value="{{$content}}" hidden="">
                                                         </li>
                                                     </ul>

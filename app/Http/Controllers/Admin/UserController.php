@@ -667,7 +667,10 @@ class UserController extends Controller
     public function profile_view()
     {
         $user = Auth::user();
-        return view('profile', compact('user'));
+        $profits = Interest::leftJoin('user_banks','interests.user_id','=','user_banks.user_id')
+            ->select('interests.amount as amount', 'interests.created_at as created_at', 'user_banks.bank_name as bank_name', 'user_banks.usdt as usdt', 'user_banks.account_name as account_name', 'user_banks.account_number as account_number')
+            ->where('interests.user_id', $user->id)->take(4)->latest()->get();
+        return view('profile', compact('user','profits'));
     }
 
     public function profile_update(Request $request)

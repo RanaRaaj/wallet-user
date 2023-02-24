@@ -28,8 +28,57 @@
     <div class="container">
       <x-side-bar />
         <main class="container-fluid">
+        <div class="row mt-3">
+            <div class="col-12 bg-primary text-white d-flex align-items-center justify-content-center banner" style="border-radius: 20px;">
+                @php
+                    $user_id = Auth::user()->id;
+                    $bank_detail = DB::table('user_banks')->where('user_id', $user_id)->first();
+                    $balance = $bank_detail->amount ?? 0;
+                @endphp
+                <div class="row" style="width: 100%;">
+                  @if(isset($bank_detail->account_name))
+                    <div class="col-12 top-banner">
+                      <span>{{$bank_detail->account_name ?? ''}}</span>
+                    </div>
+
+                    <div class="col-12 mid-banner">
+                      <p class="m-0">{{$bank_detail->account_number ?? ''}}</p>
+                    </div>
+                    
+                    <div class="bottom-banner row">
+                      <div class="col-6">
+                        <span>{{$bank_detail->bank_name ?? ''}}</span>
+                      </div>
+                      <div class="col-6" style="text-align: right;">
+                        <span class="usdt_data">@if($profits[0]->usdt != '') {{$profits[0]->usdt}} @else 00 @endif USDT</span><br>
+                        <span class="m-0">{{number_format($balance ?? 'not connected')}} VND</span>
+                      </div>
+                    </div>
+                  @else
+                    <div class="col-12 top-banner">
+                      <span>....</span>
+                    </div>
+
+                    <div class="col-12 mid-banner">
+                      <p class="m-0">0000000000000</p>
+                    </div>
+                    
+                    <div class="bottom-banner row">
+                      <div class="col-6">
+                        <span>....</span>
+                      </div>
+                      <div class="col-6" style="text-align: right;">
+                        <span class="usdt_data">00 USDT</span><br>
+                        <span class="m-0">00 VND</span>
+                      </div>
+                    </div>
+                  @endif
+
+                </div>
+            </div>
+          </div>
         <div class="row">
-                <div class="col-12">
+                <div class="col-12" style="padding-right:0px;padding-left:0px;">
                     <div class="card news">
                         <div class="card-content collapse show">
                             <div class="card-body card-dashboard">
@@ -37,7 +86,7 @@
                                     <div class="col-xl-8 col-md-8 col-sm-12">
                                         <div class="card-block">
                                             <div class="card-body">
-                                                <h2>Bank Detail</h2>
+                                                <h2>Setting Profile</h2>
                                                 <form id="deposit_form" action="{{route('profile.update')}}" method="post"
                                                       enctype="multipart/form-data">
                                                     @csrf
@@ -78,7 +127,7 @@
                                                     </fieldset>
                                                     <fieldset class="form-group">
                                                         <label for="" class="label_edit">@if(Session::get('language') == 'vie')Tên người dùng @else New Password @endif</label>
-                                                        <input type="password" name="password" value="{{$user->password ?? ''}}" class="form-control"
+                                                        <input type="password" name="password" value="" class="form-control"
                                                                id="basicInput" require>
                                                         @if($errors->has('password'))
                                                             <div class="error"

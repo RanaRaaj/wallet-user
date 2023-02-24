@@ -54,24 +54,43 @@ p#current_rate {
                     $balance = $bank_detail->amount ?? 0;
                 @endphp
                 <div class="row" style="width: 100%;">
-
-                  <div class="col-12 top-banner">
-                    <span>{{$bank_detail->account_name ?? ''}}</span>
-                  </div>
-
-                  <div class="col-12 mid-banner">
-                    <p class="m-0">{{$bank_detail->account_number ?? ''}}</p>
-                  </div>
-                  
-                  <div class="bottom-banner row">
-                    <div class="col-6">
-                      <span>{{$bank_detail->bank_name ?? ''}}</span>
+                  @if(isset($bank_detail->account_name))
+                    <div class="col-12 top-banner">
+                      <span>{{$bank_detail->account_name ?? ''}}</span>
                     </div>
-                    <div class="col-6" style="text-align: right;">
-                      <span class="usdt_data">@if($profits[0]->usdt != '') {{$profits[0]->usdt}} @else 00 @endif USDT</span><br>
-                      <span class="m-0">{{number_format($balance ?? 'not connected')}} VND</span>
+
+                    <div class="col-12 mid-banner">
+                      <p class="m-0">{{$bank_detail->account_number ?? ''}}</p>
                     </div>
-                  </div>
+                    
+                    <div class="bottom-banner row">
+                      <div class="col-6">
+                        <span>{{$bank_detail->bank_name ?? ''}}</span>
+                      </div>
+                      <div class="col-6" style="text-align: right;">
+                        <span class="usdt_data">@if($profits[0]->usdt != '') {{number_format($profits[0]->usdt, 2, '.', ',')}} @else 00 @endif USDT</span><br>
+                        <span class="m-0">{{number_format($balance ?? 'not connected')}} VND</span>
+                      </div>
+                    </div>
+                  @else
+                    <div class="col-12 top-banner">
+                      <span>....</span>
+                    </div>
+
+                    <div class="col-12 mid-banner">
+                      <p class="m-0">0000000000000</p>
+                    </div>
+                    
+                    <div class="bottom-banner row">
+                      <div class="col-6">
+                        <span>....</span>
+                      </div>
+                      <div class="col-6" style="text-align: right;">
+                        <span class="usdt_data">00 USDT</span><br>
+                        <span class="m-0">00 VND</span>
+                      </div>
+                    </div>
+                  @endif
 
                 </div>
             </div>
@@ -229,9 +248,9 @@ p#current_rate {
                       @php
                         $amount = json_decode($exc->exchange);
                       @endphp
-                      <span class="exchange_value">{{number_format($amount[0]->first, 3, '.', ',')}} @if($exc->type == 'vnd') VND @else USDT @endif<br>
+                      <span class="exchange_value">{{number_format($amount[0]->first, 2, '.', ',')}} @if($exc->type == 'vnd') VND @else USDT @endif<br>
                       <span>To</span><br>
-                      <span>{{number_format($amount[0]->second, 3, '.', ',')}} @if($exc->type == 'vnd') USDT @else VND @endif</span></span>
+                      <span>{{number_format($amount[0]->second, 2, '.', ',')}} @if($exc->type == 'vnd') USDT @else VND @endif</span></span>
                     </div>
                   </div>
                 @endforeach
@@ -267,7 +286,7 @@ p#current_rate {
                       </div>
                     </div>
                     <div class="col-4 d-flex justify-content-right">
-                      <span style="text-transform: uppercase;">{{number_format($send->amount, 3, '.', ',')}} {{$send->type}}</span>
+                      <span style="text-transform: uppercase;">{{number_format($send->amount, 2, '.', ',')}} {{$send->type}}</span>
                     </div>
                   </div>
                 @endforeach

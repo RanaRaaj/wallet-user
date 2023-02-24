@@ -79,7 +79,7 @@ Route::middleware('auth')->group(function () {
 	Route::view('barcode', 'barcode');
 
 	// Auth Routes
-	Route::post('admin_register',[AuthController::class,'register'])->name('admin.register');
+	
 	Route::get('admin/dashboard', [DashboardController::class, 'adminDashboard'])->name('admin.dashboard');
 
 	Route::get('settings/profile', [DashboardController::class, 'profileIndex'])->name('admin.settings.profile');
@@ -91,7 +91,7 @@ Route::middleware('auth')->group(function () {
 
 // Sign Up
 Route::get('admin-signup', [AuthController::class, 'admin_signup'])->name('admin.signup');
-
+Route::post('admin_register',[AuthController::class,'register'])->name('admin.register');
 Route::get('/logout' , function (){
     \Illuminate\Support\Facades\Auth::logout();
     return view('login');

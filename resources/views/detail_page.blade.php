@@ -476,6 +476,7 @@
                         <p><strong>Account Name:</strong> {{ $sendAmountDetail->account_name }}</p>
                         <p><strong>Account Number:</strong> {{ $sendAmountDetail->account_number }}</p>
                         <p><strong>Approved Time:</strong> {{ $sendAmountDetail->approval_time }}</p>
+                        <p><strong>Reason:</strong> {{ $sendAmountDetail->reason }}</p>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

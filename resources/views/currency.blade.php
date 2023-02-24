@@ -50,9 +50,10 @@ fieldset.form-group > label  > span{
                                                       enctype="multipart/form-data">
                                                     @csrf
                                                     <input type="hidden" name="exchange_rate" value="{{$data['vnd']}}">
+                                                    @if(isset($bank['amount']))
                                                     <fieldset class="form-group">
                                                       <label for="" class="label_edit" id="vnd_field">VND <span>balance : {{number_format($bank['amount'])}} VND</span></label>
-                                                      <input type="number" name="vnd" class="form-control" max="{{$bank['amount']}}" id="currency1" value="" min="0" step="0.000001" required>
+                                                      <input type="number" name="vnd" class="form-control" max="{{$bank['amount']}}" id="currency1" value="" min="250" step="0.000001" required>
                                                       <span id="username-check-result">Exchange Rate: {{$data['usdt']}} USDT = {{number_format($data['vnd'])}} VND</span>
                                                       @if($errors->has('usdt'))
                                                         <div class="error" style="color:red">{{$errors->first('usdt')}}</div>
@@ -70,6 +71,7 @@ fieldset.form-group > label  > span{
                                                         <div class="error" style="color:red">{{$errors->first('vnd')}}</div>
                                                       @endif
                                                     </fieldset>
+                                                    @endif
 
                                                     <div class="row justify-content-center m-2"
                                                          style="border-top: 1px solid black">
