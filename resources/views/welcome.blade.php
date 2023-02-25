@@ -4,14 +4,14 @@
 <style>
 .justify-content-right > span {
     color: #fff !important;
-    font-size: 12px !important;
+    font-size: 10px !important;
 }
 .col-9.align-items-center > span {
     font-size: 10px;
     font-weight: 500;
 }
 .col-9.align-items-center p {
-    font-size: 14px;
+    font-size: 11px;
     font-weight: 700;
 }
 .container-fluid.col-md-6 {
@@ -39,6 +39,30 @@ p#current_rate {
     font-size: 13px;
     color: #606060;
     font-family: math;
+}
+.stories > .justify-content-right {
+    padding-top: 3%;
+}
+.stories > .align-items-center, .align-items-center > .align-items-center , .stories > .justify-content-right {
+  padding: 0 !important;
+}
+.align-items-center > .align-items-left {
+  padding-right: 0;
+}
+.justify-content-right > a {
+  padding-right: 15px !important;
+}
+hr {
+    margin-top: 0rem !important;
+}
+.news-title {
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: #ebe894;
+  text-transform: capitalize;
+}
+.align-items-center.justify-content-center > a > img {
+    width: 77%;
 }
 </style>
 <body>
@@ -130,7 +154,7 @@ p#current_rate {
           <div class="row mt-3 links">
 
               <div class="col-3 align-items-center justify-content-center">
-                <a href="{{route('payment.page')}}">
+                <a href="{{route('payment.page', ['variable' => 'Payment'])}}">
                   <i class="fas fa-money-check fa-2x"></i>
                   <p class="mt-2">Payment</p>
                 </a>
@@ -152,6 +176,7 @@ p#current_rate {
 
               <div class="col-3 align-items-center justify-content-center">
                 <a href="{{route('currency.exchange')}}">
+                  <!-- <img src="{{asset('assets/usdt.jpg')}}" alt=""> -->
                   <i class="fas fa-money-bill-alt fa-2x"></i>
                   <p class="mt-2">Buy/Sell USDT</p>
                 </a>
@@ -188,6 +213,68 @@ p#current_rate {
         <div class="container-fluid col-md-6">
           <div class="row news">
               <div class="col-8 d-flex align-items-center">
+                <p><b>New's</b></p>
+              </div>
+              <div class="col-4 d-flex justify-content-right">
+                <a href="{{route('detail.view',['type' => 'news'])}}"><span>See All</span></a>
+              </div>
+              <div class="col-12"><hr></div>
+              @if(isset($news[0]))
+                @foreach($news as $new)
+                  <a href="#" class="col-12" style="padding: 0 !important;text-decoration:none;" data-toggle="modal" data-target="#modal{{ $loop->index }}">
+                    <div class="row story-2 stories">
+                      <div class="col-9 d-flex align-items-center">
+                        <div class="col-5 d-flex align-items-left">
+                          <img style="width: 80px;" src="{{$new['image']}}" alt="">
+                        </div>
+                        <div class="col-9 align-items-center" style="color: #fff !important;">
+                          <span class="news-title">{{ substr($new['title'], 0, 35) }}...</span>
+                          <p>{{ substr($new['short_description'], 0, 70) }}...</p>
+                        </div>
+                      </div>
+                      <div class="col-3 d-flex justify-content-right">
+                        <br><br>
+                        <span>{{ $new->created_at->diffForHumans() }}</span>
+                      </div>
+                    </div>
+                  </a>
+                  <!-- Modal -->
+                <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content news" style="background:#fff;color:#000;">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Send Amount Detail</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <p><strong>Title:</strong> {{ $new->title }}</p>
+                        <img style="width: 100%;" src="{{$new['image']}}" alt="">
+                        <p><strong>Publish Time: <br> </strong> {{ $new->created_at->diffForHumans() }} <br> {{ date('d/m/Y H:i:s', strtotime($new->created_at . ' +7 hours')) }}</p>
+                        <p><strong> <br> </strong> {!! $new->short_description !!}</p>
+                        <p><strong> </strong> {!! $new->full_description !!}</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                @endforeach
+              @else
+                <div class="row story-2 stories">
+                  <div class="col-12 d-flex align-items-center">
+                    <p>No Record Found...</p>
+                  </div>
+                </div>
+              @endif
+          </div>
+        </div>
+
+        <div class="container-fluid col-md-6">
+          <div class="row news">
+              <div class="col-8 d-flex align-items-center">
                 <p><b>Profits</b></p>
               </div>
               <div class="col-4 d-flex justify-content-right">
@@ -203,12 +290,12 @@ p#current_rate {
                       </div>
                       <div class="col-9 align-items-center">
                         <span>{{ $profit->created_at->diffForHumans() }}</span>
-                        <p>Bank Name: {{$profit->bank_name}}</p>
+                        <p>Overnight interest profit for the day: {{ date('d/m/Y H:i:s', strtotime($profit->created_at . ' +7 hours')) }}</p>
                       </div>
                     </div>
                     <div class="col-4 d-flex justify-content-right">
                       <br><br>
-                      <span>{{number_format($profit->amount, 2, '.', ',')}} VND</span>
+                      <span>+{{number_format($profit->amount, 2, '.', ',')}} VND</span>
                     </div>
                   </div>
                 @endforeach
@@ -248,9 +335,9 @@ p#current_rate {
                       @php
                         $amount = json_decode($exc->exchange);
                       @endphp
-                      <span class="exchange_value">{{number_format($amount[0]->first, 2, '.', ',')}} @if($exc->type == 'vnd') VND @else USDT @endif<br>
+                      <span class="exchange_value">-{{number_format($amount[0]->first, 2, '.', ',')}} @if($exc->type == 'vnd') VND @else USDT @endif<br>
                       <span>To</span><br>
-                      <span>{{number_format($amount[0]->second, 2, '.', ',')}} @if($exc->type == 'vnd') USDT @else VND @endif</span></span>
+                      <span>+{{number_format($amount[0]->second, 2, '.', ',')}} @if($exc->type == 'vnd') USDT @else VND @endif</span></span>
                     </div>
                   </div>
                 @endforeach
@@ -286,7 +373,7 @@ p#current_rate {
                       </div>
                     </div>
                     <div class="col-4 d-flex justify-content-right">
-                      <span style="text-transform: uppercase;">{{number_format($send->amount, 2, '.', ',')}} {{$send->type}}</span>
+                      <span style="text-transform: uppercase;">-{{number_format($send->amount, 2, '.', ',')}} {{$send->type}}</span>
                     </div>
                   </div>
                 @endforeach
@@ -322,7 +409,7 @@ p#current_rate {
                       </div>
                     </div>
                     <div class="col-4 d-flex justify-content-right">
-                      <span>{{number_format($rcv->amount)}} VND</span>
+                      <span>+{{number_format($rcv->amount)}} VND</span>
                     </div>
                   </div>
                 @endforeach
@@ -359,7 +446,7 @@ p#current_rate {
                       </div>
                     </div>
                     <div class="col-4 d-flex justify-content-right">
-                      <span>{{number_format($rcv->amount)}} VND</span>
+                      <span>+{{number_format($rcv->amount)}} VND</span>
                     </div>
                   </div>
                 @endforeach
@@ -401,7 +488,7 @@ p#current_rate {
                       </div>
                     </div>
                     <div class="col-4 d-flex justify-content-right">
-                      <span>{{number_format($val->amount)}} VND</span>
+                      <span>@if($val->status == '1')+@endif{{number_format($val->amount)}} VND</span>
                     </div>
                   </div>
                 @endforeach
@@ -443,7 +530,7 @@ p#current_rate {
                       </div>
                     </div>
                     <div class="col-4 d-flex justify-content-right">
-                      <span>{{number_format($val->amount)}} VND</span>
+                      <span>@if($val->status == '1')-@endif{{number_format($val->amount)}} VND</span>
                     </div>
                   </div>
                 @endforeach

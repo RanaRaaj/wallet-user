@@ -52,7 +52,7 @@ body {
       <x-side-bar />
       
       <div class="container my-5 news">
-        <h2 class="text-center mb-5">Notifications</h2>
+        <h2 class="text-center mb-5">Status</h2>
           <div class="list-group">
                 <a href="{{route('detail.view',['type' => 'deposit'])}}" class="list-group-item list-group-item-action" id="sendAmountBtn">
                   <i class="fas fa-money-bill-alt"></i>&nbsp&nbsp&nbsp Deposit Requests

@@ -55,7 +55,7 @@
                                                     </fieldset>
 
                                                     <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')ID đăng nhập @else Send To @endif</label>
+                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')ID đăng nhập @else Send To : (user name) @endif</label>
                                                         <input type="text" name="receiver" value="{{old('receiver')}}" id="receiver" class="form-control"
                                                             id="basicInput" required><span id="username-check-result"></span>
 

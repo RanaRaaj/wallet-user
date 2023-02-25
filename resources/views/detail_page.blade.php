@@ -43,6 +43,32 @@
         font-size: 22px;
         color: #fff;
     }
+    .news-image > img {
+      width: 70px;
+      height: 70px;
+    }
+    . padding-zero {
+      padding: 0 !important;
+    }
+    .news-text {
+        padding-left: 23px;
+        padding-right: 0 !important;
+    }
+    .sub-main-text , .main-text {
+      padding: 0 !important;
+    }
+    .padding-zero.news-text {
+        font-size: 13px;
+        text-transform: capitalize;
+    }
+    .date-time-news {
+        text-align: right;
+        font-size: 10px;
+    }
+    .date-time-news > p {
+        margin: 0;
+    }
+
 </style>
 
   <title>Sended Amount</title>
@@ -51,6 +77,62 @@
     <div class="container">
 
       <x-side-bar />
+
+      @if($type == 'news')
+        <div class="container my-5 news">
+          <h2 class="text-center mb-5">New's</h2>
+          <a href="{{ url()->previous() }}" class="back_arrow"><i class="fa fa-arrow-left"></i></a>
+
+          <div class="list-group">
+            @if(isset($sendAmountDetails[0]))
+              @foreach($sendAmountDetails as $sendAmountDetail)
+              <a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modal{{ $loop->index }}">
+                    <div class="row story-2 main-text stories">
+                      <div class="col-12 sub-main-text d-flex align-items-center padding-zero">
+                        <div class="col-3 d-flex align-items-left padding-zero">
+                          <img style="width: 70px;height: 70px;" src="{{$sendAmountDetail['image']}}" alt="">
+                        </div>
+                        <div class="col-9 align-items-center padding-zero news-text" style="color: #fff !important;">
+                          <p style="color: #ebe894;margin-bottom:5px;">{{ substr( $sendAmountDetail['title'], 0, 35) }}...</p>
+                          <p>{{ substr( $sendAmountDetail['short_description'], 0, 70) }}...</p>
+                        </div>
+                      </div>
+                      <div class="col-12 date-time-news">
+                        <p>{{ date('d/m/Y H:i:s', strtotime($sendAmountDetail->created_at . ' +7 hours')) }}</p>
+                      </div>
+                    </div>
+              </a>
+              <!-- Modal -->
+                <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content news" style="background:#fff;color:#000;">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Send Amount Detail</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <p><strong>Title:</strong> {{ $sendAmountDetail->title }}</p>
+                        <img style="width: 100%;" src="{{$sendAmountDetail['image']}}" alt="">
+                        <p><strong>Publish Time: <br> </strong> {{ $sendAmountDetail->created_at->diffForHumans() }} <br> {{ date('d/m/Y H:i:s', strtotime($sendAmountDetail->created_at . ' +7 hours')) }}</p>
+                        <p><strong> <br> </strong> {!! $sendAmountDetail->short_description !!}</p>
+                        <p><strong> </strong> {!! $sendAmountDetail->full_description !!}</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              @endforeach
+            @else
+              <p>No Record Found...</p>
+            @endif
+          </div>
+          <a href="{{ url()->previous() }}" class="btn btn-primary mt-3">Go Back</a>
+        </div>
+      @endif
 
       @if($type == 'send')
         <div class="container my-5 news">
@@ -83,6 +165,7 @@
                         <p><strong>Content:</strong> {{ $sendAmountDetail->content }}</p>
                         <p style="text-transform: uppercase;"><strong>Amount:</strong> {{number_format($sendAmountDetail->amount, 2, '.', ',')}} {{$sendAmountDetail->type}}</p>
                         <p><strong>Time:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
+                        <p><strong>Date-Time:</strong> {{ date('d/m/Y H:i:s', strtotime($sendAmountDetail->created_at . ' +7 hours')) }}</p>
                         <p><strong>From Bank Name:</strong> {{ $sendAmountDetail->sender_bank_name }}</p>
                         <p><strong>From Bank Number:</strong> {{ $sendAmountDetail->sender_bank_number }}</p>
                         <p><strong>To Bank Name:</strong> {{ $sendAmountDetail->receiver_bank_name }}</p>
@@ -134,6 +217,7 @@
                         <p><strong>Content:</strong> {{ $sendAmountDetail->content }}</p>
                         <p><strong>Amount:</strong> {{number_format($sendAmountDetail->amount, 2, '.', ',')}}</p>
                         <p><strong>Time:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
+                        <p><strong>Date-Time:</strong> {{ date('d/m/Y H:i:s', strtotime($sendAmountDetail->created_at . ' +7 hours')) }}</p>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -182,6 +266,7 @@
                         <!-- <p><strong>Content:</strong> {{ $sendAmountDetail->content }}</p> -->
                         <p><strong>Amount:</strong> {{number_format($amount[0]->first, 2, '.', ',')}} @if($sendAmountDetail->type == 'vnd') VND @else USDT @endif To {{number_format($amount[0]->second, 2, '.', ',')}} @if($sendAmountDetail->type == 'vnd') USDT @else VND @endif</p>
                         <p><strong>Time:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
+                        <p><strong>Date-Time:</strong> {{ date('d/m/Y H:i:s', strtotime($sendAmountDetail->created_at . ' +7 hours')) }}</p>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -229,6 +314,7 @@
                         <p><strong>Content:</strong> {{ $sendAmountDetail->content }}</p>
                         <p><strong>Amount:</strong> {{number_format($sendAmountDetail->amount, 2, '.', ',')}}</p>
                         <p><strong>Time:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
+                        <p><strong>Date-Time:</strong> {{ date('d/m/Y H:i:s', strtotime($sendAmountDetail->created_at . ' +7 hours')) }}</p>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -277,6 +363,7 @@
                         <p><strong>Bank Account Number:</strong> {{ $sendAmountDetail->account_number }}</p>
                         <p><strong>Added Amount:</strong> {{number_format($sendAmountDetail->amount, 2, '.', ',')}}</p>
                         <p><strong>Time:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
+                        <p><strong>Date-Time:</strong> {{ date('d/m/Y H:i:s', strtotime($sendAmountDetail->created_at . ' +7 hours')) }}</p>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -339,6 +426,7 @@
                         <p><strong>Content:</strong> {{ $sendAmountDetail->content }}</p>
                         <p><strong>Amount:</strong> {{number_format($sendAmountDetail->amount, 2, '.', ',')}}</p>
                         <p><strong>Time:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
+                        <p><strong>Date-Time:</strong> {{ date('d/m/Y H:i:s', strtotime($sendAmountDetail->created_at . ' +7 hours')) }}</p>
                         <p><strong>Bank Name:</strong> {{ $sendAmountDetail->bank_name }}</p>
                         <p><strong>Account Name:</strong> {{ $sendAmountDetail->account_name }}</p>
                         <p><strong>Account Number:</strong> {{ $sendAmountDetail->account_number }}</p>
@@ -406,6 +494,7 @@
                         <p><strong>Content:</strong> {{ $sendAmountDetail->content }}</p>
                         <p><strong>Amount:</strong> {{number_format($sendAmountDetail->amount, 2, '.', ',')}}</p>
                         <p><strong>Time:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
+                        <p><strong>Date-Time:</strong> {{ date('d/m/Y H:i:s', strtotime($sendAmountDetail->created_at . ' +7 hours')) }}</p>
                         <p><strong>Bank Name:</strong> {{ $sendAmountDetail->bank_name }}</p>
                         <p><strong>Account Name:</strong> {{ $sendAmountDetail->account_name }}</p>
                         <p><strong>Account Number:</strong> {{ $sendAmountDetail->account_number }}</p>
@@ -472,6 +561,7 @@
                         <p><strong>Content:</strong> {{ $sendAmountDetail->content }}</p>
                         <p><strong>Amount:</strong> {{number_format($sendAmountDetail->amount, 2, '.', ',')}}</p>
                         <p><strong>Time:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
+                        <p><strong>Date-Time:</strong> {{ date('d/m/Y H:i:s', strtotime($sendAmountDetail->created_at . ' +7 hours')) }}</p>
                         <p><strong>Bank Name:</strong> {{ $sendAmountDetail->bank_name }}</p>
                         <p><strong>Account Name:</strong> {{ $sendAmountDetail->account_name }}</p>
                         <p><strong>Account Number:</strong> {{ $sendAmountDetail->account_number }}</p>
@@ -524,6 +614,7 @@
                         <p><strong>Content:</strong> {{ $sendAmountDetail->content }}</p>
                         <p><strong>Amount:</strong> {{number_format($sendAmountDetail->amount, 2, '.', ',')}}</p>
                         <p><strong>Time:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
+                        <p><strong>Date-Time:</strong> {{ date('d/m/Y H:i:s', strtotime($sendAmountDetail->created_at . ' +7 hours')) }}</p>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

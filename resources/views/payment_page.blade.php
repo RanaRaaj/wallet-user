@@ -57,7 +57,7 @@ span.new_right {
       <x-side-bar />
       
       <div class="container my-5 news">
-        <h2 class="text-center mb-5">Notifications</h2>
+        <h2 class="text-center mb-5">@if(isset($variable)) {{$variable}} @else Notifications @endif</h2>
           <div class="list-group">
                 <a href="{{route('detail.view',['type' => 'admin_rcv'])}}" class="list-group-item list-group-item-action" id="sendAmountBtn">
                   <i class="fas fas fa-receipt"></i>&nbsp&nbsp&nbsp Received From System <span class="new_right" id="deposit_admin"> <span></span></span>

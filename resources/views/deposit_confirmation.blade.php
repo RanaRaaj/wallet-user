@@ -71,8 +71,14 @@ ul.d-inline-block.mb-0 {
                                                             <input type="text" value="{{$amount}}" hidden=""> VND
                                                         </li>
                                                         <li class="my2">
-                                                            Content : <b class="text-dan fs-6" >{{$active_bank->content}}</b>
-                                                            <input type="text" name="content" value="{{$content}}" hidden="">
+                                                            Content : <b class="text-dan fs-6" id="txtBankContent">{{$active_bank->content}}</b>
+                                                            <span id="btnCopyBankContent" style="cursor:pointer;background-color:#ffe180;border-radius:3px" class="px-1 ms-2">copy</span>
+                                                            <input type="text" name="content" value="{{$active_bank->content}}" hidden="">
+                                                        </li>
+                                                        <li class="my2">
+                                                            Description : <b class="text-dan fs-6" id="txtBankDescription" style="color: #00ffdc !important;font-size:12px;">{{$active_bank->description}}</b>
+                                                            <!-- <span id="btnCopyBankDescription" style="cursor:pointer;background-color:#ffe180;border-radius:3px" class="px-1 ms-2">copy</span> -->
+                                                            <input type="text" name="descriptio" value="{{$active_bank->description}}" hidden="">
                                                         </li>
                                                     </ul>
                                                     
@@ -156,6 +162,11 @@ $(document).ready(function () {
     $("#btnCopyBankAccountNumber").click(function () {
         if (!navigator.clipboard) return
         navigator.clipboard.writeText($("input[name='BankAccountNumber']").val());
+        $(this).text("Copied");
+    });
+    $("#btnCopyBankContent").click(function () {
+        if (!navigator.clipboard) return
+        navigator.clipboard.writeText($("input[name='content']").val());
         $(this).text("Copied");
     });
     

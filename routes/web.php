@@ -44,7 +44,8 @@ Route::middleware('auth')->group(function () {
 
 	Route::get('bank-view', [UserController::class, 'bank_view'])->name('bank.view');
 
-	Route::get('payment-page', [UserController::class, 'payment_page'])->name('payment.page');
+	Route::get('payment-page/{variable?}', [UserController::class, 'payment_page'])->name('payment.page');
+
 
 	Route::get('send-form-view', [UserController::class, 'send_form_view'])->name('send.form.view');
 

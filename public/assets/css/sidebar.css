@@ -62,7 +62,7 @@ button:focus {
 .sidebar-toggle {
   position: absolute;
   top: 15px;
-  /* right: 10px; */
+  right: 5px;
   background: transparent;
   border: none;
   outline: none;
@@ -302,7 +302,7 @@ header {
 .bell-icon {
   padding-top: 2%;
   position: relative;
-  margin-right: 10px;
+  margin-right: 30px;
 }
 .col-12.d-flex.align-items-center > p {
     text-align: center;

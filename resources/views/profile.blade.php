@@ -93,9 +93,15 @@
                                                     <input type="hidden" @if(isset($bank->id)) name="id" value="{{$bank->id}}" @endif>
                                                     
                                                     <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Tên người dùng @else User Name @endif</label>
-                                                        <input type="text" name="name" value="{{$user->name ?? ''}}" class="form-control"
+                                                        <label for="" class="label_edit"> @if(Session::get('language') == 'vie')Tên người dùng @else User Name @endif</label>
+                                                        <input type="text" name="user_name" value="{{$user->email ?? ''}}" class="form-control"
                                                                id="basicInput" disabled>
+                                                    </fieldset>
+
+                                                    <fieldset class="form-group">
+                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Tên người dùng @else Full Name @endif</label>
+                                                        <input type="text" name="name" value="{{$user->name ?? ''}}" class="form-control"
+                                                               id="basicInput">
                                                         @if($errors->has('name'))
                                                             <div class="error"
                                                                  style="color:red">{{$errors->first('name')}}</div>

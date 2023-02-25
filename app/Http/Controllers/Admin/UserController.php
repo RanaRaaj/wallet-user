@@ -12,6 +12,7 @@ use App\Models\ExchangeRecord;
 use App\Models\UserPanelBank;
 use App\Models\UserWithdraw;
 use App\Models\UserSendMoney;
+use App\Models\AdminNew;
 use App\Models\CurrencyRate;
 use App\Models\Interest;
 use Illuminate\Http\Request;
@@ -73,6 +74,7 @@ class UserController extends Controller
             ->select('interests.amount as amount', 'interests.created_at as created_at', 'user_banks.bank_name as bank_name', 'user_banks.usdt as usdt', 'user_banks.account_name as account_name', 'user_banks.account_number as account_number')
             ->where('interests.user_id', $user_id)->take(4)->latest()->get();
         $exchange = ExchangeRecord::where('user_id', $user_id)->take(4)->latest()->get();
+        $news = AdminNew::where('visible', 1)->where('status', 1)->take(2)->latest()->get();
 
         $graph = CurrencyRate::all();
         foreach($graph as $gp){
@@ -84,7 +86,7 @@ class UserController extends Controller
         $rate_data = json_encode($rate);
         // dd($graph, $date_data);
                 
-        return view('welcome', compact('send_data','rcv_data', 'rcv_amount', 'deposit', 'profits', 'withdraw', 'exchange', 'date_data', 'rate_data'));
+        return view('welcome', compact('send_data','rcv_data', 'rcv_amount', 'deposit', 'profits', 'withdraw', 'exchange', 'date_data', 'rate_data','news'));
 
     }
 
@@ -94,6 +96,8 @@ class UserController extends Controller
         $type = $type;
         if($type == 'send'){
             $sendAmountDetails = UserSendMoney::where('sender_id', $user_id)->latest()->get();
+        }elseif($type == 'news'){
+            $sendAmountDetails = AdminNew::where('visible', 1)->where('status', 1)->latest()->get();
         }elseif($type == 'rcv'){
             $sendAmountDetails = UserSendMoney::where('receiver_id', $user_id)->latest()->get();
             foreach($sendAmountDetails as $send){
@@ -216,8 +220,12 @@ class UserController extends Controller
         return view('bank_detail', compact('bank', 'panel_bank'));
     }
 
-    public function payment_page()
+    public function payment_page($variable = null)
     {
+        if($variable != null){
+            $variable = $variable;
+            return view('payment_page', compact('variable'));
+        }
         return view('payment_page');
     }
 
@@ -708,6 +716,7 @@ class UserController extends Controller
         ]);
         $user = User::find(Auth::user()->id);
 
+        $user->name = $request->name;
         $user->phone = $request->phone;
         if($request->password != ''){
             $user->password = Hash::make($request->password);
