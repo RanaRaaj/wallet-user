@@ -255,7 +255,7 @@
               @foreach($sendAmountDetails as $sendAmountDetail)
               <a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modal{{ $loop->index }}">
                 <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-1">{{ $sendAmountDetail->bank_name }}</h5>
+                  <h5 class="mb-1" style="font-size: 14px;">{{ $sendAmountDetail->bank_name }}</h5>
                   <small>{{ $sendAmountDetail->created_at->diffForHumans() }}</small>
                 </div>
                 <!-- <p class="mb-1">{{ $sendAmountDetail->content ?? '' }}</p> -->

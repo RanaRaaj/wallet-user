@@ -33,13 +33,15 @@ class UserController extends Controller
         $deposit_count = UserDeposit::where('user_id', $user_id)->where('seen',0)->count();
         $admin_deposit_count = Deposit::where('send_to', $user_id)->where('seen',0)->count();
         $user_deposit_count = UserSendMoney::where('receiver_id', $user_id)->where('seen',0)->count();
-        $total = $withdraw_count + $deposit_count + $admin_deposit_count + $user_deposit_count;
+        $user_interest_count = Interest::where('user_id', $user_id)->where('seen',0)->count();
+        $total = $withdraw_count + $deposit_count + $admin_deposit_count + $user_deposit_count + $user_interest_count;
         $all_count = array([
             'withdraw' => $withdraw_count,
             'deposit' => $deposit_count,
             'admin_deposit' => $admin_deposit_count,
             'user_deposit' => $user_deposit_count,
             'total' => $total,
+            'user_interest_count' => $user_interest_count,
         ]);
         return $all_count;
 
@@ -180,8 +182,25 @@ class UserController extends Controller
             $sendAmountDetails = UserSendMoney::where('sender_id', $user_id)->latest()->get();
         }elseif ($type == 'profit') {
             $sendAmountDetails = Interest::leftJoin('user_banks','interests.user_id','=','user_banks.user_id')
-            ->select('interests.amount as amount', 'interests.created_at as created_at', 'user_banks.bank_name as bank_name', 'user_banks.account_name as account_name', 'user_banks.account_number as account_number')
+            ->select('interests.id as id','interests.amount as amount', 'interests.created_at as created_at', 'user_banks.bank_name as bank_name', 'user_banks.account_name as account_name', 'user_banks.account_number as account_number')
             ->where('interests.user_id', $user_id)->latest()->get();
+            foreach($sendAmountDetails as $send){
+                if($send['seen'] == 0){
+                    $record = Interest::find($send['id']);
+                    $record->seen = 1;
+                    $record->save();
+                }
+            }
+            $options = array(
+                'cluster' => 'ap2',
+                'encrypted' => true
+            );
+            $pusher = new Pusher(
+                '57313b8085a7707d1c7e',
+                'a261134581d511f071f4',
+                '1548715',
+                $options
+            );
         }elseif ($type == 'exchange') {
             $sendAmountDetails = ExchangeRecord::where('user_id', $user_id)->latest()->get();
         }

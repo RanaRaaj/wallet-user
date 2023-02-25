@@ -60,7 +60,7 @@ p#current_rate {
                     </div>
 
                     <div class="col-12 mid-banner">
-                      <p class="m-0">{{$bank_detail->account_number ?? ''}}</p>
+                      <p class="m-0" style="color: #fff;">{{$bank_detail->account_number ?? ''}}</p>
                     </div>
                     
                     <div class="bottom-banner row">
@@ -208,7 +208,7 @@ p#current_rate {
                     </div>
                     <div class="col-4 d-flex justify-content-right">
                       <br><br>
-                      <span>{{$profit->amount}} VND</span>
+                      <span>{{number_format($profit->amount, 2, '.', ',')}} VND</span>
                     </div>
                   </div>
                 @endforeach

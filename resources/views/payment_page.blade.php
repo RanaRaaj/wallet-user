@@ -72,7 +72,7 @@ span.new_right {
                   <i class="fas fa-money-bill-alt"></i>&nbsp&nbsp&nbsp Deposit Amount <span class="new_right" id="deposit"> <span></span></span>
                 </a>
                 <a href="{{route('detail.view',['type' => 'profit'])}}" class="list-group-item list-group-item-action" id="receiveAmountBtn">
-                  <i class="fas fa-money-bill-alt"></i>&nbsp&nbsp&nbsp Profit Details
+                  <i class="fas fa-money-bill-alt"></i>&nbsp&nbsp&nbsp Profit Details <span class="new_right" id="payment_interest"> <span></span></span>
                 </a>
                 <a href="{{route('detail.view',['type' => 'withdraw'])}}" class="list-group-item list-group-item-action" id="receiveAmountBtn">
                   <i class="fas fa-credit-card"></i>&nbsp&nbsp&nbsp Withdraw Details <span class="new_right withdraw" id="withdraw"> <span></span></span>

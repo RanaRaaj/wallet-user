@@ -146,6 +146,9 @@ $(document).ready(function() {
         if(data[0].user_deposit > 0){
           $('#received').text('new : ' + data[0].user_deposit);
         }
+        if(data[0].user_interest_count > 0){
+          $('#payment_interest').text('new : ' + data[0].user_interest_count);
+        }
       }
     }
   });
@@ -178,15 +181,35 @@ channel.bind('withdraw-event-aprove', function(data) {
             if(data[0].user_deposit > 0){
               $('#received').text('new : ' + data[0].user_deposit);
             }
+            if(data[0].user_interest_count > 0){
+              $('#payment_interest').text('new : ' + data[0].user_interest_count);
+            }
           }
         }
     });
 });
 
   $(document).ready(function() {
-    $(".sidebar-toggle").click(function() {
-      $(".sidebar").toggleClass("open");
-    });
+    const sidebarToggle = document.querySelector(".sidebar-toggle");
+    const sidebar = document.querySelector(".sidebar");
+
+    function toggleSidebar() {
+      sidebar.classList.toggle("open");
+    }
+    sidebarToggle.addEventListener("click", toggleSidebar);
+    function checkScreenSize() {
+      if (window.innerWidth > 766) {
+        sidebar.classList.add("open");
+      } else {
+        document.addEventListener('click', (event) => {
+          if (!sidebar.contains(event.target) && !sidebarToggle.contains(event.target)) {
+            sidebar.classList.remove('open');
+          }
+        });
+      }
+    }
+    window.addEventListener("resize", checkScreenSize);
+    checkScreenSize();
   });
 
   $(document).ready(function() {
@@ -205,4 +228,6 @@ channel.bind('withdraw-event-aprove', function(data) {
       $('#header').removeClass('container');
     }
   });
+
+  
 </script>
