@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
-  <title>Mobile Responsive Website</title>
+  <title>Taco Collect System  </title>
 </head>
 <style type="text/css">
 
@@ -53,11 +53,11 @@
                                                     <div class="text-center">
                                                     <i class="fas fa-check-circle text-success" style="font-size: 100px;"></i>
                                                     <h3 class="mt-3 text-success">Success!</h3>
-                                                    <p>Your operation was completed successfully.</p>
+                                                    <p>@if(Session::get('language') == 'vie') Thao tác của bạn đã hoàn tất! @else Your operation was completed successfully @endif.</p>
                                                     </div>
                                                 </div>
                                                 <a href="{{route('welcome')}}"
-                                                               class="btn btn-success">Back to Home</a>
+                                                               class="btn btn-success">@if(Session::get('language') == 'vie')Quay về Home @else Back to Home @endif</a>
                                                 </div>
                                             </div>
                                         </div>

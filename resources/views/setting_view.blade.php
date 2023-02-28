@@ -6,11 +6,8 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <!-- Custom CSS -->
-    <style>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+  <title>Taco Collect System  </title><style>
 
 /* Add your custom CSS here */
 body {
@@ -52,18 +49,18 @@ body {
       <x-side-bar />
       
       <div class="container my-5 news">
-        <h2 class="text-center mb-5">Settings</h2>
+        <h2 class="text-center mb-5">@if(Session::get('language') == 'vie') Cài đặt @else Settings @endif</h2>
           <div class="list-group">
                 <a href="{{route('profile.view')}}" class="list-group-item list-group-item-action" id="sendAmountBtn">
-                  <i class="fas fa-user"></i>&nbsp&nbsp&nbsp Profile
+                  <i class="fas fa-user"></i>&nbsp&nbsp&nbsp @if(Session::get('language') == 'vie') Cá nhân @else Profile @endif
                 </a>
                 <a href="{{route('bank.view')}}" class="list-group-item list-group-item-action" id="sendAmountBtn">
-                  <i class="fas fa-credit-card"></i>&nbsp&nbsp&nbsp Bank
+                  <i class="fas fa-credit-card"></i>&nbsp&nbsp&nbsp @if(Session::get('language') == 'vie') Ngân hàng @else Bank @endif
                 </a>
-                <a href="{{route('language.view',['type' => 'withdraw'])}}" class="list-group-item list-group-item-action" id="sendAmountBtn">
-                  <i class="fas fa-flag"></i>&nbsp&nbsp&nbsp Language
+                <a href="{{route('language.view')}}" class="list-group-item list-group-item-action" id="sendAmountBtn">
+                  <i class="fas fa-flag"></i>&nbsp&nbsp&nbsp @if(Session::get('language') == 'vie') Ngôn ngữ @else Language @endif
                 </a>
-            <a href="{{route('welcome')}}" class="btn btn-primary mt-3">Go Back</a>
+            <a href="{{route('welcome')}}" class="btn btn-primary mt-3">@if(Session::get('language') == 'vie') Quay lại @else Go Back @endif</a>
         </div>
       </div>
 

@@ -46,6 +46,30 @@
             <!-- <div class="avatar">
               <img src="{{asset('assets/avatar.jpg')}}" alt="Toggle Sidebar">
             </div> -->
+            <div class="col-2 language-flag">
+              <li class="dropdown dropdown-user nav-item" style="list-style-type: none;">
+                <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown" style="position:absolute;top:0;left: -40px;"> <span
+                        class="avatar avatar-online">
+                            @if(Session::get('language') == 'vie')
+                                <img class="vie_flag" src="{{ url('images/vie.jpg')}}" alt="avatar" style="width:36px;border-radius:33%;margin-top:6px;">
+                                @else
+                                <img src="{{ url('assets/en.png')}}" alt="avatar" style="width:36px;">
+                                @endif
+                          </span></a>
+                <div class="dropdown-menu dropdown-menu-right" style="min-width: 140px !important;">
+                    <div class="arrow_box_right">
+                        <a class="dropdown-item" href="{{ route('en') }}">
+                            <i class="fa fa-flag"></i>
+                            ENGLISH
+                        </a>
+                        <a class="dropdown-item" href="{{ route('vie') }}">
+                            <i class="fa fa-flag"></i>
+                            TIẾNG VIỆT
+                        </a>
+                    </div>
+                </div>
+              </li>
+            </div>
             <div class="col-2 bell-icon">
               <a style="color:hsl(273deg 100% 69%);" href="{{route('payment.page')}}"><i class="fas fa-bell"></i></a>
               <span id="notify_count"></span>
@@ -64,34 +88,34 @@
 
                 <li class="list-group-item">
                   <a href="{{route('welcome')}}">
-                    <i class="fa fa-home mr-2"></i>Home
+                    <i class="fa fa-home mr-2"></i>@if(Session::get('language') == 'vie') Trang chủ @else Home @endif
                   </a>
                 </li>
 
                 <li class="list-group-item">
                   <a href="{{route('profile.view')}}">
-                    <i class="fa fa-user mr-2"></i>Profile
+                    <i class="fa fa-user mr-2"></i>@if(Session::get('language') == 'vie') Cá nhân @else Profile @endif
                   </a>
                 </li>
 
                 <li class="list-group-item dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="collapse" data-target="#payment-options" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-dollar-sign mr-2"></i>Payment <i class="fa fa-caret-down ml-2"></i>
+                    <i class="fa fa-dollar-sign mr-2"></i>@if(Session::get('language') == 'vie') Giao dịch @else Payment @endif <i class="fa fa-caret-down ml-2"></i>
                   </a>
                   <div id="payment-options" class="collapse">
-                    <a class="dropdown-item" href="{{route('detail.view',['type' => 'send'])}}">Send</a>
-                    <a class="dropdown-item" href="{{route('detail.view',['type' => 'rcv'])}}">Received</a>
+                    <a class="dropdown-item" href="{{route('detail.view',['type' => 'send'])}}">@if(Session::get('language') == 'vie') Gửi tiền @else Send @endif</a>
+                    <a class="dropdown-item" href="{{route('detail.view',['type' => 'rcv'])}}">@if(Session::get('language') == 'vie') Nhận tiền @else Received @endif</a>
                     <!-- <a class="dropdown-item" href="#">Option 3</a> -->
                   </div>
                 </li>
                 <li class="list-group-item">
                   <a href="{{route('setting.view')}}">
-                    <i class="fa fa-cog mr-2"></i>Setting
+                    <i class="fa fa-cog mr-2"></i>@if(Session::get('language') == 'vie') Cài đặt @else Setting @endif
                   </a>
                 </li>
                 <li class="list-group-item">
                   <a href="{{url('/logout')}}" class="logout">
-                    <i class="fa fa-sign-out-alt mr-2"></i>Logout
+                    <i class="fa fa-sign-out-alt mr-2"></i>@if(Session::get('language') == 'vie') Thoát @else Logout @endif
                   </a>
                 </li>
               </ul>

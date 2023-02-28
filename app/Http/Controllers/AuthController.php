@@ -7,6 +7,7 @@ use App\Models\UserBank;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
+use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
@@ -23,23 +24,28 @@ class AuthController extends Controller
         $auth = Auth::attempt($credentials);
         if($auth) {
             $user = Auth::user();
-            if($user->role == "admin" || $user->role == "sub_admin"){
-                if($user->status == 1) {
+            if($user->role == 'user'){
+                if($user->role == "admin" || $user->role == "sub_admin"){
+                    if($user->status == 1) {
 
-                    $bank_detail = UserBank::where('user_id',Auth::user()->id)->get()->first();
-                    $balance = $bank_detail->amount ?? 00;
-                    return redirect()->route('admin.dashboard', compact('balance'));
+                        $bank_detail = UserBank::where('user_id',Auth::user()->id)->get()->first();
+                        $balance = $bank_detail->amount ?? 00;
+                        return redirect()->route('admin.dashboard', compact('balance'));
+                    }
+                    else {
+                        Auth::logout();
+                        return redirect()->back()->with('error', 'You profile is inactive from super admin.');
+                    }
+                }elseif($user->role == "user"){
+                    Session::put('language', 'vie');
+                    return redirect()->route('welcome');
                 }
                 else {
                     Auth::logout();
-                    return redirect()->back()->with('error', 'You profile is inactive from super admin.');
+                    return redirect()->back()->with('error', 'You are not admin. Please enter valid credentials.');
                 }
-            }elseif($user->role == "user"){
-                return redirect()->route('welcome');
-            }
-            else {
-                Auth::logout();
-                return redirect()->back()->with('error', 'You are not admin. Please enter valid credentials.');
+            }else{
+                return redirect()->back()->with('error', 'Email or Password is incorrect.');
             }
         }
         else {
@@ -64,7 +70,7 @@ class AuthController extends Controller
         $data = $request->all();
         $data['password'] = bcrypt($data['password']);
         $user = User::create($data);
-        return view('login');
+        return redirect()->back()->with('success', 'Chúc mừng bạn đã hoàn tất quá trình đăng ký. Xin hãy nhấn ĐĂNG NHẬP để tiếp tục sử dụng');
 
     }
 

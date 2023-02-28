@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
-  <title>Mobile Responsive Website</title>
+  <title>Taco Collect System  </title>
 </head>
 <style type="text/css">
 
@@ -39,17 +39,17 @@
                                     <div class="col-xl-8 col-md-8 col-sm-12">
                                         <div class="card-block">
                                             <div class="card-body">
-                                                <h2>Withdraw Amount</h2>
+                                                <h2>@if(Session::get('language') == 'vie')Rút tiền @else Withdraw Amount @endif</h2>
                                                 <form id="withdraw_form" action="{{route('withdraw.confirm')}}" method="post"
                                                       enctype="multipart/form-data">
                                                     @csrf
 
-                                                    <p><b>Your Balance : </b> {{$bank->amount}}</p>
+                                                    <p><b>@if(Session::get('language') == 'vie')Số dư của bạn @else Your Balance @endif : </b> {{$bank->amount}}</p>
                                                 
                                                     <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Tên người dùng @else Amount @endif VND</label>
+                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Số tiền @else Amount @endif VND</label>
                                                         <input type="number" name="amount" class="form-control"
-                                                               id="basicInput" max={{$bank->amount}} value="">
+                                                               id="basicInput" max={{$bank->amount}} value="" required>
                                                         @if($errors->has('amount'))
                                                             <div class="error"
                                                                  style="color:red">{{$errors->first('amount')}}</div>
@@ -57,7 +57,7 @@
                                                     </fieldset>
 
                                                     <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Tên người dùng @else Bank Name @endif</label>
+                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Tên ngân hàng @else Bank Name @endif</label>
                                                         <input type="text" name="bank_name" class="form-control"
                                                                id="basicInput" value="{{$bank->bank_name}}" disabled>
                                                         @if($errors->has('bank_name'))
@@ -67,7 +67,7 @@
                                                     </fieldset>
 
                                                     <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Tên người dùng @else Your Account Name @endif</label>
+                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Tên tài khoản ngân hàng @else Your Account Name @endif</label>
                                                         <input type="text" name="account_name" class="form-control"
                                                                id="basicInput" value="{{$bank->account_name}}" disabled>
                                                         @if($errors->has('account_name'))
@@ -77,7 +77,7 @@
                                                     </fieldset>
 
                                                     <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')ID đăng nhập @else Your Account number @endif</label>
+                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Số tài khoản ngân hàng @else Your Account number @endif</label>
                                                         <input type="number" name="account_number" class="form-control" id="basicInput" value="{{$bank->account_number}}" disabled>
 
                                                         @if($errors->has('account_number'))
@@ -100,7 +100,7 @@
                                                         <fieldset class="form-group center m-2">
                                                             <a href="{{route('welcome')}}"
                                                                class="btn btn-primary">Home</a>
-                                                            <button type="submit" class="btn btn-success">Withdraw
+                                                            <button type="submit" class="btn btn-success">@if(Session::get('language') == 'vie')Rút @else Withdraw @endif
                                                             </button>
                                                         </fieldset>
                                                     </div>

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
-  <title>Mobile Responsive Website</title>
+  <title>Taco Collect System  </title>
 </head>
 <style type="text/css">
 
@@ -39,7 +39,7 @@
                                     <div class="col-xl-8 col-md-8 col-sm-12">
                                         <div class="card-block">
                                             <div class="card-body">
-                                                <h2 style="text-transform: uppercase;">Send {{$type}}</h2>
+                                                <h2 style="text-transform: uppercase;">@if(Session::get('language') == 'vie') GỬI @else Send @endif {{$type}}</h2>
                                                 <form id="deposit_form" action="{{route('send.confirm')}}" method="post"
                                                       enctype="multipart/form-data">
                                                     @csrf
@@ -55,7 +55,7 @@
                                                     </fieldset>
 
                                                     <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')ID đăng nhập @else Send To : (user name) @endif</label>
+                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Gửi tới user @else Send To : (user name) @endif</label>
                                                         <input type="text" name="receiver" value="{{old('receiver')}}" id="receiver" class="form-control"
                                                             id="basicInput" required><span id="username-check-result"></span>
 
@@ -66,7 +66,7 @@
                                                     </fieldset>
 
                                                     <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')ID đăng nhập @else Amount : Maximum @if($type=='vnd') {{number_format($bank->amount, 3, '.', ',')}} VND @else {{number_format($bank->usdt, 4, '.', ',')}} USDT @endif @endif</label>
+                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Số tiền : Tối đa @if($type=='vnd') {{number_format($bank->amount, 3, '.', ',')}} VND @else {{number_format($bank->usdt, 4, '.', ',')}} USDT @endif @else Amount : Maximum @if($type=='vnd') {{number_format($bank->amount, 3, '.', ',')}} VND @else {{number_format($bank->usdt, 4, '.', ',')}} USDT @endif @endif</label>
                                                         <input type="number" name="amount" value="{{old('amount')}}" class="form-control" step="0.000001"
                                                             id="basicInput" max="@if($type=='vnd') {{$bank->amount}} @else {{$bank->usdt}} @endif" required>
 
@@ -77,7 +77,7 @@
                                                     </fieldset>
 
                                                     <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Nhóm quyền @else Content @endif</label>
+                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Nội dung @else Content @endif</label>
                                                         <textarea name="content" class="form-control" cols="30" rows="3"></textarea>
                                                         @if($errors->has('role'))
                                                             <div class="error"
@@ -89,8 +89,8 @@
                                                          style="border-top: 1px solid black">
                                                         <fieldset class="form-group center m-2">
                                                             <a href="{{ url()->previous() }}"
-                                                               class="btn btn-primary">Go Back</a>
-                                                            <button type="submit" id="submitBtn" class="btn btn-success">Send
+                                                               class="btn btn-primary">@if(Session::get('language') == 'vie') Quay lại @else Go Back @endif</a>
+                                                            <button type="submit" id="submitBtn" class="btn btn-success">@if(Session::get('language') == 'vie') Gửi @else Send @endif
                                                             </button>
                                                         </fieldset>
                                                     </div>

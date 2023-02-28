@@ -6,10 +6,8 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <!-- Custom CSS -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+  <title>Taco Collect System  </title><!-- Custom CSS -->
     <style>
 
 /* Add your custom CSS here */
@@ -52,15 +50,15 @@ body {
       <x-side-bar />
       
       <div class="container my-5 news">
-        <h2 class="text-center mb-5">Status</h2>
+        <h2 class="text-center mb-5">@if(Session::get('language') == 'vie') Trạng thái giao dịch @else Status @endif</h2>
           <div class="list-group">
                 <a href="{{route('detail.view',['type' => 'deposit'])}}" class="list-group-item list-group-item-action" id="sendAmountBtn">
-                  <i class="fas fa-money-bill-alt"></i>&nbsp&nbsp&nbsp Deposit Requests
+                  <i class="fas fa-money-bill-alt"></i>&nbsp&nbsp&nbsp @if(Session::get('language') == 'vie') yêu cầu nạp tiền @else Deposit Requests @endif
                 </a>
                 <a href="{{route('detail.view',['type' => 'withdraw'])}}" class="list-group-item list-group-item-action" id="sendAmountBtn">
-                  <i class="fas fa-credit-card"></i>&nbsp&nbsp&nbsp Withdraw Requests
+                  <i class="fas fa-credit-card"></i>&nbsp&nbsp&nbsp @if(Session::get('language') == 'vie') Yêu cầu rút tiền @else Withdraw Requests @endif
                 </a>
-            <a href="{{route('welcome')}}" class="btn btn-primary mt-3">Go Back</a>
+            <a href="{{route('welcome')}}" class="btn btn-primary mt-3">@if(Session::get('language') == 'vie') Quay lại @else Go Back @endif</a>
         </div>
       </div>
 

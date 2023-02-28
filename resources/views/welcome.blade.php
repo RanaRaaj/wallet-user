@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<title>Taco Collect System  </title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 .justify-content-right > span {
@@ -125,28 +126,28 @@ hr {
               <div class="col-3 align-items-center justify-content-center">
                   <a href="{{route('deposit.form')}}">
                       <i class="fas fa-list-ul fa-2x"></i>
-                      <p class="mt-2">Deposit</p>
+                      <p class="mt-2">@if(Session::get('language') == 'vie') Nạp tiền @else Deposit @endif</p>
                   </a>
               </div>
 
               <div class="col-3 align-items-center justify-content-center">
                 <a href="{{route('withdraw.form')}}">
                   <i class="fas fa-credit-card fa-2x"></i>
-                  <p class="mt-2">Withdraw</p>
+                  <p class="mt-2">@if(Session::get('language') == 'vie') Rút tiền @else Withdraw @endif</p>
                 </a>
               </div>
 
               <div class="col-3 align-items-center justify-content-center">
                   <a href="{{route('send.form.view')}}">
                       <i class="fas fa-paper-plane fa-2x"></i>
-                      <p class="mt-2">Send</p>
+                      <p class="mt-2">@if(Session::get('language') == 'vie') Gửi tiền @else Send @endif</p>
                   </a>
               </div>
 
               <div class="col-3 align-items-center justify-content-center">
                 <a href="{{route('detail.view',['type' => 'profit'])}}">
                   <i class="fas fa-money-bill fa-2x"></i>
-                  <p class="mt-2">Profit</p>
+                  <p class="mt-2">@if(Session::get('language') == 'vie') Tiền lãi @else Profit @endif</p>
                 </a>
               </div>
               
@@ -156,21 +157,21 @@ hr {
               <div class="col-3 align-items-center justify-content-center">
                 <a href="{{route('payment.page', ['variable' => 'Payment'])}}">
                   <i class="fas fa-money-check fa-2x"></i>
-                  <p class="mt-2">Payment</p>
+                  <p class="mt-2">@if(Session::get('language') == 'vie') Giao dịch @else Payment @endif</p>
                 </a>
               </div>
               
               <div class="col-3 align-items-center justify-content-center">
                 <a href="{{route('status.view')}}">
                   <i class="fas fa-check-circle fa-2x"></i>
-                  <p class="mt-2">Status</p>
+                  <p class="mt-2">@if(Session::get('language') == 'vie') Trạng thái GD @else Status @endif</p>
                 </a>
               </div>
               
               <div class="col-3 align-items-center justify-content-center">
                 <a href="{{route('setting.view')}}">
                   <i class="fas fa-cog fa-2x"></i>
-                  <p class="mt-2">Setting</p>
+                  <p class="mt-2">@if(Session::get('language') == 'vie') Cài đặt @else Setting @endif</p>
                 </a>
               </div>
 
@@ -178,7 +179,7 @@ hr {
                 <a href="{{route('currency.exchange')}}">
                   <!-- <img src="{{asset('assets/usdt.jpg')}}" alt=""> -->
                   <i class="fas fa-money-bill-alt fa-2x"></i>
-                  <p class="mt-2">Buy/Sell USDT</p>
+                  <p class="mt-2">@if(Session::get('language') == 'vie') Mua/Bán USDT @else Buy/Sell USDT @endif</p>
                 </a>
               </div>
               
@@ -212,11 +213,11 @@ hr {
 
         <div class="container-fluid col-md-6">
           <div class="row news">
-              <div class="col-8 d-flex align-items-center">
-                <p><b>New's</b></p>
+              <div class="col-7 d-flex align-items-center">
+                <p><b>@if(Session::get('language') == 'vie') Tin tức @else News @endif</b></p>
               </div>
-              <div class="col-4 d-flex justify-content-right">
-                <a href="{{route('detail.view',['type' => 'news'])}}"><span>See All</span></a>
+              <div class="col-5 d-flex justify-content-right">
+                <a href="{{route('detail.view',['type' => 'news'])}}"><span>@if(Session::get('language') == 'vie') Xem tất cả @else See All @endif</span></a>
               </div>
               <div class="col-12"><hr></div>
               @if(isset($news[0]))
@@ -265,7 +266,7 @@ hr {
               @else
                 <div class="row story-2 stories">
                   <div class="col-12 d-flex align-items-center">
-                    <p>No Record Found...</p>
+                    <p>@if(Session::get('language') == 'vie') Không có dữ liệu @else No Record Found @endif ...</p>
                   </div>
                 </div>
               @endif
@@ -274,11 +275,11 @@ hr {
 
         <div class="container-fluid col-md-6">
           <div class="row news">
-              <div class="col-8 d-flex align-items-center">
-                <p><b>Profits</b></p>
+              <div class="col-7 d-flex align-items-center">
+                <p><b>@if(Session::get('language') == 'vie') Lãi qua đêm @else Profits @endif</b></p>
               </div>
-              <div class="col-4 d-flex justify-content-right">
-                <a href="{{route('detail.view',['type' => 'profit'])}}"><span>See All</span></a>
+              <div class="col-5 d-flex justify-content-right">
+                <a href="{{route('detail.view',['type' => 'profit'])}}"><span>@if(Session::get('language') == 'vie') Xem tất cả @else See All @endif</span></a>
               </div>
               <div class="col-12"><hr></div>
               @if(isset($profits[0]))
@@ -290,7 +291,7 @@ hr {
                       </div>
                       <div class="col-9 align-items-center">
                         <span>{{ $profit->created_at->diffForHumans() }}</span>
-                        <p>Overnight interest profit for the day: {{ date('d/m/Y H:i:s', strtotime($profit->created_at . ' +7 hours')) }}</p>
+                        <p>@if(Session::get('language') == 'vie')  Lãi qua đêm ngày @else Overnight interest profit for the day @endif : {{ date('d/m/Y H:i:s', strtotime($profit->created_at . ' +7 hours')) }}</p>
                       </div>
                     </div>
                     <div class="col-4 d-flex justify-content-right">
@@ -302,7 +303,7 @@ hr {
               @else
                 <div class="row story-2 stories">
                   <div class="col-12 d-flex align-items-center">
-                    <p>No Record Found...</p>
+                    <p>@if(Session::get('language') == 'vie') Không có dữ liệu @else No Record Found @endif ...</p>
                   </div>
                 </div>
               @endif
@@ -311,11 +312,11 @@ hr {
 
         <div class="container-fluid col-md-6 home-div-bottom-space">
           <div class="row news">
-              <div class="col-8 d-flex align-items-center">
-                <p><b>Exchange Amount</b></p>
+              <div class="col-7 d-flex align-items-center">
+                <p><b>@if(Session::get('language') == 'vie') GD Mua / Bán USDT @else Exchange Amount @endif</b></p>
               </div>
-              <div class="col-4 d-flex justify-content-right">
-                <a href="{{route('detail.view',['type' => 'exchange'])}}"><span>See All</span></a>
+              <div class="col-5 d-flex justify-content-right">
+                <a href="{{route('detail.view',['type' => 'exchange'])}}"><span>@if(Session::get('language') == 'vie') Xem tất cả @else See All @endif</span></a>
               </div>
           
               <div class="col-12"><hr></div>
@@ -344,7 +345,7 @@ hr {
               @else
                 <div class="row story-2 stories">
                   <div class="col-12 d-flex align-items-center">
-                    <p>No Record Found...</p>
+                    <p>@if(Session::get('language') == 'vie') Không có dữ liệu @else No Record Found @endif ...</p>
                   </div>
                 </div>
               @endif
@@ -353,11 +354,11 @@ hr {
 
         <div class="container-fluid col-md-6">
           <div class="row news">
-              <div class="col-8 d-flex align-items-center">
-                <p><b>Sended Amount</b></p>
+              <div class="col-7 d-flex align-items-center">
+                <p><b>@if(Session::get('language') == 'vie') GD Tiền gửi @else Sended Amount @endif</b></p>
               </div>
-              <div class="col-4 d-flex justify-content-right">
-                <a href="{{route('detail.view',['type' => 'send'])}}"><span>See All</span></a>
+              <div class="col-5 d-flex justify-content-right">
+                <a href="{{route('detail.view',['type' => 'send'])}}"><span>@if(Session::get('language') == 'vie') Xem tất cả @else See All @endif</span></a>
               </div>
               <div class="col-12"><hr></div>
               @if(isset($send_data[0]))
@@ -369,7 +370,7 @@ hr {
                       </div>
                       <div class="col-9 align-items-center">
                         <span>{{ $send->created_at->diffForHumans() }}</span>
-                        <p>Send To: {{$send->receiver_name}}</p>
+                        <p>@if(Session::get('language') == 'vie') Đã gửi đến @else Send To @endif : {{$send->receiver_name}}</p>
                       </div>
                     </div>
                     <div class="col-4 d-flex justify-content-right">
@@ -380,7 +381,7 @@ hr {
               @else
                 <div class="row story-2 stories">
                   <div class="col-12 d-flex align-items-center">
-                    <p>No Record Found...</p>
+                    <p>@if(Session::get('language') == 'vie') Không có dữ liệu @else No Record Found @endif ...</p>
                   </div>
                 </div>
               @endif
@@ -389,11 +390,11 @@ hr {
 
         <div class="container-fluid col-md-6 home-div-bottom-space">
           <div class="row news">
-              <div class="col-8 d-flex align-items-center">
-                <p><b>Received Amount</b></p>
+              <div class="col-7 d-flex align-items-center">
+                <p><b>@if(Session::get('language') == 'vie') GD Nhận tiền @else Received Amount @endif</b></p>
               </div>
-              <div class="col-4 d-flex justify-content-right">
-                <a href="{{route('detail.view',['type' => 'rcv'])}}"><span>See All</span></a>
+              <div class="col-5 d-flex justify-content-right">
+                <a href="{{route('detail.view',['type' => 'rcv'])}}"><span>@if(Session::get('language') == 'vie') Xem tất cả @else See All @endif</span></a>
               </div>
               <div class="col-12"><hr></div>
               @if(isset($rcv_data[0]))
@@ -405,7 +406,7 @@ hr {
                       </div>
                       <div class="col-9 align-items-center">
                         <span>{{ $rcv->created_at->diffForHumans() }}</span>
-                        <p>Received From: {{$rcv->receiver_name}}</p>
+                        <p>@if(Session::get('language') == 'vie') Đã nhận từ @else Received From @endif : {{$rcv->receiver_name}}</p>
                       </div>
                     </div>
                     <div class="col-4 d-flex justify-content-right">
@@ -416,7 +417,7 @@ hr {
               @else
                 <div class="row story-2 stories">
                   <div class="col-12 d-flex align-items-center">
-                    <p>No Record Found...</p>
+                    <p>@if(Session::get('language') == 'vie') Không có dữ liệu @else No Record Found @endif ...</p>
                   </div>
                 </div>
               @endif
@@ -425,11 +426,11 @@ hr {
 
         <div class="container-fluid col-md-6 home-div-bottom-space">
           <div class="row news">
-              <div class="col-8 d-flex align-items-center">
-                <p><b>Received From System</b></p>
+              <div class="col-7 d-flex align-items-center">
+                <p><b>@if(Session::get('language') == 'vie') Nhận tiền từ hệ thống @else Received From System @endif</b></p>
               </div>
-              <div class="col-4 d-flex justify-content-right">
-                <a href="{{route('detail.view',['type' => 'admin_rcv'])}}"><span>See All</span></a>
+              <div class="col-5 d-flex justify-content-right">
+                <a href="{{route('detail.view',['type' => 'admin_rcv'])}}"><span>@if(Session::get('language') == 'vie') Xem tất cả @else See All @endif</span></a>
               </div>
           
               <div class="col-12"><hr></div>
@@ -442,7 +443,7 @@ hr {
                       </div>
                       <div class="col-9 align-items-center">
                         <span>{{ $rcv->created_at->diffForHumans() }}</span>
-                        <p>Received From: Admin</p>
+                        <p>@if(Session::get('language') == 'vie') Đã nhận từ hệ thống @else Received From @endif : Admin</p>
                       </div>
                     </div>
                     <div class="col-4 d-flex justify-content-right">
@@ -453,7 +454,7 @@ hr {
               @else
                 <div class="row story-2 stories">
                   <div class="col-12 d-flex align-items-center">
-                    <p>No Record Found...</p>
+                    <p>@if(Session::get('language') == 'vie') Không có dữ liệu @else No Record Found @endif ...</p>
                   </div>
                 </div>
               @endif
@@ -462,11 +463,11 @@ hr {
 
         <div class="container-fluid col-md-6 home-div-bottom-space">
           <div class="row news">
-              <div class="col-8 d-flex align-items-center">
-                <p><b>Deposit Request</b></p>
+              <div class="col-7 d-flex align-items-center">
+                <p><b>@if(Session::get('language') == 'vie') Yêu cầu nạp tiền @else Deposit Request @endif</b></p>
               </div>
-              <div class="col-4 d-flex justify-content-right">
-                <a href="{{route('detail.view',['type' => 'deposit'])}}"><span>See All</span></a>
+              <div class="col-5 d-flex justify-content-right">
+                <a href="{{route('detail.view',['type' => 'deposit'])}}"><span>@if(Session::get('language') == 'vie') Xem tất cả @else See All @endif</span></a>
               </div>
               <div class="col-12"><hr></div>
               @if(isset($deposit[0]))
@@ -479,11 +480,11 @@ hr {
                       <div class="col-9 align-items-center">
                         <span>{{ $val->created_at->diffForHumans() }}</span>
                         @if($val->status == '1')
-                          <p style="color: #94dd94">Approved</p>
+                          <p style="color: #94dd94">@if(Session::get('language') == 'vie') Đã xử lý @else Approved @endif</p>
                         @elseif($val->status == '0')
-                          <p style="color: red">Cancel</p>
+                          <p style="color: red">@if(Session::get('language') == 'vie') Từ chối @else Cancel @endif</p>
                         @else
-                          <p style="color: blue">Pending</p>
+                          <p style="color: blue">@if(Session::get('language') == 'vie') Đang chờ xử lý @else Pending @endif</p>
                         @endif
                       </div>
                     </div>
@@ -495,7 +496,7 @@ hr {
               @else
                 <div class="row story-2 stories">
                   <div class="col-12 d-flex align-items-center">
-                    <p>No Record Found...</p>
+                    <p>@if(Session::get('language') == 'vie') Không có dữ liệu @else No Record Found @endif ...</p>
                   </div>
                 </div>
               @endif
@@ -504,11 +505,11 @@ hr {
 
         <div class="container-fluid col-md-6 home-div-bottom-space">
           <div class="row news">
-              <div class="col-8 d-flex align-items-center">
-                <p><b>Withdraw Request</b></p>
+              <div class="col-7 d-flex align-items-center">
+                <p><b>@if(Session::get('language') == 'vie') Yêu cầu rút tiền @else Withdraw Request @endif </b></p>
               </div>
-              <div class="col-4 d-flex justify-content-right">
-                <a href="{{route('detail.view',['type' => 'withdraw'])}}"><span>See All</span></a>
+              <div class="col-5 d-flex justify-content-right">
+                <a href="{{route('detail.view',['type' => 'withdraw'])}}"><span>@if(Session::get('language') == 'vie') Xem tất cả @else See All @endif</span></a>
               </div>
               <div class="col-12"><hr></div>
               @if(isset($withdraw[0]))
@@ -521,11 +522,11 @@ hr {
                       <div class="col-9 align-items-center">
                         <span>{{ $val->created_at->diffForHumans() }}</span>
                         @if($val->status == '1')
-                          <p style="color: #94dd94">Approved</p>
+                          <p style="color: #94dd94">@if(Session::get('language') == 'vie') Đã xử lý @else Approved @endif</p>
                         @elseif($val->status == '0')
-                          <p style="color: red">Cancel</p>
+                          <p style="color: red">@if(Session::get('language') == 'vie') Từ chối @else Cancel @endif</p>
                         @else
-                          <p style="color: blue">Pending</p>
+                          <p style="color: blue">@if(Session::get('language') == 'vie') Đang chờ xử lý @else Pending @endif</p>
                         @endif
                       </div>
                     </div>
@@ -537,7 +538,7 @@ hr {
               @else
                 <div class="row story-2 stories">
                   <div class="col-12 d-flex align-items-center">
-                    <p>No Record Found...</p>
+                    <p>@if(Session::get('language') == 'vie') Không có dữ liệu @else No Record Found @endif ...</p>
                   </div>
                 </div>
               @endif

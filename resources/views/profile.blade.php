@@ -5,13 +5,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <!-- Custom CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+    <title>Taco Collect System  </title>
 </head>
 <style type="text/css">
 .justify-content-center fieldset {
@@ -86,7 +82,7 @@
                                     <div class="col-xl-8 col-md-8 col-sm-12">
                                         <div class="card-block">
                                             <div class="card-body">
-                                                <h2>Setting Profile</h2>
+                                                <h2>@if(Session::get('language') == 'vie') Cài đặt cá nhân @else Setting Profile @endif</h2>
                                                 <form id="deposit_form" action="{{route('profile.update')}}" method="post"
                                                       enctype="multipart/form-data">
                                                     @csrf
@@ -99,7 +95,7 @@
                                                     </fieldset>
 
                                                     <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Tên người dùng @else Full Name @endif</label>
+                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Họ và tên @else Full Name @endif</label>
                                                         <input type="text" name="name" value="{{$user->name ?? ''}}" class="form-control"
                                                                id="basicInput">
                                                         @if($errors->has('name'))
@@ -109,7 +105,7 @@
                                                     </fieldset>
 
                                                     <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Tên người dùng @else Phone Number @endif</label>
+                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Số điện thoại @else Phone Number @endif</label>
                                                         <input type="number" name="phone" value="{{$user->phone ?? ''}}" class="form-control"
                                                                id="basicInput" require>
                                                         @if($errors->has('phone'))
@@ -119,7 +115,7 @@
                                                     </fieldset>
                                                     <hr>
                                                     <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Tên người dùng @else Old Password @endif</label>
+                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Mật khẩu cũ @else Old Password @endif</label>
                                                         <input type="password" name="old_password" value="{{old('old_password')}}" class="form-control"
                                                                id="basicInput" require>
                                                         @if($errors->has('old_password'))
@@ -132,7 +128,7 @@
                                                         @endif
                                                     </fieldset>
                                                     <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Tên người dùng @else New Password @endif</label>
+                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Mật khẩu mới @else New Password @endif</label>
                                                         <input type="password" name="password" value="" class="form-control"
                                                                id="basicInput" require>
                                                         @if($errors->has('password'))
@@ -141,7 +137,7 @@
                                                         @endif
                                                     </fieldset>
                                                     <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Tên người dùng @else Confirm Password @endif</label>
+                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Xác nhận mật khẩu mới @else Confirm Password @endif</label>
                                                         <input type="password" name="password_confirmation" value="{{$user->password_confirmation ?? ''}}" class="form-control"
                                                                id="basicInput" require>
                                                         @if($errors->has('password_confirmation'))
@@ -155,8 +151,8 @@
                                                          style="border-top: 1px solid black">
                                                         <fieldset class="form-group center m-2">
                                                             <a href="{{ url()->previous() }}"
-                                                               class="btn btn-primary">Go Back</a>
-                                                            <button type="submit" class="btn btn-success">Update
+                                                               class="btn btn-primary">@if(Session::get('language') == 'vie') Quay lại @else Go Back @endif</a>
+                                                            <button type="submit" class="btn btn-success">@if(Session::get('language') == 'vie') Cập nhật @else Update @endif
                                                             </button>
                                                         </fieldset>
                                                     </div>

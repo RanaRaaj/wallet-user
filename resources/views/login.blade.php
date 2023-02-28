@@ -9,7 +9,7 @@
     <meta name="description" content="Factu">
     <meta name="keywords" content="Factu">
     <meta name="author" content="Factu">
-    <title>Admin | Panel</title>
+    <title>Taco Collect System  </title>
     <link rel="apple-touch-icon" href="{{asset('assets/images/logo.png')}}">
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/images/logo.png')}}">
     <link href="https://fonts.googleapis.com/css?family=Muli:300,300i,400,400i,600,600i,700,700i%7CComfortaa:300,400,700" rel="stylesheet">
@@ -41,7 +41,21 @@
 
 </head>
 <!-- END: Head-->
-
+<style>
+.card-header {
+    color: #fff;
+    background-color: #00000000 !important;
+}
+.card.border-grey.border-lighten-3.px-1.py-1.m-0 {
+    background: #0000;
+    background-size: contain;
+    height: 601px;
+    FONT-WEIGHT: 500;
+}
+form .form-group {
+    margin-bottom: 1.5rem;
+}
+</style>
 <!-- BEGIN: Body-->
 
 <body class="vertical-layout vertical-menu-modern 1-column  bg-full-screen-image blank-page blank-page" data-open="click" data-menu="vertical-menu-modern" data-color="bg-gradient-x-purple-red" data-col="1-column">
@@ -71,7 +85,7 @@
                                     <!-- <img src="{{asset('assets/images/logo.png')}}" width="100" alt="branding logo"> -->
                                 </div>
                                 <div class="font-large-1  text-center">
-                                    User Login
+                                Đăn nhập tài khoản
                                 </div>
                             </div>
                             <div class="card-content">
@@ -80,7 +94,7 @@
                                     <form class="form-horizontal" action="{{route('admin.login')}}" method="post" novalidate>
                                         @csrf
                                         <fieldset class="form-group position-relative has-icon-left">
-                                            <input type="text" class="form-control round" id="user-name" name="email" placeholder="User Name">
+                                            <input type="text" class="form-control round" id="user-name" name="email" placeholder="Tên đăng nhập" required>
                                             <div class="form-control-position">
                                                 <i class="ft-user"></i>
                                             </div>
@@ -90,7 +104,7 @@
                                             @endif
                                         </fieldset>
                                         <fieldset class="form-group position-relative has-icon-left">
-                                            <input type="password" class="form-control round" id="user-password" name="password" placeholder="Enter Password">
+                                            <input type="password" class="form-control round" id="user-password" name="password" placeholder="Mật khẩu" required>
                                             <div class="form-control-position">
                                                 <i class="ft-lock"></i>
                                             </div>
@@ -102,10 +116,10 @@
                                             <div class="col-md-6 col-12 text-center text-sm-left"></div>
                                         </div>
                                         <div class="form-group text-center">
-                                            <button type="submit" class="btn round btn-block btn-glow btn-bg-gradient-x-purple-blue col-12 mr-1 mb-1">Login</button>
+                                            <button type="submit" class="btn round btn-block btn-glow btn-bg-gradient-x-purple-blue col-12 mr-1 mb-1">Đăng nhập</button>
                                         </div>
                                         <div class="form-group text-right">
-                                            <a href="{{ route('admin.signup') }}">Sign Up</a>
+                                            <a href="{{ route('admin.signup') }}" class="btn round btn-block btn-glow btn-bg-gradient-x-purple-blue col-12 mr-1 mb-1">Đăng ký tài khoản</a>
                                         </div>
 
 

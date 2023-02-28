@@ -38,6 +38,9 @@ Route::get('admin/login', [AuthController::class, 'adminView'])->name('admin-log
 Route::get('forget/password', [AuthController::class, 'forgetView'])->name('forget-password');
 
 Route::middleware('auth')->group(function () {
+	//language change
+    Route::get('en', [UserController::class, 'english'])->name('en');
+    Route::get('vie', [UserController::class, 'vietnam'])->name('vie');
 
 	Route::get('welcome', [UserController::class, 'welcome'])->name('welcome');
 	Route::get('detail-view/{type}', [UserController::class, 'detail_view'])->name('detail.view');

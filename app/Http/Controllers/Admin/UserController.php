@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Auth;
 use Pusher\Pusher;
+use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
 
 class UserController extends Controller
@@ -729,7 +730,7 @@ class UserController extends Controller
     public function language_view()
     {
         $user = Auth::user();
-        return view('setting_view', compact('user'));
+        return view('language', compact('user'));
     }
 
     public function currency_exchange()
@@ -782,6 +783,18 @@ class UserController extends Controller
         $exchange->save();
 
         return view('deposit_success');
+    }
+
+    public function english()
+    {
+        Session::put('language', 'eng');
+        return redirect()->back();
+    }
+
+    public function vietnam()
+    {
+        Session::put('language', 'vie');
+        return redirect()->back();
     }
 
 }

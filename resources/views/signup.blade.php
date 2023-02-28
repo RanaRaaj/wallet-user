@@ -9,7 +9,7 @@
     <meta name="description" content="Factu">
     <meta name="keywords" content="Factu">
     <meta name="author" content="Factu">
-    <title>Admin | Panel</title>
+    <title>Taco Collect System  </title>
     <link rel="apple-touch-icon" href="{{asset('assets/images/logo.png')}}">
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/images/logo.png')}}">
     <link href="https://fonts.googleapis.com/css?family=Muli:300,300i,400,400i,600,600i,700,700i%7CComfortaa:300,400,700" rel="stylesheet">
@@ -40,6 +40,21 @@
 
 
 </head>
+<style>
+.card-header {
+    color: #fff;
+    background-color: #00000000 !important;
+}
+.card.border-grey.border-lighten-3.px-1.py-1.m-0 {
+    background: #0000;
+    background-size: contain;
+    height: 601px;
+    FONT-WEIGHT: 500;
+}
+form .form-group {
+    margin-bottom: 1.5rem;
+}
+</style>
 <!-- END: Head-->
 
 <!-- BEGIN: Body-->
@@ -71,8 +86,13 @@
                                     <!-- <img src="{{asset('assets/images/logo.png')}}" width="100" alt="branding logo"> -->
                                 </div>
                                 <div class="font-large-1  text-center">
-                                    User SignUp
+                                Đăng ký tài khoản
                                 </div>
+                                @if ($message = Session::get('success'))
+                                    <div class="alert alert-success mb-2" style="position: absolute;right: 0;top: 50px;" id="alert-success-message" role="alert">
+                                        <strong>Success! </strong> {{$message}}
+                                    </div>
+                                @endif
                             </div>
                             <div class="card-content">
 
@@ -80,7 +100,7 @@
                                     <form class="form-horizontal" action="{{route('admin.register')}}" method="post" novalidate>
                                         @csrf
                                         <fieldset class="form-group position-relative has-icon-left">
-                                            <input type="text" class="form-control round" id="user-name" name="name" placeholder="Full Name">
+                                            <input type="text" class="form-control round" id="user-name" name="name" placeholder="Họ và Tên">
                                             <div class="form-control-position">
                                                 <i class="ft-user"></i>
                                             </div>
@@ -90,7 +110,7 @@
                                             @endif
                                         </fieldset>
                                         <fieldset class="form-group position-relative has-icon-left">
-                                            <input type="text" class="form-control round" id="user-name" name="email" placeholder="User Name">
+                                            <input type="text" class="form-control round" id="user-name" name="email" placeholder="Tên đăng nhập">
                                             <div class="form-control-position">
                                                 <i class="ft-user"></i>
                                             </div>
@@ -100,7 +120,7 @@
                                             @endif
                                         </fieldset>
                                         <fieldset class="form-group position-relative has-icon-left">
-                                            <input type="password" class="form-control round" id="user-password" name="password" placeholder="Enter Password">
+                                            <input type="password" class="form-control round" id="user-password" name="password" placeholder="Mật khẩu">
                                             <div class="form-control-position">
                                                 <i class="ft-lock"></i>
                                             </div>
@@ -109,7 +129,7 @@
                                             @endif
                                         </fieldset>
                                         <fieldset class="form-group position-relative has-icon-left">
-                                            <input type="password" class="form-control round" id="user-password" name="c_password" placeholder="Confirm Enter Password">
+                                            <input type="password" class="form-control round" id="user-password" name="c_password" placeholder="Nhập lại mật khẩu">
                                             <div class="form-control-position">
                                                 <i class="ft-lock"></i>
                                             </div>
@@ -121,10 +141,10 @@
                                             <div class="col-md-6 col-12 text-center text-sm-left"></div>
                                         </div>
                                         <div class="form-group text-center">
-                                            <button type="submit" class="btn round btn-block btn-glow btn-bg-gradient-x-purple-blue col-12 mr-1 mb-1">Sign Up</button>
+                                            <button type="submit" class="btn round btn-block btn-glow btn-bg-gradient-x-purple-blue col-12 mr-1 mb-1">Đăng ký</button>
                                         </div>
                                         <div class="form-group text-right">
-                                            <a href="{{ url('/') }}">Login</a>
+                                            <a href="{{ url('/') }}" class="btn round btn-block btn-glow btn-bg-gradient-x-purple-blue col-12 mr-1 mb-1">Đăng nhập</a>
                                         </div>
 
 

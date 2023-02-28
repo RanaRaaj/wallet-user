@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
-  <title>Mobile Responsive Website</title>
+  <title>Taco Collect System  </title>
 </head>
 <style type="text/css">
 
@@ -45,14 +45,14 @@ fieldset.form-group > label  > span{
                                     <div class="col-xl-8 col-md-8 col-sm-12">
                                         <div class="card-block">
                                             <div class="card-body">
-                                                <h2>Exchange Amount</h2>
+                                                <h2>@if(Session::get('language') == 'vie') Quy đổi tiền tệ @else Exchange Amount @endif</h2>
                                                 <form id="deposit_form" action="{{route('currency.buy')}}" method="post"
                                                       enctype="multipart/form-data">
                                                     @csrf
                                                     <input type="hidden" name="exchange_rate" value="{{$data['vnd']}}">
                                                     @if(isset($bank['amount']))
                                                     <fieldset class="form-group">
-                                                      <label for="" class="label_edit" id="vnd_field">VND <span>balance : {{number_format($bank['amount'])}} VND</span></label>
+                                                      <label for="" class="label_edit" id="vnd_field">VND <span>@if(Session::get('language') == 'vie') Số dư @else balance @endif : {{number_format($bank['amount'])}} VND</span></label>
                                                       <input type="number" name="vnd" class="form-control" max="{{$bank['amount']}}" id="currency1" value="" min="250" step="0.000001" required>
                                                       <span id="username-check-result">Exchange Rate: {{$data['usdt']}} USDT = {{number_format($data['vnd'])}} VND</span>
                                                       @if($errors->has('usdt'))
@@ -65,7 +65,7 @@ fieldset.form-group > label  > span{
                                                     </div>
 
                                                     <fieldset class="form-group">
-                                                      <label for="" class="label_edit" id="usdt_field">USDT <span>balance : {{$bank['usdt']}} USDT</span></label>
+                                                      <label for="" class="label_edit" id="usdt_field">USDT <span>@if(Session::get('language') == 'vie') Số dư @else balance @endif : {{$bank['usdt']}} USDT</span></label>
                                                       <input type="number" name="usdt" class="form-control" id="currency2" value="" min="0" step="0.000001" required>
                                                       @if($errors->has('vnd'))
                                                         <div class="error" style="color:red">{{$errors->first('vnd')}}</div>
@@ -77,8 +77,8 @@ fieldset.form-group > label  > span{
                                                          style="border-top: 1px solid black">
                                                         <fieldset class="form-group center m-2">
                                                             <a href="{{route('welcome')}}"
-                                                               class="btn btn-primary">Home</a>
-                                                            <button type="submit" class="btn btn-success" id="submitBtn">Exchange
+                                                               class="btn btn-primary">@if(Session::get('language') == 'vie') Trang chủ @else Home @endif</a>
+                                                            <button type="submit" class="btn btn-success" id="submitBtn">@if(Session::get('language') == 'vie') Quy đổi @else Exchange @endif
                                                             </button>
                                                         </fieldset>
                                                     </div>

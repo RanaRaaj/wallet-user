@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
-  <title>Mobile Responsive Website</title>
+  <title>Taco Collect System  </title>
 </head>
 <style type="text/css">
 
@@ -39,7 +39,7 @@
                                     <div class="col-xl-8 col-md-8 col-sm-12">
                                         <div class="card-block">
                                             <div class="card-body">
-                                                <h2>Deposit Amount</h2>
+                                                <h2>@if(Session::get('language') == 'vie') Số tiền @else Deposit Amount @endif</h2>
                                                 <form id="deposit_form" action="{{route('deposit.confirm')}}" method="post"
                                                       enctype="multipart/form-data">
                                                     @csrf
@@ -55,7 +55,7 @@
                                                     </fieldset>
 
                                                     <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')ID đăng nhập @else Amount : VND @endif</label>
+                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie') Số tiền @else Amount @endif : VND</label>
                                                         <input type="number" name="amount" value="{{old('amount')}}" class="form-control"
                                                             id="basicInput" required>
 
@@ -66,7 +66,7 @@
                                                     </fieldset>
 
                                                     <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Nhóm quyền @else Bank Name @endif</label>
+                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Tên ngân hàng @else Bank Name @endif</label>
                                                         <select name="bank_name" class="form-control" id="basicInput" disabled>
                                                             <option value="{{$active_bank->bank_name}}">{{$active_bank->bank_name}}</option>
                                                             <option value="BIDV">BIDV</option>
@@ -94,7 +94,7 @@
                                                         <fieldset class="form-group center m-2">
                                                             <a href="{{route('welcome')}}"
                                                                class="btn btn-primary">Home</a>
-                                                            <button type="submit" class="btn btn-success">Next
+                                                            <button type="submit" class="btn btn-success">@if(Session::get('language') == 'vie') Tiếp tục @else Next @endif
                                                             </button>
                                                         </fieldset>
                                                     </div>
