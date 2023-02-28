@@ -78,6 +78,15 @@ Route::middleware('auth')->group(function () {
 	Route::get('deposit-form', [UserController::class, 'deposit_form'])->name('deposit.form');
 	Route::post('bank.confirm', [UserController::class, 'bank_confirm'])->name('bank.confirm');
 	Route::post('deposit.confirm', [UserController::class, 'deposit_confirm'])->name('deposit.confirm');
+	Route::get('next-page', function () {
+		$active_bank = session('active_bank');
+		$amount = session('amount');
+		$content = session('content');
+		if (is_null($active_bank)) {
+			return redirect()->route('deposit.form');
+		}
+		return view('deposit_confirmation', compact('active_bank', 'amount', 'content'));
+	})->name('next-page');
 	Route::post('deposit-confirm-done', [UserController::class, 'deposit_confirm_done'])->name('deposit.confirm.done');
 
 	Route::view('barcode', 'barcode');

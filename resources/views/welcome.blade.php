@@ -19,7 +19,7 @@
     padding: 0px 10px;
 }
 span.usdt_data {
-    font-size: 14px;
+    font-size: 15px;
     float: right;
 }
 span.exchange_value > span {
@@ -90,11 +90,11 @@ hr {
                     
                     <div class="bottom-banner row">
                       <div class="col-6">
-                        <span>{{$bank_detail->bank_name ?? ''}}</span>
+                        <span class="usdt_data">{{$bank_detail->bank_name ?? ''}}</span>
                       </div>
                       <div class="col-6" style="text-align: right;">
                         <span class="usdt_data">@if($profits[0]->usdt != '') {{number_format($profits[0]->usdt, 2, '.', ',')}} @else 00 @endif USDT</span><br>
-                        <span class="m-0">{{number_format($balance ?? 'not connected')}} VND</span>
+                        <span class="m-0 usdt_data">{{number_format($balance ?? 'not connected')}} VND</span>
                       </div>
                     </div>
                   @else
@@ -329,7 +329,7 @@ hr {
                       </div>
                       <div class="col-9 align-items-center">
                         <span>{{ $exc->created_at->diffForHumans() }}</span>
-                        <!-- <p>Received From: Admin</p> -->
+                        <p>{{ date('d/m/Y H:i:s', strtotime($exc->created_at . ' +7 hours')) }}</p>
                       </div>
                     </div>
                     <div class="col-4 d-flex justify-content-right">

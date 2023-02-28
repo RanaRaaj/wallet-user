@@ -38,6 +38,7 @@
                                 <div class="row justify-content-center">
                                     <div class="col-xl-8 col-md-8 col-sm-12">
                                         <div class="card-block">
+                                            @if(isset($active_bank['id']))
                                             <div class="card-body">
                                                 <h2>@if(Session::get('language') == 'vie') Số tiền @else Deposit Amount @endif</h2>
                                                 <form id="deposit_form" action="{{route('deposit.confirm')}}" method="post"
@@ -100,6 +101,15 @@
                                                     </div>
                                                 </form>
                                             </div>
+                                            @else
+                                            <div class="card-body">
+                                                <h2>THÔNG BÁO</h2>
+                                                <p>HỆ THỐNG NẠP TỰ ĐỘNG ĐANG TRONG QUÁ TRÌNH CẬP NHẬT VÀ NÂNG CẤP.
+                                                  <br>  XIN VUI LÒNG LIÊN HỆ VỚI VỚI CSKH ĐỂ HỖ TRỢ NẠP TRỰC TIẾP VÀ CÁC SỰ HỖ TRỢ KHÁC.</p>
+                                                <p>Trân trọng cảm ơn!!!</p>
+                                                <a href="{{route('welcome')}}" type="button" class="btn btn-secondary" data-dismiss="modal">QUAY LẠI TRANG CHỦ</a>
+                                            </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

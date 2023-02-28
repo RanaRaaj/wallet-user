@@ -43,7 +43,10 @@ body {
 }
 span.new_right {
     float: right;
-    color: #ff4949;
+    color: #fff;
+    background: #ff4949;
+    border-radius: 50%;
+    padding: 0% 2%;
 }
 </style>
 

@@ -13,6 +13,7 @@
     <link rel="apple-touch-icon" href="{{asset('assets/images/logo.png')}}">
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/images/logo.png')}}">
     <link href="https://fonts.googleapis.com/css?family=Muli:300,300i,400,400i,600,600i,700,700i%7CComfortaa:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/sidebar.css')}}">
 
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('assets/dashboard/app-assets/vendors/css/vendors.min.css')}}">
@@ -38,7 +39,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+  <!-- Latest compiled and minified CSS -->
 </head>
 <!-- END: Head-->
 <style>
@@ -55,9 +57,32 @@
 form .form-group {
     margin-bottom: 1.5rem;
 }
+.support-sub > a > img {
+    width: 42px;
+}
 </style>
 <!-- BEGIN: Body-->
-
+@php
+  $links = DB::table('links')->where('status',1)->get();
+@endphp
+<div class="support-icon">
+  <div class="support-main">
+    <a href="#">
+      <i class="fas fa-headset fa-2x"></i>
+    </a>
+  </div>
+    <span class="head-set-title">CSKH</span>
+  <div class="support-sub">
+    @if($links)
+    @foreach($links as $link)
+      <a href="{{$link->link}}" target="_blank">
+        <img src="{{$link->icon}}">
+        <!-- <i class="fas fa-envelope fa-2x"></i> -->
+      </a>
+      @endforeach
+    @endif
+  </div>
+</div>
 <body class="vertical-layout vertical-menu-modern 1-column  bg-full-screen-image blank-page blank-page" data-open="click" data-menu="vertical-menu-modern" data-color="bg-gradient-x-purple-red" data-col="1-column">
 <!-- BEGIN: Content-->
 <div class="app-content content">
@@ -150,7 +175,13 @@ form .form-group {
         }, 3000);
     </script>
 @endif
-
+<script>
+$(document).ready(function() {
+    $('.support-icon .support-main').click(function() {
+      $('.support-icon').toggleClass('active');
+    });
+});
+</script>
 <!-- BEGIN: Vendor JS-->
 <script src="{{asset('assets/dashboard/app-assets/vendors/js/vendors.min.js')}}" type="text/javascript"></script>
 <!-- BEGIN Vendor JS-->

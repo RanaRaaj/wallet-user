@@ -67,7 +67,7 @@ ul.d-inline-block.mb-0 {
                                                             <input type="text" name="BankAccountNumber" value="{{$active_bank->bank_account_number}}" hidden="">
                                                         </li>
                                                         <li class="my2">
-                                                        @if(Session::get('language') == 'vie')Số tiền nạp @else Your Deposit Amount @endif: <b class="text-dan fs-6">{{$amount}}</b>
+                                                        @if(Session::get('language') == 'vie')Số tiền nạp @else Your Deposit Amount @endif: <b class="text-dan fs-6">{{number_format($amount, 2, '.', ',')}}</b>
                                                             <input type="text" value="{{$amount}}" hidden=""> VND
                                                         </li>
                                                         <li class="my2">
@@ -82,6 +82,7 @@ ul.d-inline-block.mb-0 {
                                                         </li>
                                                     </ul>
                                                     
+                                                    <span style="font-size: 12px;">(*** Đính kèm Hóa đơn/ ảnh chụp màn hình.)</span>
                                                     <input type="file" name="UploadFile" accept="image/*" class="form-control d-block rounded mt-2 form-control-sm"  id="inputFileToLoad" onchange="encodeImageFileAsURL();" required>
                                                     <input type="text" name="AttachFile" hidden="">
                                                     <div id="preview" class="d-flex justify-content-center">

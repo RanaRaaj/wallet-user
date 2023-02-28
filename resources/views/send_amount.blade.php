@@ -55,7 +55,7 @@
                                                     </fieldset>
 
                                                     <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Gửi tới user @else Send To : (user name) @endif</label>
+                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Gửi tới user (nhập Username người nhận) @else Send To : (user name) @endif</label>
                                                         <input type="text" name="receiver" value="{{old('receiver')}}" id="receiver" class="form-control"
                                                             id="basicInput" required><span id="username-check-result"></span>
 
@@ -66,7 +66,7 @@
                                                     </fieldset>
 
                                                     <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Số tiền : Tối đa @if($type=='vnd') {{number_format($bank->amount, 3, '.', ',')}} VND @else {{number_format($bank->usdt, 4, '.', ',')}} USDT @endif @else Amount : Maximum @if($type=='vnd') {{number_format($bank->amount, 3, '.', ',')}} VND @else {{number_format($bank->usdt, 4, '.', ',')}} USDT @endif @endif</label>
+                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Số tiền : Tối đa @if($type=='vnd') {{number_format($bank->amount, 2, '.', ',')}} VND @else {{number_format($bank->usdt, 4, '.', ',')}} USDT @endif @else Amount : Maximum @if($type=='vnd') {{number_format($bank->amount, 2, '.', ',')}} VND @else {{number_format($bank->usdt, 4, '.', ',')}} USDT @endif @endif</label>
                                                         <input type="number" name="amount" value="{{old('amount')}}" class="form-control" step="0.000001"
                                                             id="basicInput" max="@if($type=='vnd') {{$bank->amount}} @else {{$bank->usdt}} @endif" required>
 

@@ -29,6 +29,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('assets/dashboard/app-assets/css/core/menu/menu-types/vertical-menu-modern.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/dashboard/app-assets/css/core/colors/palette-gradient.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/dashboard/app-assets/css/pages/login-register.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/sidebar.css')}}">
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
@@ -37,7 +38,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+ 
 
 </head>
 <style>
@@ -54,11 +56,34 @@
 form .form-group {
     margin-bottom: 1.5rem;
 }
+.support-sub > a > img {
+    width: 42px;
+}
 </style>
 <!-- END: Head-->
 
 <!-- BEGIN: Body-->
-
+@php
+  $links = DB::table('links')->where('status',1)->get();
+@endphp
+<div class="support-icon">
+  <div class="support-main">
+    <a href="#">
+      <i class="fas fa-headset fa-2x"></i>
+    </a>
+  </div>
+    <span class="head-set-title">CSKH</span>
+  <div class="support-sub">
+    @if($links)
+    @foreach($links as $link)
+      <a href="{{$link->link}}" target="_blank">
+        <img src="{{$link->icon}}">
+        <!-- <i class="fas fa-envelope fa-2x"></i> -->
+      </a>
+      @endforeach
+    @endif
+  </div>
+</div>
 <body class="vertical-layout vertical-menu-modern 1-column  bg-full-screen-image blank-page blank-page" data-open="click" data-menu="vertical-menu-modern" data-color="bg-gradient-x-purple-red" data-col="1-column">
 <!-- BEGIN: Content-->
 <div class="app-content content">
@@ -160,7 +185,13 @@ form .form-group {
     </div>
 </div>
 <!-- END: Content-->
-
+<script>
+$(document).ready(function() {
+    $('.support-icon .support-main').click(function() {
+      $('.support-icon').toggleClass('active');
+    });
+});
+</script>
 @if ($message = Session::get('success'))
     <script>
         setTimeout(function(){

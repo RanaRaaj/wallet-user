@@ -134,6 +134,7 @@
       <i class="fas fa-headset fa-2x"></i>
     </a>
   </div>
+    <span class="head-set-title">CSKH</span>
   <div class="support-sub">
     @if($links)
     @foreach($links as $link)
@@ -159,19 +160,19 @@ $(document).ready(function() {
       $('#notify_count').text(data[0].total);
       if($('#deposit') && $('#withdraw')){
         if(data[0].deposit > 0){
-          $('#deposit').text('new : ' + data[0].deposit);
+          $('#deposit').text( data[0].deposit);
         }
         if(data[0].withdraw > 0){
-          $('#withdraw').text('new : ' + data[0].withdraw);
+          $('#withdraw').text( data[0].withdraw);
         }
         if(data[0].admin_deposit > 0){
-          $('#deposit_admin').text('new : ' + data[0].admin_deposit);
+          $('#deposit_admin').text( data[0].admin_deposit);
         }
         if(data[0].user_deposit > 0){
-          $('#received').text('new : ' + data[0].user_deposit);
+          $('#received').text( data[0].user_deposit);
         }
         if(data[0].user_interest_count > 0){
-          $('#payment_interest').text('new : ' + data[0].user_interest_count);
+          $('#payment_interest').text( data[0].user_interest_count);
         }
       }
     }
