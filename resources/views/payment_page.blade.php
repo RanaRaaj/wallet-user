@@ -70,7 +70,7 @@ span.new_right {
                   <i class="fas fa-money-bill-alt"></i>&nbsp&nbsp&nbsp @if(Session::get('language') == 'vie') Tiền đã nhận @else Received Amount @endif <span class="new_right withdraw" id="received"> <span></span></span>
                 </a>
                 <a href="{{route('detail.view',['type' => 'deposit'])}}" class="list-group-item list-group-item-action" id="sendAmountBtn">
-                  <i class="fas fa-money-bill-alt"></i>&nbsp&nbsp&nbsp @if(Session::get('language') == 'vie') Tiền đã gửi @else Deposit Amount @endif <span class="new_right" id="deposit"> <span></span></span>
+                  <i class="fas fa-money-bill-alt"></i>&nbsp&nbsp&nbsp @if(Session::get('language') == 'vie') Tiền đã nạp @else Deposit Amount @endif <span class="new_right" id="deposit"> <span></span></span>
                 </a>
                 <a href="{{route('detail.view',['type' => 'profit'])}}" class="list-group-item list-group-item-action" id="receiveAmountBtn">
                   <i class="fas fa-money-bill-alt"></i>&nbsp&nbsp&nbsp @if(Session::get('language') == 'vie') Chi tiết tiền lãi @else Profit Details @endif <span class="new_right" id="payment_interest"> <span></span></span>

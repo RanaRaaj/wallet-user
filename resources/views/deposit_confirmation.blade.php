@@ -62,7 +62,7 @@ ul.d-inline-block.mb-0 {
                                                             <input type="text" name="BankAccountname" value="{{$active_bank->account_name}}" hidden="">
                                                         </li>
                                                         <li class="my2">
-                                                        @if(Session::get('language') == 'vie')Số tài khoản @else Account Number @endif: <b class="text-dan fs-6" id="txtBankAccountNumber">{{$active_bank->bank_account_number}}</b>
+                                                        @if(Session::get('language') == 'vie')Số tài khoản @else Account Number @endif: <b class="text-dan fs-6" id="txtBankAccountNumber" style="color: #000 !important;">{{$active_bank->bank_account_number}}</b>
                                                             <span id="btnCopyBankAccountNumber" style="cursor:pointer;background-color:#ffe180;border-radius:3px" class="px-1 ms-2">copy</span>
                                                             <input type="text" name="BankAccountNumber" value="{{$active_bank->bank_account_number}}" hidden="">
                                                         </li>
@@ -76,7 +76,7 @@ ul.d-inline-block.mb-0 {
                                                             <input type="text" name="content" value="{{$active_bank->content}}" hidden="">
                                                         </li>
                                                         <li class="my2">
-                                                            <b class="text-dan fs-6" id="txtBankDescription" style="color: #00ffdc !important;font-size:12px;">{{$active_bank->description}}</b>
+                                                            <b class="text-dan fs-6" id="txtBankDescription" style="color: #00ffdc !important;font-size:16px;">{{$active_bank->description}}</b>
                                                             <!-- <span id="btnCopyBankDescription" style="cursor:pointer;background-color:#ffe180;border-radius:3px" class="px-1 ms-2">copy</span> -->
                                                             <input type="text" name="descriptio" value="{{$active_bank->description}}" hidden="">
                                                         </li>
