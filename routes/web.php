@@ -42,6 +42,7 @@ Route::middleware('auth')->group(function () {
 
 	Route::get('payment-page/{variable?}', [UserController::class, 'payment_page'])->name('payment.page');
 
+	Route::post('color-mode', [UserController::class, 'color_mode']);
 
 	Route::get('send-form-view', [UserController::class, 'send_form_view'])->name('send.form.view');
 

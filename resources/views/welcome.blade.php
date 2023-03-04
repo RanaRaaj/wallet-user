@@ -70,7 +70,7 @@ hr {
     <div class="container">
       <x-side-bar />  
         <main class="container-fluid">
-
+        
           <div class="row mt-3">
             <div class="col-12 bg-primary text-white d-flex align-items-center justify-content-center banner" style="border-radius: 20px;">
                 @php
@@ -203,7 +203,7 @@ hr {
         </div>
 
         <div class="container-fluid col-md-6">
-          <div class="row news" style="background-color: hsl(273deg 100% 93%) !important;">
+          <div class="row news" style="background-color: hsl(273deg 100% 93%);">
               <!-- <canvas id="myChart"></canvas> -->
               <p id="current_rate"></p>
               <canvas id="dailyChart"></canvas>
@@ -548,7 +548,6 @@ hr {
       </div>
 
     </div>
-
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <script type="text/javascript">
 

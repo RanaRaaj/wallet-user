@@ -27,10 +27,26 @@
     border-radius: 16px !important;
   }
   .list-group-item > a {
-    color: #fff !important;
+    color: #fff;
   }
   .support-sub > a > img {
     width: 100%;
+  }
+  .bg-dark {
+    background: #212530 !important;
+  }
+  .bg-main {
+    background: #2a303c !important;
+    box-shadow: none !important;
+  }
+  .gold-color {
+    color: #ffc107 !important;
+  }
+  .off-white-color {
+    color: #d1cec5 !important;
+  }
+  .side-back {
+    background: #07000ce3 !important;
   }
 </style>
 <div>
@@ -80,9 +96,14 @@
               </button>
             </div>
             <div class="sidebar">
+            <div id="user-info" data-user-name="{{ auth()->user()->mode }}"></div>
               @php
                 $data = DB::table('user_panel_sidebars')->first();
               @endphp
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="colorModeSwitch">
+                <label class="custom-control-label" for="colorModeSwitch">Light Mode</label>
+              </div>
               <h3 class="text-center text-light p-3 bg-primary">{{$data->text}}</h3>
               <ul class="list-group">
 
@@ -146,11 +167,125 @@
     @endif
   </div>
 </div>
-<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- <script src="{{asset('assets/js/mode.js')}}"></script> -->
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+<script>
+  // Set the initial color mode based on a variable value
+  var userName = document.getElementById('user-info').getAttribute('data-user-name');
+  if(userName == 0){
+    mod = 'dark';
+  }else{
+    mod = 'light';
+  }
+  let colorMode = mod; // or 'dark'
+  if (colorMode === 'dark') {
+    enableDarkMode();
+  } else {
+    disableDarkMode();
+  }
 
+  // Add event listener to color mode switch
+  $('#colorModeSwitch').change(function() {
+    if ($(this).is(':checked')) {
+      enableDarkMode();
+    } else {
+      disableDarkMode();
+    }
+  });
+
+  // Function to enable dark mode
+  function enableDarkMode() {
+    $('body').addClass('bg-dark');
+    $('body').removeClass('bg-light');
+    $('.sidebar').addClass('side-back');
+    $('.justify-content-center > i, .justify-content-center > a > i, .news, .row.news.bg-main, .fixed-top, header#header,.list-group-item').addClass('bg-main');
+    $('.justify-content-center > i, .justify-content-center > a > i, .top-left>p>span, .bell-icon>a, i.fas.fa-bars, .stories>div>div>i,.top-banner,.mid-banner>p,span.usdt_data,.list-group-item>a').addClass('gold-color');
+    $('p.mt-2, .top-left>p, .align-items-center>p, .align-items-center>span, .justify-content-right>span').addClass('off-white-color');
+
+    $('#colorModeSwitch').prop('checked', true);
+    $('.custom-control-label').text('Dark Mode');
+  }
+
+  // Function to disable dark mode
+  function disableDarkMode() {
+    $('body').addClass('bg-light');
+    $('body').removeClass('bg-dark');
+    $('.sidebar').removeClass('side-back');
+    $('.justify-content-center > i, .justify-content-center > a > i, .news, .row.news.bg-main, .fixed-top, header#header,.list-group-item').removeClass('bg-main');
+    $('.justify-content-center > i, .justify-content-center > a > i, .top-left>p>span, .bell-icon>a, i.fas.fa-bars, .stories>div>div>i,.top-banner,.mid-banner>p,span.usdt_data,.list-group-item>a').removeClass('gold-color');
+    $('p.mt-2, .top-left>p, .align-items-center>p, .align-items-center>span, .justify-content-right>span').removeClass('off-white-color');
+
+    $('#colorModeSwitch').prop('checked', false);
+    $('.custom-control-label').text('Light Mode');
+  }
+
+</script>
 <script>
 $(document).ready(function() {
+
+  var userName = document.getElementById('user-info').getAttribute('data-user-name');
+  if(userName == 0){
+    mod = 'dark';
+  }else{
+    mod = 'light';
+  }
+  let colorMode = mod; // or 'dark'
+  if (colorMode === 'dark') {
+    enableDarkMode();
+  } else {
+    disableDarkMode();
+  }
+
+  // Add event listener to color mode switch
+  $('#colorModeSwitch').change(function() {
+    if ($(this).is(':checked')) {
+      enableDarkMode();
+    } else {
+      disableDarkMode();
+    }
+    var isChecked = $(this).prop('checked');
+    var mode = isChecked ? 'dark' : 'light';
+    console.log(mode);
+    $.ajax({
+      url: '/color-mode',
+      method: 'POST',
+      data: { _token: '{{ csrf_token() }}',mode: mode },
+      success: function(response) {
+        console.log(response);
+      }
+    });
+
+  });
+
+  // Function to enable dark mode
+  function enableDarkMode() {
+    $('body').addClass('bg-dark');
+    $('body').removeClass('bg-light');
+    $('.sidebar').addClass('side-back');
+    $('.justify-content-center > i, .justify-content-center > a > i, .news, .row.news.bg-main, .fixed-top, header#header,.list-group-item').addClass('bg-main');
+    $('.justify-content-center > i, .justify-content-center > a > i, .top-left>p>span, .bell-icon>a, i.fas.fa-bars, .stories>div>div>i,.top-banner,.mid-banner>p,span.usdt_data,.list-group-item>a').addClass('gold-color');
+    $('p.mt-2, .top-left>p, .align-items-center>p, .align-items-center>span, .justify-content-right>span').addClass('off-white-color');
+
+    $('#colorModeSwitch').prop('checked', true);
+    $('.custom-control-label').text('Dark Mode');
+  }
+
+  // Function to disable dark mode
+  function disableDarkMode() {
+    $('body').addClass('bg-light');
+    $('body').removeClass('bg-dark');
+    $('.sidebar').removeClass('side-back');
+    $('.justify-content-center > i, .justify-content-center > a > i, .news, .row.news.bg-main, .fixed-top, header#header,.list-group-item').removeClass('bg-main');
+    $('.justify-content-center > i, .justify-content-center > a > i, .top-left>p>span, .bell-icon>a, i.fas.fa-bars, .stories>div>div>i,.top-banner,.mid-banner>p,span.usdt_data,.list-group-item>a').removeClass('gold-color');
+    $('p.mt-2, .top-left>p, .align-items-center>p, .align-items-center>span, .justify-content-right>span').removeClass('off-white-color');
+
+    $('#colorModeSwitch').prop('checked', false);
+    $('.custom-control-label').text('Light Mode');
+  }
+
+
   $.ajax({
     url: "{{ url('updated_notification') }}",
     type: 'GET',

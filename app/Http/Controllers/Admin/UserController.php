@@ -24,6 +24,7 @@ use Pusher\Pusher;
 use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Laravel\Ui\Presets\React;
 
 class UserController extends Controller
 {   
@@ -47,6 +48,20 @@ class UserController extends Controller
             'user_interest_count' => $user_interest_count,
         ]);
         return $all_count;
+
+    }
+
+    public function color_mode(Request $request)
+    {
+        $user_id = Auth::user()->id;
+        $mode = $request->mode;
+        if($mode == 'dark'){
+            $mod = 0;
+        }else{
+            $mod = 1;
+        }
+        $user = User::where('id',$user_id)->update(['mode'=>$mod]);
+        return $mod;
 
     }
 
