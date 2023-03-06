@@ -4,7 +4,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 .justify-content-right > span {
-    color: #fff !important;
+    color: #fff ;
     font-size: 10px !important;
 }
 .col-9.align-items-center > span {
@@ -24,11 +24,11 @@ span.usdt_data {
 }
 span.exchange_value > span {
     font-size: 11px !important;
-    color: #fff !important;
+    color: #fff ;
 }
 span.exchange_value {
     font-size: 11px !important;
-    color: #fff !important;
+    color: #fff ;
     text-align: center;
     margin-top: 11%;
     line-height: 19px;
