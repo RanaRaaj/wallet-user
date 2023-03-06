@@ -91,7 +91,11 @@ hr {
                         <span class="usdt_data">{{$bank_detail->bank_name ?? ''}}</span>
                       </div>
                       <div class="col-6" style="text-align: right;">
-                        <span class="usdt_data">@if($profits[0]->usdt != '') {{number_format($profits[0]->usdt, 2, '.', ',')}} @else 00 @endif USDT</span><br>
+                        @if($balance > 0)
+                        <span class="usdt_data">@if($profits[0]->usdt > '') {{number_format($profits[0]->usdt, 2, '.', ',')}} @else 00 @endif USDT</span><br>
+                        @else
+                        <span class="usdt_data"> 00 USDT</span><br>
+                        @endif
                         <span class="m-0 usdt_data">{{number_format($balance ?? 'not connected')}} VND</span>
                       </div>
                     </div>

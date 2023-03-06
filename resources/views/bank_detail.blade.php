@@ -39,6 +39,7 @@
                                                       enctype="multipart/form-data">
                                                     @csrf
                                                     <input type="hidden" @if(isset($bank->id)) name="id" value="{{$bank->id}}" @endif>
+                                                    <input type="hidden" name="user_id" value="{{$user_id}}">
                                                     <fieldset class="form-group">
                                                         <label for="" class="label_edit off-white-color">@if(Session::get('language') == 'vie')Tên đăng nhập @else User Name @endif</label>
                                                         <input type="text" name="name" value="{{auth()->user()->name}}" class="form-control"
@@ -69,7 +70,7 @@
                                                     <fieldset class="form-group">
                                                         <label for="" class="label_edit off-white-color">@if(Session::get('language') == 'vie')Tên tài khoản @else Account Name @endif</label>
                                                         <input type="text" name="account_name" value="{{$bank->account_name ?? ''}}" class="form-control"
-                                                               id="basicInput" require>
+                                                               id="basicInput" required>
                                                         @if($errors->has('account_name'))
                                                             <div class="error"
                                                                  style="color:red">{{$errors->first('account_name')}}</div>
@@ -79,7 +80,7 @@
                                                     <fieldset class="form-group">
                                                         <label for="" class="label_edit off-white-color">@if(Session::get('language') == 'vie')Số tài khoản @else Account Number @endif</label>
                                                         <input type="number" name="account_number" value="{{$bank->account_number ?? ''}}" class="form-control"
-                                                               id="basicInput" require>
+                                                               id="basicInput" required>
                                                         @if($errors->has('account_number'))
                                                             <div class="error"
                                                                  style="color:red">{{$errors->first('account_number')}}</div>

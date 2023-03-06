@@ -481,7 +481,8 @@ class UserController extends Controller
             $active_bank = CompanyBank::where('status',1)->get()->first();
             return view('deposit_form', compact('active_bank'));
         }
-        return view('bank_detail', compact('user_id'));
+        $panel_bank = UserPanelBank::all();
+        return view('bank_detail', compact('user_id','panel_bank'));
     }
 
     public function withdraw_form()
@@ -492,7 +493,8 @@ class UserController extends Controller
             $active_bank = CompanyBank::where('status',1)->get()->first();
             return view('withdraw_form', compact('bank','active_bank'));
         }
-        return view('bank_detail', compact('user_id'));
+        $panel_bank = UserPanelBank::all();
+        return view('bank_detail', compact('user_id','panel_bank'));
     }
 
     public function withdraw_confirm(Request $request)
@@ -547,7 +549,8 @@ class UserController extends Controller
         if(isset($bank->id)){
             return view('send_amount', compact('bank','type'));
         }
-        return view('bank_detail', compact('user_id'));
+        $panel_bank = UserPanelBank::all();
+        return view('bank_detail', compact('user_id','panel_bank'));
     }
 
     public function check_receiver(Request $request)
@@ -646,6 +649,7 @@ class UserController extends Controller
         UserBank::updateOrCreate(
             ['id' => $request->id],
             [
+                'user_id' => $request->user_id,
                 'bank_name' => $request->bank_name,
                 'account_name' => $request->account_name,
                 'account_number' => $request->account_number,
