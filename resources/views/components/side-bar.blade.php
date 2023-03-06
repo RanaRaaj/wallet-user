@@ -39,14 +39,36 @@
     background: #2a303c !important;
     box-shadow: none !important;
   }
+  .bg-light {
+    background-color: hsl(249deg 64% 98%);
+  }
+  .bg-main-light {
+    background: hsl(273deg 100% 69%) !important;
+    box-shadow: 0px 0px 10px 0px #ccc !important;
+  }
   .gold-color {
     color: #ffc107 !important;
+  }
+  .gold-color-light {
+    color: #fff !important;
   }
   .off-white-color {
     color: #d1cec5 !important;
   }
+  /*.off-white-color-light {
+    color: #fff !important;
+  }*/
   .side-back {
     background: #07000ce3 !important;
+  }
+  .btn-light {
+    background-color: hsl(273deg 77% 55%) !important;
+    border-color: hsl(273deg 77% 55%) !important;
+  }
+  .btn-light-dark {
+    background-color: #ffc107 !important;
+    border-color: #ffc107 !important;
+    color: #000;
   }
 </style>
 <div>
@@ -169,10 +191,9 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
-<!-- <script src="{{asset('assets/js/mode.js')}}"></script> -->
+<script src="{{asset('assets/js/mode.js')}}"></script>
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <script>
-  // Set the initial color mode based on a variable value
   var userName = document.getElementById('user-info').getAttribute('data-user-name');
   if(userName == 0){
     mod = 'dark';
@@ -193,16 +214,42 @@
     } else {
       disableDarkMode();
     }
+    var isChecked = $(this).prop('checked');
+    var mode = isChecked ? 'dark' : 'light';
+    console.log(mode);
+    $.ajax({
+      url: '/color-mode',
+      method: 'POST',
+      data: { _token: '{{ csrf_token() }}',mode: mode },
+      success: function(response) {
+        console.log(response);
+      }
+    });
+
   });
 
   // Function to enable dark mode
   function enableDarkMode() {
     $('body').addClass('bg-dark');
     $('body').removeClass('bg-light');
+
     $('.sidebar').addClass('side-back');
+
     $('.justify-content-center > i, .justify-content-center > a > i, .news, .row.news.bg-main, .fixed-top, header#header,.list-group-item').addClass('bg-main');
+    $('.justify-content-center > i, .justify-content-center > a > i, .news, .row.news.bg-main, .fixed-top, header#header,.list-group-item').removeClass('bg-main-light'); 
+
+    $('#sendAmountBtn, #receiveAmountBtn,a.list-group-item.list-group-item-action').addClass('bg-dark');
+    $('#sendAmountBtn, #receiveAmountBtn,a.list-group-item.list-group-item-action').removeClass('bg-light');   
+    $('#sendAmountBtn, #receiveAmountBtn,a.list-group-item.list-group-item-action').removeClass('bg-main');   
+
     $('.justify-content-center > i, .justify-content-center > a > i, .top-left>p>span, .bell-icon>a, i.fas.fa-bars, .stories>div>div>i,.top-banner,.mid-banner>p,span.usdt_data,.list-group-item>a').addClass('gold-color');
+    $('.justify-content-center > i, .justify-content-center > a > i, .top-left>p>span, .bell-icon>a, i.fas.fa-bars, .stories>div>div>i,.top-banner,.mid-banner>p,span.usdt_data,.list-group-item>a').removeClass('gold-color-light');
+
     $('p.mt-2, .top-left>p, .align-items-center>p, .align-items-center>span, .justify-content-right>span').addClass('off-white-color');
+    $('p.mt-2, .top-left>p, .align-items-center>p, .align-items-center>span, .justify-content-right>span').removeClass('off-white-color-light');
+
+    $('.btn-primary,.btn-success').addClass('btn-light-dark');
+    $('.btn-primary,.btn-success').removeClass('btn-light');
 
     $('#colorModeSwitch').prop('checked', true);
     $('.custom-control-label').text('Dark Mode');
@@ -213,14 +260,25 @@
     $('body').addClass('bg-light');
     $('body').removeClass('bg-dark');
     $('.sidebar').removeClass('side-back');
+    
+    $('.justify-content-center > i, .justify-content-center > a > i, .news, .row.news.bg-main, .fixed-top, header#header,.list-group-item').addClass('bg-main-light');
     $('.justify-content-center > i, .justify-content-center > a > i, .news, .row.news.bg-main, .fixed-top, header#header,.list-group-item').removeClass('bg-main');
+
+    $('#sendAmountBtn, #receiveAmountBtn').addClass('bg-dark');
+    $('#sendAmountBtn, #receiveAmountBtn').removeClass('bg-light');
+
+    $('.justify-content-center > i, .justify-content-center > a > i, .top-left>p>span, .bell-icon>a, i.fas.fa-bars, .stories>div>div>i,.top-banner,.mid-banner>p,span.usdt_data,.list-group-item>a').addClass('gold-color-light');
     $('.justify-content-center > i, .justify-content-center > a > i, .top-left>p>span, .bell-icon>a, i.fas.fa-bars, .stories>div>div>i,.top-banner,.mid-banner>p,span.usdt_data,.list-group-item>a').removeClass('gold-color');
+
+    $('p.mt-2, .top-left>p, .align-items-center>p, .align-items-center>span, .justify-content-right>span').addClass('off-white-color-light');
     $('p.mt-2, .top-left>p, .align-items-center>p, .align-items-center>span, .justify-content-right>span').removeClass('off-white-color');
+
+    $('.btn-primary,.btn-success').removeClass('btn-light-dark');
+    $('.btn-primary,.btn-success').addClass('btn-light');
 
     $('#colorModeSwitch').prop('checked', false);
     $('.custom-control-label').text('Light Mode');
   }
-
 </script>
 <script>
 $(document).ready(function() {
@@ -263,10 +321,24 @@ $(document).ready(function() {
   function enableDarkMode() {
     $('body').addClass('bg-dark');
     $('body').removeClass('bg-light');
+
     $('.sidebar').addClass('side-back');
+
     $('.justify-content-center > i, .justify-content-center > a > i, .news, .row.news.bg-main, .fixed-top, header#header,.list-group-item').addClass('bg-main');
+    $('.justify-content-center > i, .justify-content-center > a > i, .news, .row.news.bg-main, .fixed-top, header#header,.list-group-item').removeClass('bg-main-light'); 
+
+    $('#sendAmountBtn, #receiveAmountBtn,a.list-group-item.list-group-item-action').addClass('bg-dark');
+    $('#sendAmountBtn, #receiveAmountBtn,a.list-group-item.list-group-item-action').removeClass('bg-light');   
+    $('#sendAmountBtn, #receiveAmountBtn,a.list-group-item.list-group-item-action').removeClass('bg-main');   
+
     $('.justify-content-center > i, .justify-content-center > a > i, .top-left>p>span, .bell-icon>a, i.fas.fa-bars, .stories>div>div>i,.top-banner,.mid-banner>p,span.usdt_data,.list-group-item>a').addClass('gold-color');
+    $('.justify-content-center > i, .justify-content-center > a > i, .top-left>p>span, .bell-icon>a, i.fas.fa-bars, .stories>div>div>i,.top-banner,.mid-banner>p,span.usdt_data,.list-group-item>a').removeClass('gold-color-light');
+
     $('p.mt-2, .top-left>p, .align-items-center>p, .align-items-center>span, .justify-content-right>span').addClass('off-white-color');
+    $('p.mt-2, .top-left>p, .align-items-center>p, .align-items-center>span, .justify-content-right>span').removeClass('off-white-color-light');
+
+    $('.btn-primary,.btn-success').addClass('btn-light-dark');
+    $('.btn-primary,.btn-success').removeClass('btn-light');
 
     $('#colorModeSwitch').prop('checked', true);
     $('.custom-control-label').text('Dark Mode');
@@ -277,9 +349,21 @@ $(document).ready(function() {
     $('body').addClass('bg-light');
     $('body').removeClass('bg-dark');
     $('.sidebar').removeClass('side-back');
+    
+    $('.justify-content-center > i, .justify-content-center > a > i, .news, .row.news.bg-main, .fixed-top, header#header,.list-group-item').addClass('bg-main-light');
     $('.justify-content-center > i, .justify-content-center > a > i, .news, .row.news.bg-main, .fixed-top, header#header,.list-group-item').removeClass('bg-main');
+
+    $('#sendAmountBtn, #receiveAmountBtn').addClass('bg-dark');
+    $('#sendAmountBtn, #receiveAmountBtn').removeClass('bg-light');
+
+    $('.justify-content-center > i, .justify-content-center > a > i, .top-left>p>span, .bell-icon>a, i.fas.fa-bars, .stories>div>div>i,.top-banner,.mid-banner>p,span.usdt_data,.list-group-item>a').addClass('gold-color-light');
     $('.justify-content-center > i, .justify-content-center > a > i, .top-left>p>span, .bell-icon>a, i.fas.fa-bars, .stories>div>div>i,.top-banner,.mid-banner>p,span.usdt_data,.list-group-item>a').removeClass('gold-color');
+
+    $('p.mt-2, .top-left>p, .align-items-center>p, .align-items-center>span, .justify-content-right>span').addClass('off-white-color-light');
     $('p.mt-2, .top-left>p, .align-items-center>p, .align-items-center>span, .justify-content-right>span').removeClass('off-white-color');
+
+    $('.btn-primary,.btn-success').removeClass('btn-light-dark');
+    $('.btn-primary,.btn-success').addClass('btn-light');
 
     $('#colorModeSwitch').prop('checked', false);
     $('.custom-control-label').text('Light Mode');
