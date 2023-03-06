@@ -31,14 +31,17 @@ fieldset.form-group > label {
 fieldset.form-group > label  > span{
     float: right;
 }
+button#toggle-currencies-btn {
+    width: 140px;
+}
 </style>
 <body>
-    <div class="container">
         <x-side-bar />
+    <div class="container">
         <main class="container-fluid">
         <div class="row">
                 <div class="col-12">
-                    <div class="card news">
+                    <div class="card news bg-main">
                         <div class="card-content collapse show">
                             <div class="card-body card-dashboard">
                                 <div class="row justify-content-center">
@@ -52,20 +55,20 @@ fieldset.form-group > label  > span{
                                                     <input type="hidden" name="exchange_rate" value="{{$data['vnd']}}">
                                                     @if(isset($bank['amount']))
                                                     <fieldset class="form-group">
-                                                      <label for="" class="label_edit" id="vnd_field">VND <span>@if(Session::get('language') == 'vie') Số dư @else balance @endif : {{number_format($bank['amount'])}} VND</span></label>
+                                                      <label for="" class="label_edit off-white-color" id="vnd_field">VND <span class="off-white-color">@if(Session::get('language') == 'vie') Số dư @else balance @endif : {{number_format($bank['amount'])}} VND</span></label>
                                                       <input type="number" name="vnd" class="form-control" max="{{$bank['amount']}}" id="currency1" value="" min="250" step="0.000001" required>
-                                                      <span id="username-check-result">Exchange Rate: {{$data['usdt']}} USDT = {{number_format($data['vnd'])}} VND</span>
+                                                      <span id="username-check-result" class="gold-color">Exchange Rate: {{$data['usdt']}} USDT = {{number_format($data['vnd'])}} VND</span>
                                                       @if($errors->has('usdt'))
                                                         <div class="error" style="color:red">{{$errors->first('usdt')}}</div>
                                                       @endif
                                                     </fieldset>
 
                                                     <div class="col-sm-2 mt-4 text-center">
-                                                      <button id="toggle-currencies-btn" class="btn btn-primary"><span class="fa fa-exchange-alt fa-2x"></span></button>
+                                                      <button id="toggle-currencies-btn" class="btn btn-primary btn-light-dark change-curreny"><span class="fa fa-exchange-alt fa-2x"></span></button>
                                                     </div>
 
                                                     <fieldset class="form-group">
-                                                      <label for="" class="label_edit" id="usdt_field">USDT <span>@if(Session::get('language') == 'vie') Số dư @else balance @endif : {{$bank['usdt']}} USDT</span></label>
+                                                      <label for="" class="label_edit off-white-color" id="usdt_field">USDT <span class="off-white-color">@if(Session::get('language') == 'vie') Số dư @else balance @endif : {{$bank['usdt']}} USDT</span></label>
                                                       <input type="number" name="usdt" class="form-control" id="currency2" value="" min="0" step="0.000001" required>
                                                       @if($errors->has('vnd'))
                                                         <div class="error" style="color:red">{{$errors->first('vnd')}}</div>
@@ -77,8 +80,8 @@ fieldset.form-group > label  > span{
                                                          style="border-top: 1px solid black">
                                                         <fieldset class="form-group center m-2">
                                                             <a href="{{route('welcome')}}"
-                                                               class="btn btn-primary">@if(Session::get('language') == 'vie') Trang chủ @else Home @endif</a>
-                                                            <button type="submit" class="btn btn-success" id="submitBtn">@if(Session::get('language') == 'vie') Quy đổi @else Exchange @endif
+                                                               class="btn btn-primary btn-light-dark">@if(Session::get('language') == 'vie') Trang chủ @else Home @endif</a>
+                                                            <button type="submit" class="btn btn-success btn-light-dark" id="submitBtn">@if(Session::get('language') == 'vie') Quy đổi @else Exchange @endif
                                                             </button>
                                                         </fieldset>
                                                     </div>

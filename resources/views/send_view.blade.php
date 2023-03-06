@@ -45,18 +45,18 @@ body {
   <title>Sended Amount</title>
 </head>
   <body>
+      <x-side-bar />
     <div class="container">
 
-      <x-side-bar />
       
       <div class="container my-5 news">
-        <h2 class="text-center mb-5">@if(Session::get('language') == 'vie') Lựa chọn loại tiên gửi @else Select Amount Type @endif</h2>
+        <h2 class="text-center mb-5">@if(Session::get('language') == 'vie') Lựa chọn loại tiền gửi @else Select Amount Type @endif</h2>
           <div class="list-group">
-              <a href="{{route('send.form',['type' => 'vnd'])}}" class="list-group-item list-group-item-action" id="sendAmountBtn">
-                <i class="fas fa-credit-card"></i>&nbsp&nbsp&nbsp VND
+              <a href="{{route('send.form',['type' => 'vnd'])}}" class="list-group-item list-group-item-action off-white-color" id="sendAmountBtn">
+                <i class="fas fa-credit-card gold-color"></i>&nbsp&nbsp&nbsp VND
               </a>
-              <a href="{{route('send.form',['type' => 'usdt'])}}" class="list-group-item list-group-item-action" id="sendAmountBtn">
-                <i class="fas fa-money-bill-alt"></i>&nbsp&nbsp&nbsp USDT
+              <a href="{{route('send.form',['type' => 'usdt'])}}" class="list-group-item list-group-item-action off-white-color" id="sendAmountBtn">
+                <i class="fas fa-money-bill-alt gold-color"></i>&nbsp&nbsp&nbsp USDT
               </a>
             <a href="{{route('welcome')}}" class="btn btn-primary mt-3">@if(Session::get('language') == 'vie') Quay lại @else Go Back @endif</a>
         </div>

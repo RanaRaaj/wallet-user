@@ -48,16 +48,26 @@
     background-color: #00000000 !important;
 }
 .card.border-grey.border-lighten-3.px-1.py-1.m-0 {
-    background: #0000;
+    background: #2a303c !important;
     background-size: contain;
-    height: 601px;
     FONT-WEIGHT: 500;
+    border-radius: 24px;
+}
+.round {
+    border-radius: 0.5rem !important;
+}
+html body.bg-full-screen-image {
+    background: #212530 !important;
 }
 form .form-group {
     margin-bottom: 1.5rem;
 }
 .support-sub > a > img {
     width: 42px;
+}
+a.nxt-link {
+    color: #ffc107 !important;
+    text-decoration: underline;
 }
 </style>
 <!-- END: Head-->
@@ -110,8 +120,8 @@ form .form-group {
                                 <div class="text-center mb-1">
                                     <!-- <img src="{{asset('assets/images/logo.png')}}" width="100" alt="branding logo"> -->
                                 </div>
-                                <div class="font-large-1  text-center">
-                                Đăng ký tài khoản
+                                <div class="font-large-1 text-center" style="color:#ffc107;">
+                                Đăng ký
                                 </div>
                                 @if ($message = Session::get('success'))
                                     <div class="alert alert-success mb-2" style="position: absolute;right: 0;top: 50px;" id="alert-success-message" role="alert">
@@ -168,8 +178,8 @@ form .form-group {
                                         <div class="form-group text-center">
                                             <button type="submit" class="btn round btn-block btn-glow btn-bg-gradient-x-purple-blue col-12 mr-1 mb-1">Đăng ký</button>
                                         </div>
-                                        <div class="form-group text-right">
-                                            <a href="{{ url('/') }}" class="btn round btn-block btn-glow btn-bg-gradient-x-purple-blue col-12 mr-1 mb-1">Đăng nhập</a>
+                                        <div class="form-group text-center">
+                                            <a href="{{ url('/') }}" class="nxt-link col-12 mr-1 mb-1">Đăng nhập</a>
                                         </div>
 
 

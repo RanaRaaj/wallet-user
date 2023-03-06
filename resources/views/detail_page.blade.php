@@ -72,19 +72,18 @@
   <title>Sended Amount</title>
 </head>
   <body>
+    <x-side-bar />
     <div class="container">
-
-      <x-side-bar />
 
       @if($type == 'news')
         <div class="container my-5 news">
-          <h2 class="text-center mb-5">New's</h2>
+          <h2 class="text-center mb-5">News</h2>
           <a href="{{ url()->previous() }}" class="back_arrow"><i class="fa fa-arrow-left"></i></a>
 
           <div class="list-group">
             @if(isset($sendAmountDetails[0]))
               @foreach($sendAmountDetails as $sendAmountDetail)
-              <a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modal{{ $loop->index }}">
+              <a href="#" class="list-group-item list-group-item-action bg-dark" data-toggle="modal" data-target="#modal{{ $loop->index }}">
                     <div class="row story-2 main-text stories">
                       <div class="col-12 sub-main-text d-flex align-items-center padding-zero">
                         <div class="col-3 d-flex align-items-left padding-zero">
@@ -103,7 +102,7 @@
               <!-- Modal -->
                 <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                   <div class="modal-dialog" role="document">
-                    <div class="modal-content news" style="background:#fff;color:#000;">
+                    <div class="modal-content" style="background:#fff;color:#000;">
                       <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalCenterTitle">Send Amount Detail</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -111,14 +110,14 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <p><strong>Title:</strong> {{ $sendAmountDetail->title }}</p>
+                        <p class="off-white-color"><strong>Title:</strong> {{ $sendAmountDetail->title }}</p>
                         <img style="width: 100%;" src="{{$sendAmountDetail['image']}}" alt="">
-                        <p><strong>Publish Time: <br> </strong> {{ $sendAmountDetail->created_at->diffForHumans() }} <br> {{ date('d/m/Y H:i:s', strtotime($sendAmountDetail->created_at . ' +7 hours')) }}</p>
-                        <p><strong> <br> </strong> {!! $sendAmountDetail->short_description !!}</p>
-                        <p><strong> </strong> {!! $sendAmountDetail->full_description !!}</p>
+                        <p class="off-white-color"><strong>Publish Time: <br> </strong> {{ $sendAmountDetail->created_at->diffForHumans() }} <br> {{ date('d/m/Y H:i:s', strtotime($sendAmountDetail->created_at . ' +7 hours')) }}</p>
+                        <p class="off-white-color"><strong> <br> </strong> {!! $sendAmountDetail->short_description !!}</p>
+                        <p class="off-white-color"><strong> </strong> {!! $sendAmountDetail->full_description !!}</p>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@if(Session::get('language') == 'vie') Đóng @else Close @endif</button>
+                        <button type="button" class="btn btn-secondary  btn-light-dark" data-dismiss="modal">@if(Session::get('language') == 'vie') Đóng @else Close @endif</button>
                       </div>
                     </div>
                   </div>
@@ -128,7 +127,7 @@
               <p>@if(Session::get('language') == 'vie') Không có dữ liệu @else No Record Found @endif...</p>
             @endif
           </div>
-          <a href="{{ url()->previous() }}" class="btn btn-primary mt-3">@if(Session::get('language') == 'vie') Quay lại @else Go Back @endif</a>
+          <a href="{{ url()->previous() }}" class="btn btn-primary mt-3 btn-light-dark">@if(Session::get('language') == 'vie') Quay lại @else Go Back @endif</a>
         </div>
       @endif
 
@@ -142,11 +141,11 @@
               @foreach($sendAmountDetails as $sendAmountDetail)
               <a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modal{{ $loop->index }}">
                 <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-1">{{ $sendAmountDetail->receiver_name }}</h5>
-                  <small>{{ $sendAmountDetail->created_at->diffForHumans() }}</small>
+                  <h5 class="mb-1 off-white-color">{{ $sendAmountDetail->receiver_name }}</h5>
+                  <small class="off-white-color">{{ $sendAmountDetail->created_at->diffForHumans() }}</small>
                 </div>
-                <p class="mb-1">{{ $sendAmountDetail->content }}</p>
-                <small>@if(Session::get('language') == 'vie') Số tiền @else Amount @endif: {{number_format($sendAmountDetail->amount, 2, '.', ',')}} {{$sendAmountDetail->type}}</small>
+                <p class="mb-1 off-white-color">{{ $sendAmountDetail->content }}</p>
+                <small class="off-white-color">@if(Session::get('language') == 'vie') Số tiền @else Amount @endif: {{number_format($sendAmountDetail->amount, 2, '.', ',')}} {{$sendAmountDetail->type}}</small>
               </a>
               <!-- Modal -->
                 <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -159,18 +158,18 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <p><strong>@if(Session::get('language') == 'vie') Gửi tới @else Send To @endif:</strong> {{ $sendAmountDetail->receiver_name }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Nội dung @else Content @endif:</strong> {{ $sendAmountDetail->content }}</p>
-                        <p style="text-transform: uppercase;"><strong>@if(Session::get('language') == 'vie') Số tiền @else Amount @endif:</strong> {{number_format($sendAmountDetail->amount, 2, '.', ',')}} {{$sendAmountDetail->type}}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Thời gian @else Time @endif:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Ngày giờ @else Date-Time @endif:</strong> {{ date('d/m/Y H:i:s', strtotime($sendAmountDetail->created_at . ' +7 hours')) }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Từ ngân hàng @else From Bank Name @endif:</strong> {{ $sendAmountDetail->sender_bank_name }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Từ số tài khoản NH @else From Bank Number @endif:</strong> {{ $sendAmountDetail->sender_bank_number }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Tới ngân hàng @else To Bank Name @endif:</strong> {{ $sendAmountDetail->receiver_bank_name }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Tới số tài khoản NH @else To Bank Number @endif:</strong> {{ $sendAmountDetail->receiver_bank_number }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Gửi tới @else Send To @endif:</strong> {{ $sendAmountDetail->receiver_name }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Nội dung @else Content @endif:</strong> {{ $sendAmountDetail->content }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Số tiền @else Amount @endif:</strong> {{number_format($sendAmountDetail->amount, 2, '.', ',')}} {{$sendAmountDetail->type}}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Thời gian @else Time @endif:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Ngày giờ @else Date-Time @endif:</strong> {{ date('d/m/Y H:i:s', strtotime($sendAmountDetail->created_at . ' +7 hours')) }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Từ ngân hàng @else From Bank Name @endif:</strong> {{ $sendAmountDetail->sender_bank_name }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Từ số tài khoản NH @else From Bank Number @endif:</strong> {{ $sendAmountDetail->sender_bank_number }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Tới ngân hàng @else To Bank Name @endif:</strong> {{ $sendAmountDetail->receiver_bank_name }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Tới số tài khoản NH @else To Bank Number @endif:</strong> {{ $sendAmountDetail->receiver_bank_number }}</p>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@if(Session::get('language') == 'vie') Đóng @else Close @endif</button>
+                        <button type="button" class="btn btn-secondary  btn-light-dark" data-dismiss="modal">@if(Session::get('language') == 'vie') Đóng @else Close @endif</button>
                       </div>
                     </div>
                   </div>
@@ -180,7 +179,7 @@
               <p>@if(Session::get('language') == 'vie') Không có dữ liệu @else No Record Found @endif...</p>
             @endif
           </div>
-          <a href="{{ url()->previous() }}" class="btn btn-primary mt-3">@if(Session::get('language') == 'vie') Quay lại @else Go Back @endif</a>
+          <a href="{{ url()->previous() }}" class="btn btn-primary mt-3  btn-light-dark">@if(Session::get('language') == 'vie') Quay lại @else Go Back @endif</a>
         </div>
       @endif
 
@@ -194,11 +193,11 @@
               @foreach($sendAmountDetails as $sendAmountDetail)
               <a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modal{{ $loop->index }}">
                 <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-1">{{ $sendAmountDetail->sender_name }}</h5>
-                  <small>{{ $sendAmountDetail->created_at->diffForHumans() }}</small>
+                  <h5 class="mb-1 off-white-color">{{ $sendAmountDetail->sender_name }}</h5>
+                  <small class="off-white-color">{{ $sendAmountDetail->created_at->diffForHumans() }}</small>
                 </div>
-                <p class="mb-1">{{ $sendAmountDetail->content }}</p>
-                <small>@if(Session::get('language') == 'vie') Số tiền @else Amount @endif: {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</small>
+                <p class="mb-1 off-white-color">{{ $sendAmountDetail->content }}</p>
+                <small class="off-white-color">@if(Session::get('language') == 'vie') Số tiền @else Amount @endif: {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</small>
               </a>
               <!-- Modal -->
                 <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -211,14 +210,14 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <p><strong>@if(Session::get('language') == 'vie') Người gửi @else Sender Name @endif:</strong> {{ $sendAmountDetail->sender_name }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Nội dung @else Content @endif:</strong> {{ $sendAmountDetail->content }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Số tiền @else Amount @endif:</strong> {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Thời gian @else Time @endif:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Ngày giờ @else Date-Time @endif:</strong> {{ date('d/m/Y H:i:s', strtotime($sendAmountDetail->created_at . ' +7 hours')) }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Người gửi @else Sender Name @endif:</strong> {{ $sendAmountDetail->sender_name }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Nội dung @else Content @endif:</strong> {{ $sendAmountDetail->content }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Số tiền @else Amount @endif:</strong> {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Thời gian @else Time @endif:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Ngày giờ @else Date-Time @endif:</strong> {{ date('d/m/Y H:i:s', strtotime($sendAmountDetail->created_at . ' +7 hours')) }}</p>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@if(Session::get('language') == 'vie') Đóng @else Close @endif</button>
+                        <button type="button" class="btn btn-secondary  btn-light-dark" data-dismiss="modal">@if(Session::get('language') == 'vie') Đóng @else Close @endif</button>
                       </div>
                     </div>
                   </div>
@@ -228,7 +227,7 @@
               <p>@if(Session::get('language') == 'vie') Không có dữ liệu @else No Record Found @endif...</p>
             @endif
           </div>
-          <a href="{{ url()->previous() }}" class="btn btn-primary mt-3">@if(Session::get('language') == 'vie') Quay lại @else Go Back @endif</a>
+          <a href="{{ url()->previous() }}" class="btn btn-primary mt-3  btn-light-dark">@if(Session::get('language') == 'vie') Quay lại @else Go Back @endif</a>
         </div>
       @endif
 
@@ -244,9 +243,9 @@
               @endphp
               <a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modal{{ $loop->index }}">
                 <div class="d-flex w-100 justify-content-between">
-                  <small>{{ $sendAmountDetail->created_at->diffForHumans() }}</small>
+                  <small class="off-white-color">{{ $sendAmountDetail->created_at->diffForHumans() }}</small>
                 </div>
-                <!-- <p class="mb-1">{{ $sendAmountDetail->content }}</p> -->
+                <!-- <p class="mb-1 off-white-color">{{ $sendAmountDetail->content }}</p> -->
                 <small> {{number_format($amount[0]->first, 2, '.', ',')}} @if($sendAmountDetail->type == 'vnd') VND @else USDT @endif To {{number_format($amount[0]->second, 2, '.', ',')}} @if($sendAmountDetail->type == 'vnd') USDT @else VND @endif</small>
               </a>
               <!-- Modal -->
@@ -260,14 +259,14 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <p><strong>Exchange Rate:</strong> {{number_format($sendAmountDetail->exchange_rate, 2, '.', ',')}}</p>
-                        <!-- <p><strong>@if(Session::get('language') == 'vie') Nội dung @else Content @endif:</strong> {{ $sendAmountDetail->content }}</p> -->
-                        <p><strong>@if(Session::get('language') == 'vie') Số tiền @else Amount @endif:</strong> {{number_format($amount[0]->first, 2, '.', ',')}} @if($sendAmountDetail->type == 'vnd') VND @else USDT @endif To {{number_format($amount[0]->second, 2, '.', ',')}} @if($sendAmountDetail->type == 'vnd') USDT @else VND @endif</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Thời gian @else Time @endif:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Ngày giờ @else Date-Time @endif:</strong> {{ date('d/m/Y H:i:s', strtotime($sendAmountDetail->created_at . ' +7 hours')) }}</p>
+                        <p class="off-white-color"><strong>Exchange Rate:</strong> {{number_format($sendAmountDetail->exchange_rate, 2, '.', ',')}}</p>
+                        <!-- <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Nội dung @else Content @endif:</strong> {{ $sendAmountDetail->content }}</p> -->
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Số tiền @else Amount @endif:</strong> {{number_format($amount[0]->first, 2, '.', ',')}} @if($sendAmountDetail->type == 'vnd') VND @else USDT @endif To {{number_format($amount[0]->second, 2, '.', ',')}} @if($sendAmountDetail->type == 'vnd') USDT @else VND @endif</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Thời gian @else Time @endif:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Ngày giờ @else Date-Time @endif:</strong> {{ date('d/m/Y H:i:s', strtotime($sendAmountDetail->created_at . ' +7 hours')) }}</p>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@if(Session::get('language') == 'vie') Đóng @else Close @endif</button>
+                        <button type="button" class="btn btn-secondary  btn-light-dark" data-dismiss="modal">@if(Session::get('language') == 'vie') Đóng @else Close @endif</button>
                       </div>
                     </div>
                   </div>
@@ -277,7 +276,7 @@
               <p>@if(Session::get('language') == 'vie') Không có dữ liệu @else No Record Found @endif...</p>
             @endif
           </div>
-          <a href="{{ url()->previous() }}" class="btn btn-primary mt-3">@if(Session::get('language') == 'vie') Quay lại @else Go Back @endif</a>
+          <a href="{{ url()->previous() }}" class="btn btn-primary mt-3  btn-light-dark">@if(Session::get('language') == 'vie') Quay lại @else Go Back @endif</a>
         </div>
       @endif
 
@@ -291,11 +290,11 @@
               @foreach($sendAmountDetails as $sendAmountDetail)
               <a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modal{{ $loop->index }}">
                 <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-1">Admin</h5>
-                  <small>{{ $sendAmountDetail->created_at->diffForHumans() }}</small>
+                  <h5 class="mb-1 off-white-color">Admin</h5>
+                  <small class="off-white-color">{{ $sendAmountDetail->created_at->diffForHumans() }}</small>
                 </div>
-                <p class="mb-1">{{ $sendAmountDetail->content ?? '' }}</p>
-                <small>@if(Session::get('language') == 'vie') Số tiền @else Amount @endif: {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</small>
+                <p class="mb-1 off-white-color">{{ $sendAmountDetail->content ?? '' }}</p>
+                <small class="off-white-color">@if(Session::get('language') == 'vie') Số tiền @else Amount @endif: {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</small>
               </a>
               <!-- Modal -->
                 <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -308,14 +307,14 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <p><strong>@if(Session::get('language') == 'vie') Người gửi @else Sender @endif :</strong> Admin</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Nội dung @else Content @endif:</strong> {{ $sendAmountDetail->content }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Số tiền @else Amount @endif:</strong> {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Thời gian @else Time @endif:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Ngày giờ @else Date-Time @endif:</strong> {{ date('d/m/Y H:i:s', strtotime($sendAmountDetail->created_at . ' +7 hours')) }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Người gửi @else Sender @endif :</strong> Admin</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Nội dung @else Content @endif:</strong> {{ $sendAmountDetail->content }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Số tiền @else Amount @endif:</strong> {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Thời gian @else Time @endif:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Ngày giờ @else Date-Time @endif:</strong> {{ date('d/m/Y H:i:s', strtotime($sendAmountDetail->created_at . ' +7 hours')) }}</p>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@if(Session::get('language') == 'vie') Đóng @else Close @endif</button>
+                        <button type="button" class="btn btn-secondary  btn-light-dark" data-dismiss="modal">@if(Session::get('language') == 'vie') Đóng @else Close @endif</button>
                       </div>
                     </div>
                   </div>
@@ -325,7 +324,7 @@
               <p>@if(Session::get('language') == 'vie') Không có dữ liệu @else No Record Found @endif...</p>
             @endif
           </div>
-          <a href="{{ url()->previous() }}" class="btn btn-primary mt-3">@if(Session::get('language') == 'vie') Quay lại @else Go Back @endif</a>
+          <a href="{{ url()->previous() }}" class="btn btn-primary mt-3  btn-light-dark">@if(Session::get('language') == 'vie') Quay lại @else Go Back @endif</a>
         </div>
       @endif
 
@@ -339,11 +338,11 @@
               @foreach($sendAmountDetails as $sendAmountDetail)
               <a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modal{{ $loop->index }}">
                 <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-1" style="font-size: 14px;">{{ $sendAmountDetail->bank_name }}</h5>
-                  <small>{{ $sendAmountDetail->created_at->diffForHumans() }}</small>
+                  <h5 class="mb-1 off-white-color" style="font-size: 14px;">{{ $sendAmountDetail->bank_name }}</h5>
+                  <small class="off-white-color">{{ $sendAmountDetail->created_at->diffForHumans() }}</small>
                 </div>
-                <!-- <p class="mb-1">{{ $sendAmountDetail->content ?? '' }}</p> -->
-                <small>@if(Session::get('language') == 'vie') Số tiền @else Amount @endif: {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</small>
+                <!-- <p class="mb-1 off-white-color">{{ $sendAmountDetail->content ?? '' }}</p> -->
+                <small class="off-white-color">@if(Session::get('language') == 'vie') Số tiền @else Amount @endif: {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</small>
               </a>
               <!-- Modal -->
                 <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -356,15 +355,15 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <p><strong>@if(Session::get('language') == 'vie') Tên ngân hàng @else Bank Name @endif :</strong> {{ $sendAmountDetail->bank_name }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Tên tài khoản ngân hàng @else Bank Account Name @endif:</strong> {{ $sendAmountDetail->account_name }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Số tài khoản ngân hàng @else Bank Account Number @endif:</strong> {{ $sendAmountDetail->account_number }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Tiền lãi đã nhận @else Added Amount @endif:</strong> {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Thời gian @else Time @endif:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Ngày giờ @else Date-Time @endif:</strong> {{ date('d/m/Y H:i:s', strtotime($sendAmountDetail->created_at . ' +7 hours')) }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Tên ngân hàng @else Bank Name @endif :</strong> {{ $sendAmountDetail->bank_name }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Tên tài khoản ngân hàng @else Bank Account Name @endif:</strong> {{ $sendAmountDetail->account_name }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Số tài khoản ngân hàng @else Bank Account Number @endif:</strong> {{ $sendAmountDetail->account_number }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Tiền lãi đã nhận @else Added Amount @endif:</strong> {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Thời gian @else Time @endif:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Ngày giờ @else Date-Time @endif:</strong> {{ date('d/m/Y H:i:s', strtotime($sendAmountDetail->created_at . ' +7 hours')) }}</p>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@if(Session::get('language') == 'vie') Đóng @else Close @endif</button>
+                        <button type="button" class="btn btn-secondary  btn-light-dark" data-dismiss="modal">@if(Session::get('language') == 'vie') Đóng @else Close @endif</button>
                       </div>
                     </div>
                   </div>
@@ -374,7 +373,7 @@
               <p>@if(Session::get('language') == 'vie') Không có dữ liệu @else No Record Found @endif...</p>
             @endif
           </div>
-          <a href="{{ url()->previous() }}" class="btn btn-primary mt-3">@if(Session::get('language') == 'vie') Quay lại @else Go Back @endif</a>
+          <a href="{{ url()->previous() }}" class="btn btn-primary mt-3  btn-light-dark">@if(Session::get('language') == 'vie') Quay lại @else Go Back @endif</a>
         </div>
       @endif
 
@@ -393,13 +392,13 @@
                   @elseif($sendAmountDetail->status == '0')
                     <h5 class="mb-1" style="color: red">@if(Session::get('language') == 'vie') Từ chối @else Cancel @endif</h5>
                   @else
-                    <h5 class="mb-1" style="color: blue">@if(Session::get('language') == 'vie') Đang chờ xử lý @else Pending @endif</h5>
+                    <h5 class="mb-1" style="color: #ffc107;">@if(Session::get('language') == 'vie') Đang chờ xử lý... @else Pending... @endif</h5>
                   @endif
                   
-                  <small>{{ $sendAmountDetail->created_at->diffForHumans() }}</small>
+                  <small class="off-white-color">{{ $sendAmountDetail->created_at->diffForHumans() }}</small>
                 </div>
-                <p class="mb-1">{{ $sendAmountDetail->content ?? '' }}</p>
-                <small>@if(Session::get('language') == 'vie') Số tiền @else Amount @endif: {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</small>
+                <p class="mb-1 off-white-color">{{ $sendAmountDetail->content ?? '' }}</p>
+                <small class="off-white-color">@if(Session::get('language') == 'vie') Số tiền @else Amount @endif: {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</small>
               </a>
               <!-- Modal -->
                 <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -412,27 +411,27 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <p><strong>@if(Session::get('language') == 'vie') Trạng thái @else Status @endif :</strong>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Trạng thái @else Status @endif :</strong>
                           @if($sendAmountDetail->status == '1')
                           @if(Session::get('language') == 'vie') Đã xử lý @else Approved @endif
                           @elseif($sendAmountDetail->status == '0')
                           @if(Session::get('language') == 'vie') Từ chối @else Cancel @endif
                           @else
-                          @if(Session::get('language') == 'vie') Đang chờ xử lý @else Pending @endif
+                          @if(Session::get('language') == 'vie') Đang chờ xử lý... @else Pending... @endif
                           @endif
                         </p>
-                        <p><strong>@if(Session::get('language') == 'vie') Nội dung @else Content @endif:</strong> {{ $sendAmountDetail->content }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Số tiền @else Amount @endif:</strong> {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Thời gian @else Time @endif:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Ngày giờ @else Date-Time @endif:</strong> {{ date('d/m/Y H:i:s', strtotime($sendAmountDetail->created_at . ' +7 hours')) }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Tên ngân hàng @else Bank Name @endif:</strong> {{ $sendAmountDetail->bank_name }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Tên tài khoản ngân hàng @else Bank Account Name @endif:</strong> {{ $sendAmountDetail->account_name }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Số tài khoản ngân hàng @else Bank Account Number @endif:</strong> {{ $sendAmountDetail->account_number }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Thời gian xử lý @else Approve Time @endif:</strong> {{ $sendAmountDetail->approval_time }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Lý do @else Reason @endif:</strong> {{ $sendAmountDetail->reason }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Nội dung @else Content @endif:</strong> {{ $sendAmountDetail->content }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Số tiền @else Amount @endif:</strong> {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Thời gian @else Time @endif:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Ngày giờ @else Date-Time @endif:</strong> {{ date('d/m/Y H:i:s', strtotime($sendAmountDetail->created_at . ' +7 hours')) }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Tên ngân hàng @else Bank Name @endif:</strong> {{ $sendAmountDetail->bank_name }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Tên tài khoản ngân hàng @else Bank Account Name @endif:</strong> {{ $sendAmountDetail->account_name }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Số tài khoản ngân hàng @else Bank Account Number @endif:</strong> {{ $sendAmountDetail->account_number }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Thời gian xử lý @else Approve Time @endif:</strong> {{ $sendAmountDetail->approval_time }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Lý do @else Reason @endif:</strong> {{ $sendAmountDetail->reason }}</p>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@if(Session::get('language') == 'vie') Đóng @else Close @endif</button>
+                        <button type="button" class="btn btn-secondary  btn-light-dark" data-dismiss="modal">@if(Session::get('language') == 'vie') Đóng @else Close @endif</button>
                       </div>
                     </div>
                   </div>
@@ -442,7 +441,7 @@
               <p>@if(Session::get('language') == 'vie') Không có dữ liệu @else No Record Found @endif...</p>
             @endif
           </div>
-          <a href="{{ url()->previous() }}" class="btn btn-primary mt-3">@if(Session::get('language') == 'vie') Quay lại @else Go Back @endif</a>
+          <a href="{{ url()->previous() }}" class="btn btn-primary mt-3  btn-light-dark">@if(Session::get('language') == 'vie') Quay lại @else Go Back @endif</a>
         </div>
       @endif
 
@@ -461,13 +460,13 @@
                   @elseif($sendAmountDetail->status == '0')
                     <h5 class="mb-1" style="color: red">@if(Session::get('language') == 'vie') Từ chối @else Cancel @endif</h5>
                   @else
-                    <h5 class="mb-1" style="color: blue">@if(Session::get('language') == 'vie') Đang chờ xử lý @else Pending @endif</h5>
+                    <h5 class="mb-1" style="color: #ffc107;">@if(Session::get('language') == 'vie') Đang chờ xử lý... @else Pending... @endif</h5>
                   @endif
                   
-                  <small>{{ $sendAmountDetail->created_at->diffForHumans() }}</small>
+                  <small class="off-white-color">{{ $sendAmountDetail->created_at->diffForHumans() }}</small>
                 </div>
-                <p class="mb-1">{{ $sendAmountDetail->content ?? '' }}</p>
-                <small>@if(Session::get('language') == 'vie') Số tiền @else Amount @endif: {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</small>
+                <p class="mb-1 off-white-color">{{ $sendAmountDetail->content ?? '' }}</p>
+                <small class="off-white-color">@if(Session::get('language') == 'vie') Số tiền @else Amount @endif: {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</small>
               </a>
               <!-- Modal -->
                 <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -480,26 +479,26 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <p><strong>@if(Session::get('language') == 'vie') Trạng thái @else Status @endif :</strong>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Trạng thái @else Status @endif :</strong>
                           @if($sendAmountDetail->status == '1')
                           @if(Session::get('language') == 'vie') Đã xử lý @else Approved @endif
                           @elseif($sendAmountDetail->status == '0')
                           @if(Session::get('language') == 'vie') Từ chối @else Cancel @endif
                           @else
-                          @if(Session::get('language') == 'vie') Đang chờ xử lý @else Pending @endif
+                          @if(Session::get('language') == 'vie') Đang chờ xử lý... @else Pending... @endif
                           @endif
                         </p>
-                        <p><strong>@if(Session::get('language') == 'vie') Nội dung @else Content @endif:</strong> {{ $sendAmountDetail->content }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Số tiền @else Amount @endif:</strong> {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Thời gian @else Time @endif:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Ngày giờ @else Date-Time @endif:</strong> {{ date('d/m/Y H:i:s', strtotime($sendAmountDetail->created_at . ' +7 hours')) }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Tên ngân hàng @else Bank Name @endif:</strong> {{ $sendAmountDetail->bank_name }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Tên tài khoản ngân hàng @else Bank Account Name @endif:</strong> {{ $sendAmountDetail->account_name }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Số tài khoản ngân hàng @else Bank Account Number @endif:</strong> {{ $sendAmountDetail->account_number }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Thời gian xử lý @else Approve Time @endif:</strong> {{ $sendAmountDetail->approval_time }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Nội dung @else Content @endif:</strong> {{ $sendAmountDetail->content }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Số tiền @else Amount @endif:</strong> {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Thời gian @else Time @endif:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Ngày giờ @else Date-Time @endif:</strong> {{ date('d/m/Y H:i:s', strtotime($sendAmountDetail->created_at . ' +7 hours')) }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Tên ngân hàng @else Bank Name @endif:</strong> {{ $sendAmountDetail->bank_name }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Tên tài khoản ngân hàng @else Bank Account Name @endif:</strong> {{ $sendAmountDetail->account_name }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Số tài khoản ngân hàng @else Bank Account Number @endif:</strong> {{ $sendAmountDetail->account_number }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Thời gian xử lý @else Approve Time @endif:</strong> {{ $sendAmountDetail->approval_time }}</p>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@if(Session::get('language') == 'vie') Đóng @else Close @endif</button>
+                        <button type="button" class="btn btn-secondary  btn-light-dark" data-dismiss="modal">@if(Session::get('language') == 'vie') Đóng @else Close @endif</button>
                       </div>
                     </div>
                   </div>
@@ -509,7 +508,7 @@
               <p>@if(Session::get('language') == 'vie') Không có dữ liệu @else No Record Found @endif...</p>
             @endif
           </div>
-          <a href="{{ url()->previous() }}" class="btn btn-primary mt-3">@if(Session::get('language') == 'vie') Quay lại @else Go Back @endif</a>
+          <a href="{{ url()->previous() }}" class="btn btn-primary mt-3  btn-light-dark">@if(Session::get('language') == 'vie') Quay lại @else Go Back @endif</a>
         </div>
       @endif
 
@@ -528,13 +527,13 @@
                   @elseif($sendAmountDetail->status == '0')
                     <h5 class="mb-1" style="color: red">@if(Session::get('language') == 'vie') Từ chối @else Cancel @endif</h5>
                   @else
-                    <h5 class="mb-1" style="color: blue">@if(Session::get('language') == 'vie') Đang chờ xử lý @else Pending @endif</h5>
+                    <h5 class="mb-1" style="color: #ffc107;">@if(Session::get('language') == 'vie') Đang chờ xử lý... @else Pending... @endif</h5>
                   @endif
                   
-                  <small>{{ $sendAmountDetail->created_at->diffForHumans() }}</small>
+                  <small class="off-white-color">{{ $sendAmountDetail->created_at->diffForHumans() }}</small>
                 </div>
-                <p class="mb-1">{{ $sendAmountDetail->content ?? '' }}</p>
-                <small>@if(Session::get('language') == 'vie') Số tiền @else Amount @endif: {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</small>
+                <p class="mb-1 off-white-color">{{ $sendAmountDetail->content ?? '' }}</p>
+                <small class="off-white-color">@if(Session::get('language') == 'vie') Số tiền @else Amount @endif: {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</small>
               </a>
               <!-- Modal -->
                 <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -547,27 +546,27 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <p><strong>@if(Session::get('language') == 'vie') Trạng thái @else Status @endif :</strong>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Trạng thái @else Status @endif :</strong>
                           @if($sendAmountDetail->status == '1')
                           @if(Session::get('language') == 'vie') Đã xử lý @else Approved @endif
                           @elseif($sendAmountDetail->status == '0')
                           @if(Session::get('language') == 'vie') Từ chối @else Cancel @endif
                           @else
-                          @if(Session::get('language') == 'vie') Đang chờ xử lý @else Pending @endif
+                          @if(Session::get('language') == 'vie') Đang chờ xử lý... @else Pending... @endif
                           @endif
                         </p>
-                        <p><strong>@if(Session::get('language') == 'vie') Nội dung @else Content @endif:</strong> {{ $sendAmountDetail->content }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Số tiền @else Amount @endif:</strong> {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Thời gian @else Time @endif:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Ngày giờ @else Date-Time @endif:</strong> {{ date('d/m/Y H:i:s', strtotime($sendAmountDetail->created_at . ' +7 hours')) }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Tên ngân hàng @else Bank Name @endif:</strong> {{ $sendAmountDetail->bank_name }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Tên tài khoản ngân hàng @else Bank Account Name @endif:</strong> {{ $sendAmountDetail->account_name }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Số tài khoản ngân hàng @else Bank Account Number @endif:</strong> {{ $sendAmountDetail->account_number }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Thời gian xử lý @else Approve Time @endif:</strong> {{ $sendAmountDetail->approval_time }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') lý do @else Reason @endif:</strong> {{ $sendAmountDetail->reason }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Nội dung @else Content @endif:</strong> {{ $sendAmountDetail->content }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Số tiền @else Amount @endif:</strong> {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Thời gian @else Time @endif:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Ngày giờ @else Date-Time @endif:</strong> {{ date('d/m/Y H:i:s', strtotime($sendAmountDetail->created_at . ' +7 hours')) }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Tên ngân hàng @else Bank Name @endif:</strong> {{ $sendAmountDetail->bank_name }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Tên tài khoản ngân hàng @else Bank Account Name @endif:</strong> {{ $sendAmountDetail->account_name }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Số tài khoản ngân hàng @else Bank Account Number @endif:</strong> {{ $sendAmountDetail->account_number }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Thời gian xử lý @else Approve Time @endif:</strong> {{ $sendAmountDetail->approval_time }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') lý do @else Reason @endif:</strong> {{ $sendAmountDetail->reason }}</p>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@if(Session::get('language') == 'vie') Đóng @else Close @endif</button>
+                        <button type="button" class="btn btn-secondary  btn-light-dark" data-dismiss="modal">@if(Session::get('language') == 'vie') Đóng @else Close @endif</button>
                       </div>
                     </div>
                   </div>
@@ -577,7 +576,7 @@
               <p>@if(Session::get('language') == 'vie') Không có dữ liệu @else No Record Found @endif...</p>
             @endif
           </div>
-          <a href="{{ url()->previous() }}" class="btn btn-primary mt-3">@if(Session::get('language') == 'vie') Quay lại @else Go Back @endif</a>
+          <a href="{{ url()->previous() }}" class="btn btn-primary mt-3  btn-light-dark">@if(Session::get('language') == 'vie') Quay lại @else Go Back @endif</a>
         </div>
       @endif
 
@@ -591,11 +590,11 @@
               @foreach($sendAmountDetails as $sendAmountDetail)
               <a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modal{{ $loop->index }}">
                 <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-1">{{ $sendAmountDetail->receiver_name }}</h5>
-                  <small>{{ $sendAmountDetail->created_at->diffForHumans() }}</small>
+                  <h5 class="mb-1 off-white-color">{{ $sendAmountDetail->receiver_name }}</h5>
+                  <small class="off-white-color">{{ $sendAmountDetail->created_at->diffForHumans() }}</small>
                 </div>
-                <p class="mb-1">{{ $sendAmountDetail->content }}</p>
-                <small>@if(Session::get('language') == 'vie') Số tiền @else Amount @endif: {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</small>
+                <p class="mb-1 off-white-color">{{ $sendAmountDetail->content }}</p>
+                <small class="off-white-color">@if(Session::get('language') == 'vie') Số tiền @else Amount @endif: {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</small>
               </a>
               <!-- Modal -->
                 <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -608,14 +607,14 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <p><strong>Send To:</strong> {{ $sendAmountDetail->receiver_name }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Nội dung @else Content @endif:</strong> {{ $sendAmountDetail->content }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Số tiền @else Amount @endif:</strong> {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Thời gian @else Time @endif:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
-                        <p><strong>@if(Session::get('language') == 'vie') Ngày giờ @else Date-Time @endif:</strong> {{ date('d/m/Y H:i:s', strtotime($sendAmountDetail->created_at . ' +7 hours')) }}</p>
+                        <p class="off-white-color"><strong>Send To:</strong> {{ $sendAmountDetail->receiver_name }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Nội dung @else Content @endif:</strong> {{ $sendAmountDetail->content }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Số tiền @else Amount @endif:</strong> {{number_format($sendAmountDetail->amount, 2, '.', ',')}} VND</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Thời gian @else Time @endif:</strong> {{ $sendAmountDetail->created_at->diffForHumans() }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Ngày giờ @else Date-Time @endif:</strong> {{ date('d/m/Y H:i:s', strtotime($sendAmountDetail->created_at . ' +7 hours')) }}</p>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@if(Session::get('language') == 'vie') Đóng @else Close @endif</button>
+                        <button type="button" class="btn btn-secondary  btn-light-dark" data-dismiss="modal">@if(Session::get('language') == 'vie') Đóng @else Close @endif</button>
                       </div>
                     </div>
                   </div>
@@ -625,7 +624,7 @@
               <p>@if(Session::get('language') == 'vie') Không có dữ liệu @else No Record Found @endif...</p>
             @endif
           </div>
-          <a href="{{ url()->previous() }}" class="btn btn-primary mt-3">@if(Session::get('language') == 'vie') Quay lại @else Go Back @endif</a>
+          <a href="{{ url()->previous() }}" class="btn btn-primary mt-3  btn-light-dark">@if(Session::get('language') == 'vie') Quay lại @else Go Back @endif</a>
         </div>
       @endif
 

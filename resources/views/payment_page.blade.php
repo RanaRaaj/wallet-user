@@ -53,32 +53,32 @@ span.new_right {
 <title>Taco Collect System  </title>
 </head>
   <body>
+      <x-side-bar />
     <div class="container">
 
-      <x-side-bar />
       
       <div class="container my-5 news">
         <h2 class="text-center mb-5">@if(isset($variable)) @if(Session::get('language') == 'vie') Giao dịch @else {{$variable}} @endif @else @if(Session::get('language') == 'vie') Thông báo @else Notifications @endif @endif</h2>
           <div class="list-group">
-                <a href="{{route('detail.view',['type' => 'admin_rcv'])}}" class="list-group-item list-group-item-action" id="sendAmountBtn">
-                  <i class="fas fas fa-receipt"></i>&nbsp&nbsp&nbsp @if(Session::get('language') == 'vie') Đã nhận từ hệ thống @else Received From System @endif <span class="new_right" id="deposit_admin"> <span></span></span>
+                <a href="{{route('detail.view',['type' => 'admin_rcv'])}}" class="list-group-item list-group-item-action off-white-color" id="sendAmountBtn">
+                  <i class="fas fas fa-receipt gold-color"></i>&nbsp&nbsp&nbsp @if(Session::get('language') == 'vie') Đã nhận từ hệ thống @else Received From System @endif <span class="new_right" id="deposit_admin"> <span></span></span>
                 </a>
-                <a href="{{route('detail.view',['type' => 'send'])}}" class="list-group-item list-group-item-action" id="sendAmountBtn">
-                  <i class="fas fa-paper-plane"></i>&nbsp&nbsp&nbsp @if(Session::get('language') == 'vie') Tiền gửi @else Send Amount @endif
+                <a href="{{route('detail.view',['type' => 'send'])}}" class="list-group-item list-group-item-action off-white-color" id="sendAmountBtn">
+                  <i class="fas fa-paper-plane gold-color"></i>&nbsp&nbsp&nbsp @if(Session::get('language') == 'vie') Tiền gửi @else Send Amount @endif
                 </a>
-                <a href="{{route('detail.view',['type' => 'rcv'])}}" class="list-group-item list-group-item-action" id="receiveAmountBtn">
-                  <i class="fas fa-money-bill-alt"></i>&nbsp&nbsp&nbsp @if(Session::get('language') == 'vie') Tiền đã nhận @else Received Amount @endif <span class="new_right withdraw" id="received"> <span></span></span>
+                <a href="{{route('detail.view',['type' => 'rcv'])}}" class="list-group-item list-group-item-action off-white-color" id="receiveAmountBtn">
+                  <i class="fas fa-money-bill-alt gold-color"></i>&nbsp&nbsp&nbsp @if(Session::get('language') == 'vie') Tiền đã nhận @else Received Amount @endif <span class="new_right withdraw" id="received"> <span></span></span>
                 </a>
-                <a href="{{route('detail.view',['type' => 'deposit'])}}" class="list-group-item list-group-item-action" id="sendAmountBtn">
-                  <i class="fas fa-money-bill-alt"></i>&nbsp&nbsp&nbsp @if(Session::get('language') == 'vie') Tiền đã nạp @else Deposit Amount @endif <span class="new_right" id="deposit"> <span></span></span>
+                <a href="{{route('detail.view',['type' => 'deposit'])}}" class="list-group-item list-group-item-action off-white-color" id="sendAmountBtn">
+                  <i class="fas fa-money-bill-alt gold-color"></i>&nbsp&nbsp&nbsp @if(Session::get('language') == 'vie') Tiền đã nạp @else Deposit Amount @endif <span class="new_right" id="deposit"> <span></span></span>
                 </a>
-                <a href="{{route('detail.view',['type' => 'profit'])}}" class="list-group-item list-group-item-action" id="receiveAmountBtn">
-                  <i class="fas fa-money-bill-alt"></i>&nbsp&nbsp&nbsp @if(Session::get('language') == 'vie') Chi tiết tiền lãi @else Profit Details @endif <span class="new_right" id="payment_interest"> <span></span></span>
+                <a href="{{route('detail.view',['type' => 'profit'])}}" class="list-group-item list-group-item-action off-white-color" id="receiveAmountBtn">
+                  <i class="fas fa-money-bill-alt gold-color"></i>&nbsp&nbsp&nbsp @if(Session::get('language') == 'vie') Chi tiết tiền lãi @else Profit Details @endif <span class="new_right" id="payment_interest"> <span></span></span>
                 </a>
-                <a href="{{route('detail.view',['type' => 'withdraw'])}}" class="list-group-item list-group-item-action" id="receiveAmountBtn">
-                  <i class="fas fa-credit-card"></i>&nbsp&nbsp&nbsp @if(Session::get('language') == 'vie') Chi tiết rút tiền @else Withdraw Details @endif <span class="new_right withdraw" id="withdraw"> <span></span></span>
+                <a href="{{route('detail.view',['type' => 'withdraw'])}}" class="list-group-item list-group-item-action off-white-color" id="receiveAmountBtn">
+                  <i class="fas fa-credit-card gold-color"></i>&nbsp&nbsp&nbsp @if(Session::get('language') == 'vie') Chi tiết rút tiền @else Withdraw Details @endif <span class="new_right withdraw" id="withdraw"> <span></span></span>
                 </a>
-            <a href="{{route('welcome')}}" class="btn btn-primary mt-3">@if(Session::get('language') == 'vie') Quay lại @else Go Back @endif</a>
+            <a href="{{route('welcome')}}" class="btn btn-primary mt-3  btn-light-dark">@if(Session::get('language') == 'vie') Quay lại @else Go Back @endif</a>
         </div>
       </div>
 

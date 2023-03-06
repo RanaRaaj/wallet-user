@@ -27,8 +27,8 @@
 }
 </style>
 <body>
-    <div class="container">
         <x-side-bar />
+    <div class="container">
         <main class="container-fluid">
             <div class="row">
                 <div class="col-12">
@@ -44,10 +44,10 @@
                                                       enctype="multipart/form-data">
                                                     @csrf
 
-                                                    <p><b>@if(Session::get('language') == 'vie')Số dư của bạn @else Your Balance @endif : </b> {{$bank->amount}}</p>
+                                                    <p style="text-align: center;"><b>@if(Session::get('language') == 'vie')Số dư của bạn @else Your Balance @endif : </b> {{$bank->amount}}</p>
                                                 
                                                     <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Số tiền @else Amount @endif VND</label>
+                                                        <label for="" class="label_edit off-white-color">@if(Session::get('language') == 'vie')Số tiền @else Amount @endif VND</label>
                                                         <input type="number" name="amount" class="form-control"
                                                                id="basicInput" max={{$bank->amount}} value="" required>
                                                         @if($errors->has('amount'))
@@ -57,7 +57,7 @@
                                                     </fieldset>
 
                                                     <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Tên ngân hàng @else Bank Name @endif</label>
+                                                        <label for="" class="label_edit off-white-color">@if(Session::get('language') == 'vie')Tên ngân hàng @else Bank Name @endif</label>
                                                         <input type="text" name="bank_name" class="form-control"
                                                                id="basicInput" value="{{$bank->bank_name}}" disabled>
                                                         @if($errors->has('bank_name'))
@@ -67,7 +67,7 @@
                                                     </fieldset>
 
                                                     <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Tên tài khoản ngân hàng @else Your Account Name @endif</label>
+                                                        <label for="" class="label_edit off-white-color">@if(Session::get('language') == 'vie')Tên tài khoản ngân hàng @else Your Account Name @endif</label>
                                                         <input type="text" name="account_name" class="form-control"
                                                                id="basicInput" value="{{$bank->account_name}}" disabled>
                                                         @if($errors->has('account_name'))
@@ -77,7 +77,7 @@
                                                     </fieldset>
 
                                                     <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Số tài khoản ngân hàng @else Your Account number @endif</label>
+                                                        <label for="" class="label_edit off-white-color">@if(Session::get('language') == 'vie')Số tài khoản ngân hàng @else Your Account number @endif</label>
                                                         <input type="number" name="account_number" class="form-control" id="basicInput" value="{{$bank->account_number}}" disabled>
 
                                                         @if($errors->has('account_number'))
@@ -87,7 +87,7 @@
                                                     </fieldset>
 
                                                     <!-- <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Nhóm quyền @else Content @endif</label>
+                                                        <label for="" class="label_edit off-white-color">@if(Session::get('language') == 'vie')Nhóm quyền @else Content @endif</label>
                                                         <textarea name="content" class="form-control" cols="30" rows="10"></textarea>
                                                         @if($errors->has('content'))
                                                             <div class="error"

@@ -44,23 +44,23 @@ body {
   <title>Sended Amount</title>
 </head>
   <body>
+      <x-side-bar />
     <div class="container">
 
-      <x-side-bar />
       
       <div class="container my-5 news">
         <h2 class="text-center mb-5">@if(Session::get('language') == 'vie') Cài đặt @else Settings @endif</h2>
           <div class="list-group">
-                <a href="{{route('profile.view')}}" class="list-group-item list-group-item-action" id="sendAmountBtn">
-                  <i class="fas fa-user"></i>&nbsp&nbsp&nbsp @if(Session::get('language') == 'vie') Cá nhân @else Profile @endif
+                <a href="{{route('profile.view')}}" class="list-group-item list-group-item-action off-white-color" id="sendAmountBtn">
+                  <i class="fas fa-user gold-color"></i>&nbsp&nbsp&nbsp @if(Session::get('language') == 'vie') Cá nhân @else Profile @endif
                 </a>
-                <a href="{{route('bank.view')}}" class="list-group-item list-group-item-action" id="sendAmountBtn">
-                  <i class="fas fa-credit-card"></i>&nbsp&nbsp&nbsp @if(Session::get('language') == 'vie') Ngân hàng @else Bank @endif
+                <a href="{{route('bank.view')}}" class="list-group-item list-group-item-action off-white-color" id="sendAmountBtn">
+                  <i class="fas fa-credit-card gold-color"></i>&nbsp&nbsp&nbsp @if(Session::get('language') == 'vie') Ngân hàng @else Bank @endif
                 </a>
-                <a href="{{route('language.view')}}" class="list-group-item list-group-item-action" id="sendAmountBtn">
-                  <i class="fas fa-flag"></i>&nbsp&nbsp&nbsp @if(Session::get('language') == 'vie') Ngôn ngữ @else Language @endif
+                <a href="{{route('language.view')}}" class="list-group-item list-group-item-action off-white-color" id="sendAmountBtn">
+                  <i class="fas fa-flag gold-color"></i>&nbsp&nbsp&nbsp @if(Session::get('language') == 'vie') Ngôn ngữ @else Language @endif
                 </a>
-            <a href="{{route('welcome')}}" class="btn btn-primary mt-3">@if(Session::get('language') == 'vie') Quay lại @else Go Back @endif</a>
+            <a href="{{route('welcome')}}" class="btn btn-primary mt-3 btn-light-dark">@if(Session::get('language') == 'vie') Quay lại @else Go Back @endif</a>
         </div>
       </div>
 

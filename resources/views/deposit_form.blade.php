@@ -27,8 +27,8 @@
 }
 </style>
 <body>
-    <div class="container">
         <x-side-bar />
+    <div class="container">
         <main class="container-fluid">
             <div class="row">
                 <div class="col-12">
@@ -94,8 +94,8 @@
                                                          style="border-top: 1px solid black">
                                                         <fieldset class="form-group center m-2">
                                                             <a href="{{route('welcome')}}"
-                                                               class="btn btn-primary">Home</a>
-                                                            <button type="submit" class="btn btn-success">@if(Session::get('language') == 'vie') Tiếp tục @else Next @endif
+                                                               class="btn btn-primary btn-light-dark">Home</a>
+                                                            <button type="submit" class="btn btn-success btn-light-dark">@if(Session::get('language') == 'vie') Tiếp tục @else Next @endif
                                                             </button>
                                                         </fieldset>
                                                     </div>
@@ -107,7 +107,7 @@
                                                 <p>HỆ THỐNG NẠP TỰ ĐỘNG ĐANG TRONG QUÁ TRÌNH CẬP NHẬT VÀ NÂNG CẤP.
                                                   <br>  XIN VUI LÒNG LIÊN HỆ VỚI CSKH ĐỂ ĐƯỢC HỖ TRỢ NẠP TRỰC TIẾP VÀ CÁC SỰ HỖ TRỢ KHÁC.</p>
                                                 <p>Trân trọng cảm ơn!!!</p>
-                                                <a href="{{route('welcome')}}" type="button" class="btn btn-secondary" data-dismiss="modal">QUAY LẠI TRANG CHỦ</a>
+                                                <a href="{{route('welcome')}}" type="button" class="btn btn-secondary btn-light-dark" data-dismiss="modal">QUAY LẠI TRANG CHỦ</a>
                                             </div>
                                             @endif
                                         </div>

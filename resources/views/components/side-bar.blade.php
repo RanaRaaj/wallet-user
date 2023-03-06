@@ -73,11 +73,11 @@
 </style>
 <div>
     <!-- Very little is needed to make a happy life. - Marcus Aurelius -->
-    <header class="d-flex align-items-center" id="header">
+    <header class="d-flex align-items-center container" id="header">
       <div class="container-fluid">
         <div class="row">
           <div class="col-6 align-items-center top-left">
-            <span>hello</span>
+            <span style="color: #fff;">hello</span>
             <p><span style="text-transform: uppercase;color:hsl(273deg 100% 69%);font-family:inherit;">{{auth()->user()->name}}</span> ({{auth()->user()->email}})</p>
           </div>
           <div class="col-6 row d-flex justify-content-right top-right">
@@ -94,14 +94,14 @@
                                 <img src="{{ url('assets/en.png')}}" alt="avatar" style="width:36px;">
                                 @endif
                           </span></a>
-                <div class="dropdown-menu dropdown-menu-right" style="min-width: 140px !important;">
+                <div class="dropdown-menu dropdown-menu-right bg-main" style="min-width: 140px !important;border-radius:18px;">
                     <div class="arrow_box_right">
-                        <a class="dropdown-item" href="{{ route('en') }}">
-                            <i class="fa fa-flag"></i>
+                        <a class="dropdown-item off-white-color" href="{{ route('en') }}">
+                            <i class="fa fa-flag gold-color"></i>
                             ENGLISH
                         </a>
-                        <a class="dropdown-item" href="{{ route('vie') }}">
-                            <i class="fa fa-flag"></i>
+                        <a class="dropdown-item off-white-color" href="{{ route('vie') }}">
+                            <i class="fa fa-flag gold-color"></i>
                             TIẾNG VIỆT
                         </a>
                     </div>
@@ -122,41 +122,41 @@
               @php
                 $data = DB::table('user_panel_sidebars')->first();
               @endphp
-              <div class="custom-control custom-switch">
+              <!-- <div class="custom-control custom-switch">
                 <input type="checkbox" class="custom-control-input" id="colorModeSwitch">
                 <label class="custom-control-label" for="colorModeSwitch">Light Mode</label>
-              </div>
+              </div> -->
               <h3 class="text-center text-light p-3 bg-primary">{{$data->text}}</h3>
               <ul class="list-group">
 
-                <li class="list-group-item">
+                <li class="list-group-item sider-list">
                   <a href="{{route('welcome')}}">
                     <i class="fa fa-home mr-2"></i>@if(Session::get('language') == 'vie') Trang chủ @else Home @endif
                   </a>
                 </li>
 
-                <li class="list-group-item">
+                <li class="list-group-item sider-list">
                   <a href="{{route('profile.view')}}">
                     <i class="fa fa-user mr-2"></i>@if(Session::get('language') == 'vie') Cá nhân @else Profile @endif
                   </a>
                 </li>
 
-                <li class="list-group-item dropdown">
+                <li class="list-group-item sider-list dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="collapse" data-target="#payment-options" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-dollar-sign mr-2"></i>@if(Session::get('language') == 'vie') Giao dịch @else Payment @endif <i class="fa fa-caret-down ml-2"></i>
                   </a>
                   <div id="payment-options" class="collapse">
-                    <a class="dropdown-item" href="{{route('detail.view',['type' => 'send'])}}">@if(Session::get('language') == 'vie') Gửi tiền @else Send @endif</a>
-                    <a class="dropdown-item" href="{{route('detail.view',['type' => 'rcv'])}}">@if(Session::get('language') == 'vie') Nhận tiền @else Received @endif</a>
+                    <a class="dropdown-item gold-color" href="{{route('detail.view',['type' => 'send'])}}">@if(Session::get('language') == 'vie') Gửi tiền @else Send @endif</a>
+                    <a class="dropdown-item gold-color" href="{{route('detail.view',['type' => 'rcv'])}}">@if(Session::get('language') == 'vie') Nhận tiền @else Received @endif</a>
                     <!-- <a class="dropdown-item" href="#">Option 3</a> -->
                   </div>
                 </li>
-                <li class="list-group-item">
+                <li class="list-group-item sider-list">
                   <a href="{{route('setting.view')}}">
                     <i class="fa fa-cog mr-2"></i>@if(Session::get('language') == 'vie') Cài đặt @else Setting @endif
                   </a>
                 </li>
-                <li class="list-group-item">
+                <li class="list-group-item sider-list">
                   <a href="{{url('/logout')}}" class="logout">
                     <i class="fa fa-sign-out-alt mr-2"></i>@if(Session::get('language') == 'vie') Thoát @else Logout @endif
                   </a>
@@ -177,7 +177,7 @@
       <i class="fas fa-headset fa-2x"></i>
     </a>
   </div>
-    <span class="head-set-title">CSKH</span>
+    <span class="head-set-title gold-color">CSKH</span>
   <div class="support-sub">
     @if($links)
     @foreach($links as $link)
@@ -190,8 +190,7 @@
   </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="{{asset('assets/js/mode.js')}}"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script> -->
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <script>
   var userName = document.getElementById('user-info').getAttribute('data-user-name');
@@ -235,15 +234,18 @@
 
     $('.sidebar').addClass('side-back');
 
-    $('.justify-content-center > i, .justify-content-center > a > i, .news, .row.news.bg-main, .fixed-top, header#header,.list-group-item').addClass('bg-main');
-    $('.justify-content-center > i, .justify-content-center > a > i, .news, .row.news.bg-main, .fixed-top, header#header,.list-group-item').removeClass('bg-main-light'); 
+    $('.banner').removeClass('banner-img-light');
+    $('.banner').addClass('banner-img-dark');
+
+    $('.justify-content-center > i, .justify-content-center > a > i, .news, .row.news.bg-main, .fixed-top, header#header,.sider-list').addClass('bg-main');
+    $('.justify-content-center > i, .justify-content-center > a > i, .news, .row.news.bg-main, .fixed-top, header#header,.sider-list').removeClass('bg-main-light'); 
 
     $('#sendAmountBtn, #receiveAmountBtn,a.list-group-item.list-group-item-action').addClass('bg-dark');
     $('#sendAmountBtn, #receiveAmountBtn,a.list-group-item.list-group-item-action').removeClass('bg-light');   
     $('#sendAmountBtn, #receiveAmountBtn,a.list-group-item.list-group-item-action').removeClass('bg-main');   
 
-    $('.justify-content-center > i, .justify-content-center > a > i, .top-left>p>span, .bell-icon>a, i.fas.fa-bars, .stories>div>div>i,.top-banner,.mid-banner>p,span.usdt_data,.list-group-item>a').addClass('gold-color');
-    $('.justify-content-center > i, .justify-content-center > a > i, .top-left>p>span, .bell-icon>a, i.fas.fa-bars, .stories>div>div>i,.top-banner,.mid-banner>p,span.usdt_data,.list-group-item>a').removeClass('gold-color-light');
+    $('.justify-content-center > i, #current_rate, .justify-content-center > a > i, .top-left>p>span, .bell-icon>a, i.fas.fa-bars, .stories>div>div>i,.list-group-item>a').addClass('gold-color');
+    $('.justify-content-center > i, #current_rate, .justify-content-center > a > i, .top-left>p>span, .bell-icon>a, i.fas.fa-bars, .stories>div>div>i,.list-group-item>a').removeClass('gold-color-light');
 
     $('p.mt-2, .top-left>p, .align-items-center>p, .align-items-center>span, .justify-content-right>span').addClass('off-white-color');
     $('p.mt-2, .top-left>p, .align-items-center>p, .align-items-center>span, .justify-content-right>span').removeClass('off-white-color-light');
@@ -261,14 +263,17 @@
     $('body').removeClass('bg-dark');
     $('.sidebar').removeClass('side-back');
     
-    $('.justify-content-center > i, .justify-content-center > a > i, .news, .row.news.bg-main, .fixed-top, header#header,.list-group-item').addClass('bg-main-light');
-    $('.justify-content-center > i, .justify-content-center > a > i, .news, .row.news.bg-main, .fixed-top, header#header,.list-group-item').removeClass('bg-main');
+    $('.banner').addClass('banner-img-light');
+    $('.banner').removeClass('banner-img-dark');
+
+    $('.justify-content-center > i, .justify-content-center > a > i, .news, .row.news.bg-main, .fixed-top, header#header').addClass('bg-main-light');
+    $('.justify-content-center > i, .justify-content-center > a > i, .news, .row.news.bg-main, .fixed-top, header#header,.sider-list').removeClass('bg-main');
 
     $('#sendAmountBtn, #receiveAmountBtn').addClass('bg-dark');
     $('#sendAmountBtn, #receiveAmountBtn').removeClass('bg-light');
 
-    $('.justify-content-center > i, .justify-content-center > a > i, .top-left>p>span, .bell-icon>a, i.fas.fa-bars, .stories>div>div>i,.top-banner,.mid-banner>p,span.usdt_data,.list-group-item>a').addClass('gold-color-light');
-    $('.justify-content-center > i, .justify-content-center > a > i, .top-left>p>span, .bell-icon>a, i.fas.fa-bars, .stories>div>div>i,.top-banner,.mid-banner>p,span.usdt_data,.list-group-item>a').removeClass('gold-color');
+    $('.justify-content-center > i,#current_rate, .justify-content-center > a > i, .top-left>p>span, .bell-icon>a, i.fas.fa-bars, .stories>div>div>i,.list-group-item>a').addClass('gold-color-light');
+    $('.justify-content-center > i,#current_rate, .justify-content-center > a > i, .top-left>p>span, .bell-icon>a, i.fas.fa-bars, .stories>div>div>i,.list-group-item>a').removeClass('gold-color');
 
     $('p.mt-2, .top-left>p, .align-items-center>p, .align-items-center>span, .justify-content-right>span').addClass('off-white-color-light');
     $('p.mt-2, .top-left>p, .align-items-center>p, .align-items-center>span, .justify-content-right>span').removeClass('off-white-color');
@@ -324,15 +329,18 @@ $(document).ready(function() {
 
     $('.sidebar').addClass('side-back');
 
-    $('.justify-content-center > i, .justify-content-center > a > i, .news, .row.news.bg-main, .fixed-top, header#header,.list-group-item').addClass('bg-main');
-    $('.justify-content-center > i, .justify-content-center > a > i, .news, .row.news.bg-main, .fixed-top, header#header,.list-group-item').removeClass('bg-main-light'); 
+    $('.banner').removeClass('banner-img-light');
+    $('.banner').addClass('banner-img-dark');
+
+    $('.justify-content-center > i, .justify-content-center > a > i, .news, .row.news.bg-main, .fixed-top, header#header,.sider-list').addClass('bg-main');
+    $('.justify-content-center > i, .justify-content-center > a > i, .news, .row.news.bg-main, .fixed-top, header#header,.sider-list').removeClass('bg-main-light'); 
 
     $('#sendAmountBtn, #receiveAmountBtn,a.list-group-item.list-group-item-action').addClass('bg-dark');
     $('#sendAmountBtn, #receiveAmountBtn,a.list-group-item.list-group-item-action').removeClass('bg-light');   
     $('#sendAmountBtn, #receiveAmountBtn,a.list-group-item.list-group-item-action').removeClass('bg-main');   
 
-    $('.justify-content-center > i, .justify-content-center > a > i, .top-left>p>span, .bell-icon>a, i.fas.fa-bars, .stories>div>div>i,.top-banner,.mid-banner>p,span.usdt_data,.list-group-item>a').addClass('gold-color');
-    $('.justify-content-center > i, .justify-content-center > a > i, .top-left>p>span, .bell-icon>a, i.fas.fa-bars, .stories>div>div>i,.top-banner,.mid-banner>p,span.usdt_data,.list-group-item>a').removeClass('gold-color-light');
+    $('.justify-content-center > i, #current_rate, .justify-content-center > a > i, .top-left>p>span, .bell-icon>a, i.fas.fa-bars, .stories>div>div>i,.list-group-item>a').addClass('gold-color');
+    $('.justify-content-center > i, #current_rate, .justify-content-center > a > i, .top-left>p>span, .bell-icon>a, i.fas.fa-bars, .stories>div>div>i,.list-group-item>a').removeClass('gold-color-light');
 
     $('p.mt-2, .top-left>p, .align-items-center>p, .align-items-center>span, .justify-content-right>span').addClass('off-white-color');
     $('p.mt-2, .top-left>p, .align-items-center>p, .align-items-center>span, .justify-content-right>span').removeClass('off-white-color-light');
@@ -349,15 +357,18 @@ $(document).ready(function() {
     $('body').addClass('bg-light');
     $('body').removeClass('bg-dark');
     $('.sidebar').removeClass('side-back');
+
+    $('.banner').addClass('banner-img-light');
+    $('.banner').removeClass('banner-img-dark');
     
-    $('.justify-content-center > i, .justify-content-center > a > i, .news, .row.news.bg-main, .fixed-top, header#header,.list-group-item').addClass('bg-main-light');
-    $('.justify-content-center > i, .justify-content-center > a > i, .news, .row.news.bg-main, .fixed-top, header#header,.list-group-item').removeClass('bg-main');
+    $('.justify-content-center > i, .justify-content-center > a > i, .news, .row.news.bg-main, .fixed-top, header#header').addClass('bg-main-light');
+    $('.justify-content-center > i, .justify-content-center > a > i, .news, .row.news.bg-main, .fixed-top, header#header,.sider-list').removeClass('bg-main');
 
     $('#sendAmountBtn, #receiveAmountBtn').addClass('bg-dark');
     $('#sendAmountBtn, #receiveAmountBtn').removeClass('bg-light');
 
-    $('.justify-content-center > i, .justify-content-center > a > i, .top-left>p>span, .bell-icon>a, i.fas.fa-bars, .stories>div>div>i,.top-banner,.mid-banner>p,span.usdt_data,.list-group-item>a').addClass('gold-color-light');
-    $('.justify-content-center > i, .justify-content-center > a > i, .top-left>p>span, .bell-icon>a, i.fas.fa-bars, .stories>div>div>i,.top-banner,.mid-banner>p,span.usdt_data,.list-group-item>a').removeClass('gold-color');
+    $('.justify-content-center > i, #current_rate, .justify-content-center > a > i, .top-left>p>span, .bell-icon>a, i.fas.fa-bars, .stories>div>div>i,.list-group-item>a').addClass('gold-color-light');
+    $('.justify-content-center > i, #current_rate, .justify-content-center > a > i, .top-left>p>span, .bell-icon>a, i.fas.fa-bars, .stories>div>div>i,.list-group-item>a').removeClass('gold-color');
 
     $('p.mt-2, .top-left>p, .align-items-center>p, .align-items-center>span, .justify-content-right>span').addClass('off-white-color-light');
     $('p.mt-2, .top-left>p, .align-items-center>p, .align-items-center>span, .justify-content-right>span').removeClass('off-white-color');
@@ -442,7 +453,7 @@ channel.bind('withdraw-event-aprove', function(data) {
     }
     sidebarToggle.addEventListener("click", toggleSidebar);
     function checkScreenSize() {
-      if (window.innerWidth > 766) {
+      if (window.innerWidth > 1522) {
         sidebar.classList.add("open");
       } else {
         document.addEventListener('click', (event) => {
@@ -466,10 +477,8 @@ channel.bind('withdraw-event-aprove', function(data) {
   $(window).scroll(function() {
     if ($(this).scrollTop() > 100) {
       $('#header').addClass('fixed-top');
-      $('#header').addClass('container');
     } else {
       $('#header').removeClass('fixed-top');
-      $('#header').removeClass('container');
     }
   });
 

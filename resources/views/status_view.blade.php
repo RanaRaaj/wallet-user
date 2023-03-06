@@ -45,20 +45,20 @@ body {
   <title>Sended Amount</title>
 </head>
   <body>
+      <x-side-bar />
     <div class="container">
 
-      <x-side-bar />
       
       <div class="container my-5 news">
         <h2 class="text-center mb-5">@if(Session::get('language') == 'vie') Trạng thái giao dịch @else Status @endif</h2>
           <div class="list-group">
-                <a href="{{route('detail.view',['type' => 'deposit'])}}" class="list-group-item list-group-item-action" id="sendAmountBtn">
-                  <i class="fas fa-money-bill-alt"></i>&nbsp&nbsp&nbsp @if(Session::get('language') == 'vie') yêu cầu nạp tiền @else Deposit Requests @endif
+                <a href="{{route('detail.view',['type' => 'deposit'])}}" class="list-group-item list-group-item-action off-white-color" id="sendAmountBtn">
+                  <i class="fas fa-money-bill-alt gold-color"></i>&nbsp&nbsp&nbsp @if(Session::get('language') == 'vie') yêu cầu nạp tiền @else Deposit Requests @endif
                 </a>
-                <a href="{{route('detail.view',['type' => 'withdraw'])}}" class="list-group-item list-group-item-action" id="sendAmountBtn">
-                  <i class="fas fa-credit-card"></i>&nbsp&nbsp&nbsp @if(Session::get('language') == 'vie') Yêu cầu rút tiền @else Withdraw Requests @endif
+                <a href="{{route('detail.view',['type' => 'withdraw'])}}" class="list-group-item list-group-item-action off-white-color" id="sendAmountBtn">
+                  <i class="fas fa-credit-card gold-color"></i>&nbsp&nbsp&nbsp @if(Session::get('language') == 'vie') Yêu cầu rút tiền @else Withdraw Requests @endif
                 </a>
-            <a href="{{route('welcome')}}" class="btn btn-primary mt-3">@if(Session::get('language') == 'vie') Quay lại @else Go Back @endif</a>
+            <a href="{{route('welcome')}}" class="btn btn-primary mt-3 btn-light-dark">@if(Session::get('language') == 'vie') Quay lại @else Go Back @endif</a>
         </div>
       </div>
 

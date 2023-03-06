@@ -33,8 +33,8 @@ ul.d-inline-block.mb-0 {
 }
 </style>
 <body>
-    <div class="container">
         <x-side-bar />
+    <div class="container">
         <main class="container-fluid">
         <div class="row">
                 <div class="col-12">
@@ -52,32 +52,32 @@ ul.d-inline-block.mb-0 {
 
                                                     <ul class="d-inline-block mb-0">
                                                         <li class="my2">
-                                                        @if(Session::get('language') == 'vie')Tên ngân hàng @else Bank Name @endif: <b class="text-dan fs-6" id="txtBankName">{{$active_bank->bank_name}}</b>
-                                                            <span id="btnCopyBankName" style="cursor:pointer;background-color:#ffe180;border-radius:3px" class="px-1 ms-2">copy</span>
+                                                        @if(Session::get('language') == 'vie')Tên ngân hàng @else Bank Name @endif: <b class="text-dan fs-6 gold-color" id="txtBankName">{{$active_bank->bank_name}}</b>
+                                                            <span id="btnCopyBankName" style="cursor:pointer;background-color:#ffe180;border-radius:3px;color:#000;" class="px-1 ms-2">copy</span>
                                                             <input type="text" name="BankName" value="{{$active_bank->bank_name}}" hidden="">
                                                         </li>
                                                         <li class="my2">
-                                                        @if(Session::get('language') == 'vie')Tên tài khoản @else Account Name @endif: <b class="text-dan fs-6" id="txtBankAccountname">{{$active_bank->account_name}}</b>
-                                                            <span id="btnCopyBankAccountname" style="cursor:pointer;background-color:#ffe180;border-radius:3px" class="px-1 ms-2">copy</span>
+                                                        @if(Session::get('language') == 'vie')Tên tài khoản @else Account Name @endif: <b class="text-dan fs-6 gold-color" id="txtBankAccountname">{{$active_bank->account_name}}</b>
+                                                            <span id="btnCopyBankAccountname" style="cursor:pointer;background-color:#ffe180;border-radius:3px;color:#000;" class="px-1 ms-2">copy</span>
                                                             <input type="text" name="BankAccountname" value="{{$active_bank->account_name}}" hidden="">
                                                         </li>
                                                         <li class="my2">
-                                                        @if(Session::get('language') == 'vie')Số tài khoản @else Account Number @endif: <b class="text-dan fs-6" id="txtBankAccountNumber" style="color: #000 !important;">{{$active_bank->bank_account_number}}</b>
-                                                            <span id="btnCopyBankAccountNumber" style="cursor:pointer;background-color:#ffe180;border-radius:3px" class="px-1 ms-2">copy</span>
+                                                        @if(Session::get('language') == 'vie')Số tài khoản @else Account Number @endif: <b class="text-dan fs-6 gold-color" id="txtBankAccountNumber">{{$active_bank->bank_account_number}}</b>
+                                                            <span id="btnCopyBankAccountNumber" style="cursor:pointer;background-color:#ffe180;border-radius:3px;color:#000;" class="px-1 ms-2">copy</span>
                                                             <input type="text" name="BankAccountNumber" value="{{$active_bank->bank_account_number}}" hidden="">
                                                         </li>
                                                         <li class="my2">
-                                                        @if(Session::get('language') == 'vie')Số tiền nạp @else Your Deposit Amount @endif: <b class="text-dan fs-6">{{number_format($amount, 2, '.', ',')}}</b>
+                                                        @if(Session::get('language') == 'vie')Số tiền nạp @else Your Deposit Amount @endif: <b class="text-dan fs-6 gold-color">{{number_format($amount, 2, '.', ',')}}</b>
                                                             <input type="text" value="{{$amount}}" hidden=""> VND
                                                         </li>
                                                         <li class="my2">
-                                                        @if(Session::get('language') == 'vie')Nội Dung @else Content @endif : <b class="text-dan fs-6" id="txtBankContent">{{$active_bank->content}}</b>
-                                                            <span id="btnCopyBankContent" style="cursor:pointer;background-color:#ffe180;border-radius:3px" class="px-1 ms-2">copy</span>
+                                                        @if(Session::get('language') == 'vie')Nội Dung @else Content @endif : <b class="text-dan fs-6 gold-color" id="txtBankContent">{{$active_bank->content}}</b>
+                                                            <span id="btnCopyBankContent" style="cursor:pointer;background-color:#ffe180;border-radius:3px;color:#000;" class="px-1 ms-2">copy</span>
                                                             <input type="text" name="content" value="{{$active_bank->content}}" hidden="">
                                                         </li>
                                                         <li class="my2">
-                                                            <b class="text-dan fs-6" id="txtBankDescription" style="color: #00ffdc !important;font-size:16px;">{{$active_bank->description}}</b>
-                                                            <!-- <span id="btnCopyBankDescription" style="cursor:pointer;background-color:#ffe180;border-radius:3px" class="px-1 ms-2">copy</span> -->
+                                                            <b class="text-dan fs-6 gold-color" id="txtBankDescription" style="color: #00ffdc !important;font-size:16px;">{{$active_bank->description}}</b>
+                                                            <!-- <span id="btnCopyBankDescription" style="cursor:pointer;background-color:#ffe180;border-radius:3px;color:#000;" class="px-1 ms-2">copy</span> -->
                                                             <input type="text" name="descriptio" value="{{$active_bank->description}}" hidden="">
                                                         </li>
                                                     </ul>

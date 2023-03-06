@@ -20,7 +20,6 @@
 }
 span.usdt_data {
     font-size: 15px;
-    float: right;
 }
 span.exchange_value > span {
     font-size: 11px !important;
@@ -38,7 +37,6 @@ p#current_rate {
     width: 100%;
     text-align: center;
     font-size: 13px;
-    color: #606060;
     font-family: math;
 }
 .stories > .justify-content-right {
@@ -67,12 +65,12 @@ hr {
 }
 </style>
 <body>
+<x-side-bar />  
     <div class="container">
-      <x-side-bar />  
         <main class="container-fluid">
         
           <div class="row mt-3">
-            <div class="col-12 bg-primary text-white d-flex align-items-center justify-content-center banner" style="border-radius: 20px;">
+            <div class="col-12 text-white d-flex align-items-center justify-content-center banner" style="border-radius: 20px;">
                 @php
                     $user_id = Auth::user()->id;
                     $bank_detail = DB::table('user_banks')->where('user_id', $user_id)->first();
@@ -89,7 +87,7 @@ hr {
                     </div>
                     
                     <div class="bottom-banner row">
-                      <div class="col-6">
+                      <div class="col-6" style="text-align: left;">
                         <span class="usdt_data">{{$bank_detail->bank_name ?? ''}}</span>
                       </div>
                       <div class="col-6" style="text-align: right;">
@@ -125,28 +123,28 @@ hr {
 
               <div class="col-3 align-items-center justify-content-center">
                   <a href="{{route('deposit.form')}}">
-                      <i class="fas fa-list-ul fa-2x"></i>
+                      <i class="fas fa-list-ul fa-2x gold-color bg-main"></i>
                       <p class="mt-2">@if(Session::get('language') == 'vie') Nạp tiền @else Deposit @endif</p>
                   </a>
               </div>
 
               <div class="col-3 align-items-center justify-content-center">
                 <a href="{{route('withdraw.form')}}">
-                  <i class="fas fa-credit-card fa-2x"></i>
+                  <i class="fas fa-credit-card fa-2x gold-color bg-main"></i>
                   <p class="mt-2">@if(Session::get('language') == 'vie') Rút tiền @else Withdraw @endif</p>
                 </a>
               </div>
 
               <div class="col-3 align-items-center justify-content-center">
                   <a href="{{route('send.form.view')}}">
-                      <i class="fas fa-paper-plane fa-2x"></i>
+                      <i class="fas fa-paper-plane fa-2x gold-color bg-main"></i>
                       <p class="mt-2">@if(Session::get('language') == 'vie') Gửi tiền @else Send @endif</p>
                   </a>
               </div>
 
               <div class="col-3 align-items-center justify-content-center">
                 <a href="{{route('detail.view',['type' => 'profit'])}}">
-                  <i class="fas fa-money-bill fa-2x"></i>
+                  <i class="fas fa-money-bill fa-2x gold-color bg-main"></i>
                   <p class="mt-2">@if(Session::get('language') == 'vie') Tiền lãi @else Profit @endif</p>
                 </a>
               </div>
@@ -156,21 +154,21 @@ hr {
 
               <div class="col-3 align-items-center justify-content-center">
                 <a href="{{route('payment.page', ['variable' => 'Payment'])}}">
-                  <i class="fas fa-money-check fa-2x"></i>
+                  <i class="fas fa-money-check fa-2x gold-color bg-main"></i>
                   <p class="mt-2">@if(Session::get('language') == 'vie') Giao dịch @else Payment @endif</p>
                 </a>
               </div>
               
               <div class="col-3 align-items-center justify-content-center">
                 <a href="{{route('status.view')}}">
-                  <i class="fas fa-check-circle fa-2x"></i>
+                  <i class="fas fa-check-circle fa-2x gold-color bg-main"></i>
                   <p class="mt-2">@if(Session::get('language') == 'vie') Trạng thái GD @else Status @endif</p>
                 </a>
               </div>
               
               <div class="col-3 align-items-center justify-content-center">
                 <a href="{{route('setting.view')}}">
-                  <i class="fas fa-cog fa-2x"></i>
+                  <i class="fas fa-cog fa-2x gold-color bg-main"></i>
                   <p class="mt-2">@if(Session::get('language') == 'vie') Cài đặt @else Setting @endif</p>
                 </a>
               </div>
@@ -178,7 +176,7 @@ hr {
               <div class="col-3 align-items-center justify-content-center">
                 <a href="{{route('currency.exchange')}}">
                   <!-- <img src="{{asset('assets/usdt.jpg')}}" alt=""> -->
-                  <i class="fas fa-money-bill-alt fa-2x"></i>
+                  <i class="fas fa-money-bill-alt fa-2x gold-color bg-main"></i>
                   <p class="mt-2">@if(Session::get('language') == 'vie') Mua/Bán USDT @else Buy/Sell USDT @endif</p>
                 </a>
               </div>
@@ -203,7 +201,7 @@ hr {
         </div>
 
         <div class="container-fluid col-md-6">
-          <div class="row news" style="background-color: hsl(273deg 100% 93%);">
+          <div class="row news">
               <!-- <canvas id="myChart"></canvas> -->
               <p id="current_rate"></p>
               <canvas id="dailyChart"></canvas>
@@ -214,10 +212,10 @@ hr {
         <div class="container-fluid col-md-6">
           <div class="row news">
               <div class="col-7 d-flex align-items-center">
-                <p><b>@if(Session::get('language') == 'vie') Tin tức @else News @endif</b></p>
+                <p><b class="gold-color">@if(Session::get('language') == 'vie') Tin tức @else News @endif</b></p>
               </div>
               <div class="col-5 d-flex justify-content-right">
-                <a href="{{route('detail.view',['type' => 'news'])}}"><span>@if(Session::get('language') == 'vie') Xem tất cả @else See All @endif</span></a>
+                <a href="{{route('detail.view',['type' => 'news'])}}"><span class="off-white-color">@if(Session::get('language') == 'vie') Xem tất cả @else See All @endif</span></a>
               </div>
               <div class="col-12"><hr></div>
               @if(isset($news[0]))
@@ -242,7 +240,7 @@ hr {
                   <!-- Modal -->
                 <div class="modal fade" id="modal{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                   <div class="modal-dialog" role="document">
-                    <div class="modal-content news" style="background:#fff;color:#000;">
+                    <div class="modal-content" style="background:#fff;color:#000;">
                       <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalCenterTitle">Send Amount Detail</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -276,10 +274,10 @@ hr {
         <div class="container-fluid col-md-6">
           <div class="row news">
               <div class="col-7 d-flex align-items-center">
-                <p><b>@if(Session::get('language') == 'vie') Lãi qua đêm @else Profits @endif</b></p>
+                <p><b class="gold-color">@if(Session::get('language') == 'vie') Lãi qua đêm @else Profits @endif</b></p>
               </div>
               <div class="col-5 d-flex justify-content-right">
-                <a href="{{route('detail.view',['type' => 'profit'])}}"><span>@if(Session::get('language') == 'vie') Xem tất cả @else See All @endif</span></a>
+                <a href="{{route('detail.view',['type' => 'profit'])}}"><span class="off-white-color">@if(Session::get('language') == 'vie') Xem tất cả @else See All @endif</span></a>
               </div>
               <div class="col-12"><hr></div>
               @if(isset($profits[0]))
@@ -313,10 +311,10 @@ hr {
         <div class="container-fluid col-md-6 home-div-bottom-space">
           <div class="row news">
               <div class="col-7 d-flex align-items-center">
-                <p><b>@if(Session::get('language') == 'vie') GD Mua / Bán USDT @else Exchange Amount @endif</b></p>
+                <p><b class="gold-color">@if(Session::get('language') == 'vie') GD Mua / Bán USDT @else Exchange Amount @endif</b></p>
               </div>
               <div class="col-5 d-flex justify-content-right">
-                <a href="{{route('detail.view',['type' => 'exchange'])}}"><span>@if(Session::get('language') == 'vie') Xem tất cả @else See All @endif</span></a>
+                <a href="{{route('detail.view',['type' => 'exchange'])}}"><span class="off-white-color">@if(Session::get('language') == 'vie') Xem tất cả @else See All @endif</span></a>
               </div>
           
               <div class="col-12"><hr></div>
@@ -355,10 +353,10 @@ hr {
         <div class="container-fluid col-md-6">
           <div class="row news">
               <div class="col-7 d-flex align-items-center">
-                <p><b>@if(Session::get('language') == 'vie') GD Tiền gửi @else Sended Amount @endif</b></p>
+                <p><b class="gold-color">@if(Session::get('language') == 'vie') GD Tiền gửi @else Sended Amount @endif</b></p>
               </div>
               <div class="col-5 d-flex justify-content-right">
-                <a href="{{route('detail.view',['type' => 'send'])}}"><span>@if(Session::get('language') == 'vie') Xem tất cả @else See All @endif</span></a>
+                <a href="{{route('detail.view',['type' => 'send'])}}"><span class="off-white-color">@if(Session::get('language') == 'vie') Xem tất cả @else See All @endif</span></a>
               </div>
               <div class="col-12"><hr></div>
               @if(isset($send_data[0]))
@@ -391,10 +389,10 @@ hr {
         <div class="container-fluid col-md-6 home-div-bottom-space">
           <div class="row news">
               <div class="col-7 d-flex align-items-center">
-                <p><b>@if(Session::get('language') == 'vie') GD Nhận tiền @else Received Amount @endif</b></p>
+                <p><b class="gold-color">@if(Session::get('language') == 'vie') GD Nhận tiền @else Received Amount @endif</b></p>
               </div>
               <div class="col-5 d-flex justify-content-right">
-                <a href="{{route('detail.view',['type' => 'rcv'])}}"><span>@if(Session::get('language') == 'vie') Xem tất cả @else See All @endif</span></a>
+                <a href="{{route('detail.view',['type' => 'rcv'])}}"><span class="off-white-color">@if(Session::get('language') == 'vie') Xem tất cả @else See All @endif</span></a>
               </div>
               <div class="col-12"><hr></div>
               @if(isset($rcv_data[0]))
@@ -427,10 +425,10 @@ hr {
         <div class="container-fluid col-md-6 home-div-bottom-space">
           <div class="row news">
               <div class="col-7 d-flex align-items-center">
-                <p><b>@if(Session::get('language') == 'vie') Nhận tiền từ hệ thống @else Received From System @endif</b></p>
+                <p><b class="gold-color">@if(Session::get('language') == 'vie') Nhận tiền từ hệ thống @else Received From System @endif</b></p>
               </div>
               <div class="col-5 d-flex justify-content-right">
-                <a href="{{route('detail.view',['type' => 'admin_rcv'])}}"><span>@if(Session::get('language') == 'vie') Xem tất cả @else See All @endif</span></a>
+                <a href="{{route('detail.view',['type' => 'admin_rcv'])}}"><span class="off-white-color">@if(Session::get('language') == 'vie') Xem tất cả @else See All @endif</span></a>
               </div>
           
               <div class="col-12"><hr></div>
@@ -443,7 +441,7 @@ hr {
                       </div>
                       <div class="col-9 align-items-center">
                         <span>{{ $rcv->created_at->diffForHumans() }}</span>
-                        <p>@if(Session::get('language') == 'vie') Đã nhận từ hệ thống @else Received From @endif : Admin</p>
+                        <p>@if(Session::get('language') == 'vie') Đã nhận từ @else Received From @endif : Admin</p>
                       </div>
                     </div>
                     <div class="col-4 d-flex justify-content-right">
@@ -464,10 +462,10 @@ hr {
         <div class="container-fluid col-md-6 home-div-bottom-space">
           <div class="row news">
               <div class="col-7 d-flex align-items-center">
-                <p><b>@if(Session::get('language') == 'vie') Yêu cầu nạp tiền @else Deposit Request @endif</b></p>
+                <p><b class="gold-color">@if(Session::get('language') == 'vie') Yêu cầu nạp tiền @else Deposit Request @endif</b></p>
               </div>
               <div class="col-5 d-flex justify-content-right">
-                <a href="{{route('detail.view',['type' => 'deposit'])}}"><span>@if(Session::get('language') == 'vie') Xem tất cả @else See All @endif</span></a>
+                <a href="{{route('detail.view',['type' => 'deposit'])}}"><span class="off-white-color">@if(Session::get('language') == 'vie') Xem tất cả @else See All @endif</span></a>
               </div>
               <div class="col-12"><hr></div>
               @if(isset($deposit[0]))
@@ -506,10 +504,10 @@ hr {
         <div class="container-fluid col-md-6 home-div-bottom-space">
           <div class="row news">
               <div class="col-7 d-flex align-items-center">
-                <p><b>@if(Session::get('language') == 'vie') Yêu cầu rút tiền @else Withdraw Request @endif </b></p>
+                <p><b class="gold-color">@if(Session::get('language') == 'vie') Yêu cầu rút tiền @else Withdraw Request @endif </b></p>
               </div>
               <div class="col-5 d-flex justify-content-right">
-                <a href="{{route('detail.view',['type' => 'withdraw'])}}"><span>@if(Session::get('language') == 'vie') Xem tất cả @else See All @endif</span></a>
+                <a href="{{route('detail.view',['type' => 'withdraw'])}}"><span class="off-white-color">@if(Session::get('language') == 'vie') Xem tất cả @else See All @endif</span></a>
               </div>
               <div class="col-12"><hr></div>
               @if(isset($withdraw[0]))
@@ -709,8 +707,8 @@ var dailyData = {
     datasets: [{
         label: 'Exchange Rate',
         data: rate,
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-        borderColor: 'hsl(273deg 77% 55%)',
+        backgroundColor: '#ffc107',
+        borderColor: '#ffc107',
         borderWidth: 1
     }]
 };

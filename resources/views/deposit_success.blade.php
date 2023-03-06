@@ -36,8 +36,8 @@
 }
 </style>
 <body>
-    <div class="container">
       <x-side-bar />
+    <div class="container">
         <main class="container-fluid">
         <div class="row">
                 <div class="col-12">

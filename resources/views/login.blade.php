@@ -48,17 +48,32 @@
     color: #fff;
     background-color: #00000000 !important;
 }
+.card-header:hover {
+    color: #fff;
+    background-color: #00000000 !important;
+}
+.round {
+    border-radius: 0.5rem !important;
+    color: #000;
+}
+html body.bg-full-screen-image {
+    background: #212530 !important;
+}
 .card.border-grey.border-lighten-3.px-1.py-1.m-0 {
-    background: #0000;
+    background: #2a303c !important;
     background-size: contain;
-    height: 601px;
     FONT-WEIGHT: 500;
+    border-radius: 24px;
 }
 form .form-group {
     margin-bottom: 1.5rem;
 }
 .support-sub > a > img {
     width: 42px;
+}
+a.nxt-link {
+    color: #ffc107 !important;
+    text-decoration: underline;
 }
 </style>
 <!-- BEGIN: Body-->
@@ -109,8 +124,8 @@ form .form-group {
                                 <div class="text-center mb-1">
                                     <!-- <img src="{{asset('assets/images/logo.png')}}" width="100" alt="branding logo"> -->
                                 </div>
-                                <div class="font-large-1  text-center">
-                                Đăn nhập tài khoản
+                                <div class="font-large-1  text-center" style="color:#ffc107;">
+                                Đăng nhập 
                                 </div>
                             </div>
                             <div class="card-content">
@@ -143,8 +158,8 @@ form .form-group {
                                         <div class="form-group text-center">
                                             <button type="submit" class="btn round btn-block btn-glow btn-bg-gradient-x-purple-blue col-12 mr-1 mb-1">Đăng nhập</button>
                                         </div>
-                                        <div class="form-group text-right">
-                                            <a href="{{ route('admin.signup') }}" class="btn round btn-block btn-glow btn-bg-gradient-x-purple-blue col-12 mr-1 mb-1">Đăng ký tài khoản</a>
+                                        <div class="form-group text-center">
+                                            <a href="{{ route('admin.signup') }}" class="nxt-link col-12 mr-1 mb-1">Đăng ký tài khoản</a>
                                         </div>
 
 

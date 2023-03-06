@@ -21,8 +21,8 @@
 }
 </style>
 <body>
-    <div class="container">
       <x-side-bar />
+    <div class="container">
         <main class="container-fluid">
         <div class="row mt-3">
             <div class="col-12 bg-primary text-white d-flex align-items-center justify-content-center banner" style="border-radius: 20px;">
@@ -33,19 +33,19 @@
                 @endphp
                 <div class="row" style="width: 100%;">
                   @if(isset($bank_detail->account_name))
-                    <div class="col-12 top-banner">
+                    <div class="col-12 top-banner gold-color">
                       <span>{{$bank_detail->account_name ?? ''}}</span>
                     </div>
 
-                    <div class="col-12 mid-banner">
+                    <div class="col-12 mid-banner gold-color">
                       <p class="m-0">{{$bank_detail->account_number ?? ''}}</p>
                     </div>
                     
                     <div class="bottom-banner row">
                       <div class="col-6">
-                        <span>{{$bank_detail->bank_name ?? ''}}</span>
+                        <span class="gold-color">{{$bank_detail->bank_name ?? ''}}</span>
                       </div>
-                      <div class="col-6" style="text-align: right;">
+                      <div class="col-6 gold-color" style="text-align: right;">
                         <span class="usdt_data">@if($profits[0]->usdt != '') {{$profits[0]->usdt}} @else 00 @endif USDT</span><br>
                         <span class="m-0">{{number_format($balance ?? 'not connected')}} VND</span>
                       </div>
@@ -56,14 +56,14 @@
                     </div>
 
                     <div class="col-12 mid-banner">
-                      <p class="m-0">0000000000000</p>
+                      <p class="m-0 gold-color">0000000000000</p>
                     </div>
                     
                     <div class="bottom-banner row">
                       <div class="col-6">
                         <span>....</span>
                       </div>
-                      <div class="col-6" style="text-align: right;">
+                      <div class="col-6 gold-color" style="text-align: right;">
                         <span class="usdt_data">00 USDT</span><br>
                         <span class="m-0">00 VND</span>
                       </div>
@@ -89,13 +89,13 @@
                                                     <input type="hidden" @if(isset($bank->id)) name="id" value="{{$bank->id}}" @endif>
                                                     
                                                     <fieldset class="form-group">
-                                                        <label for="" class="label_edit"> @if(Session::get('language') == 'vie')Tên người dùng @else User Name @endif</label>
+                                                        <label for="" class="label_edit off-white-color"> @if(Session::get('language') == 'vie')Tên người dùng @else User Name @endif</label>
                                                         <input type="text" name="user_name" value="{{$user->email ?? ''}}" class="form-control"
                                                                id="basicInput" disabled>
                                                     </fieldset>
 
                                                     <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Họ và tên @else Full Name @endif</label>
+                                                        <label for="" class="label_edit off-white-color">@if(Session::get('language') == 'vie')Họ và tên @else Full Name @endif</label>
                                                         <input type="text" name="name" value="{{$user->name ?? ''}}" class="form-control"
                                                                id="basicInput">
                                                         @if($errors->has('name'))
@@ -105,7 +105,7 @@
                                                     </fieldset>
 
                                                     <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Số điện thoại @else Phone Number @endif</label>
+                                                        <label for="" class="label_edit off-white-color">@if(Session::get('language') == 'vie')Số điện thoại @else Phone Number @endif</label>
                                                         <input type="number" name="phone" value="{{$user->phone ?? ''}}" class="form-control"
                                                                id="basicInput" require>
                                                         @if($errors->has('phone'))
@@ -115,7 +115,7 @@
                                                     </fieldset>
                                                     <hr>
                                                     <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Mật khẩu cũ @else Old Password @endif</label>
+                                                        <label for="" class="label_edit off-white-color">@if(Session::get('language') == 'vie')Mật khẩu cũ @else Old Password @endif</label>
                                                         <input type="password" name="old_password" value="{{old('old_password')}}" class="form-control"
                                                                id="basicInput" require>
                                                         @if($errors->has('old_password'))
@@ -128,7 +128,7 @@
                                                         @endif
                                                     </fieldset>
                                                     <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Mật khẩu mới @else New Password @endif</label>
+                                                        <label for="" class="label_edit off-white-color">@if(Session::get('language') == 'vie')Mật khẩu mới @else New Password @endif</label>
                                                         <input type="password" name="password" value="" class="form-control"
                                                                id="basicInput" require>
                                                         @if($errors->has('password'))
@@ -137,7 +137,7 @@
                                                         @endif
                                                     </fieldset>
                                                     <fieldset class="form-group">
-                                                        <label for="" class="label_edit">@if(Session::get('language') == 'vie')Xác nhận mật khẩu mới @else Confirm Password @endif</label>
+                                                        <label for="" class="label_edit off-white-color">@if(Session::get('language') == 'vie')Xác nhận mật khẩu mới @else Confirm Password @endif</label>
                                                         <input type="password" name="password_confirmation" value="{{$user->password_confirmation ?? ''}}" class="form-control"
                                                                id="basicInput" require>
                                                         @if($errors->has('password_confirmation'))
@@ -151,8 +151,8 @@
                                                          style="border-top: 1px solid black">
                                                         <fieldset class="form-group center m-2">
                                                             <a href="{{ url()->previous() }}"
-                                                               class="btn btn-primary">@if(Session::get('language') == 'vie') Quay lại @else Go Back @endif</a>
-                                                            <button type="submit" class="btn btn-success">@if(Session::get('language') == 'vie') Cập nhật @else Update @endif
+                                                               class="btn btn-primary btn-light-dark">@if(Session::get('language') == 'vie') Quay lại @else Go Back @endif</a>
+                                                            <button type="submit" class="btn btn-success btn-light-dark">@if(Session::get('language') == 'vie') Cập nhật @else Update @endif
                                                             </button>
                                                         </fieldset>
                                                     </div>
