@@ -70,17 +70,35 @@
     border-color: #ffc107 !important;
     color: #000;
   }
+  .Bronze {
+    color: #cd7f32 !important;
+  }
+  .Silver {
+    color: #c0c0c0 !important;
+  }
+  .gold {
+    color: #ffd700 !important;
+  }
+  .Diamond {
+    color: #b9f2ff !important;
+  }
+  .Ruby {
+    color: #e0115f !important;
+  }
+  .Crystal {
+    color: #ffffff !important;
+  }
 </style>
 <div>
     <!-- Very little is needed to make a happy life. - Marcus Aurelius -->
     <header class="d-flex align-items-center container" id="header">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-6 align-items-center top-left">
-            <span style="color: #fff;">hello</span>
-            <p><span style="text-transform: uppercase;color:hsl(273deg 100% 69%);font-family:inherit;">{{auth()->user()->name}}</span> ({{auth()->user()->email}})</p>
+          <div class="col-7 align-items-center top-left">
+            <span style="color: #fff;">hello : <span class="gold-color" style="font-weight: 700;">{{auth()->user()->email}}</span></span><span style="font-family: serif;" class="{{auth()->user()->level}}"><span style="color: #d1cec5 !important">「</span>{{auth()->user()->level}}<span style="color: #d1cec5 !important">」</span> </span>
+            <p><span style="text-transform: uppercase;color:hsl(273deg 100% 69%);font-family:sans-serif;">{{auth()->user()->name}}</span>  </p>
           </div>
-          <div class="col-6 row d-flex justify-content-right top-right">
+          <div class="col-5 row d-flex justify-content-right top-right">
             <!-- <div class="avatar">
               <img src="{{asset('assets/avatar.jpg')}}" alt="Toggle Sidebar">
             </div> -->

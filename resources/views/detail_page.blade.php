@@ -427,7 +427,7 @@
                         <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Tên ngân hàng @else Bank Name @endif:</strong> {{ $sendAmountDetail->bank_name }}</p>
                         <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Tên tài khoản ngân hàng @else Bank Account Name @endif:</strong> {{ $sendAmountDetail->account_name }}</p>
                         <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Số tài khoản ngân hàng @else Bank Account Number @endif:</strong> {{ $sendAmountDetail->account_number }}</p>
-                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Thời gian xử lý @else Approve Time @endif:</strong> {{ $sendAmountDetail->approval_time }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Thời gian xử lý @else Approve Time @endif:</strong> {{ date('d/m/Y H:i:s', strtotime($sendAmountDetail->approval_time . ' +7 hours'))}}</p>
                         <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Lý do @else Reason @endif:</strong> {{ $sendAmountDetail->reason }}</p>
                       </div>
                       <div class="modal-footer">
@@ -562,7 +562,7 @@
                         <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Tên ngân hàng @else Bank Name @endif:</strong> {{ $sendAmountDetail->bank_name }}</p>
                         <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Tên tài khoản ngân hàng @else Bank Account Name @endif:</strong> {{ $sendAmountDetail->account_name }}</p>
                         <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Số tài khoản ngân hàng @else Bank Account Number @endif:</strong> {{ $sendAmountDetail->account_number }}</p>
-                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Thời gian xử lý @else Approve Time @endif:</strong> {{ $sendAmountDetail->approval_time }}</p>
+                        <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') Thời gian xử lý @else Approve Time @endif:</strong> {{ date('d/m/Y H:i:s', strtotime($sendAmountDetail->approval_time . ' +7 hours'))}}</p>
                         <p class="off-white-color"><strong>@if(Session::get('language') == 'vie') lý do @else Reason @endif:</strong> {{ $sendAmountDetail->reason }}</p>
                       </div>
                       <div class="modal-footer">

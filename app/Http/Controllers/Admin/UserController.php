@@ -234,7 +234,7 @@ class UserController extends Controller
         $user_id = Auth::user()->id;
         $bank = UserBank::where('user_id', $user_id)->get()->first();
         $panel_bank = UserPanelBank::all();
-        return view('bank_detail', compact('bank', 'panel_bank'));
+        return view('bank_detail', compact('bank', 'panel_bank', 'user_id'));
     }
 
     public function payment_page($variable = null)
