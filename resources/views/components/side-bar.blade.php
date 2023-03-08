@@ -16,6 +16,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
   <title>Mobile Responsive Website</title>
+  <link rel="preload" href="{{asset('assets/css/sidebar.css')}}" as="style">
   <link rel="stylesheet" type="text/css" href="{{asset('assets/css/sidebar.css')}}">
 </head>
 <style>
@@ -55,9 +56,6 @@
   .off-white-color {
     color: #d1cec5 !important;
   }
-  /*.off-white-color-light {
-    color: #fff !important;
-  }*/
   .side-back {
     background: #07000ce3 !important;
   }
@@ -91,8 +89,43 @@
   .card-block > .card-body > h2, .container > .news > h2 {
     color: #ffc107;
   }
+  #loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background-color: #222;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 5px solid #fff;
+  border-top-color: #00bcd4;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 </style>
 <div>
+<!-- <div id="loader">
+  <div class="spinner"></div>
+</div> -->
+
     <!-- Very little is needed to make a happy life. - Marcus Aurelius -->
     <header class="d-flex align-items-center container" id="header">
       <div class="container-fluid">
@@ -214,6 +247,13 @@
 <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script> -->
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <script>
+// window.addEventListener('load', function() {
+//   const loader = document.querySelector('#loader');
+//   setTimeout(function() {
+//     loader.style.display = 'none';
+//   }, 200); // set the minimum duration to 0.5 seconds (500 milliseconds)
+// });
+
   var userName = document.getElementById('user-info').getAttribute('data-user-name');
   if(userName == 0){
     mod = 'dark';
