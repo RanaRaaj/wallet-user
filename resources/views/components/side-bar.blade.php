@@ -107,7 +107,7 @@
   height: 50px;
   border-radius: 50%;
   border: 5px solid #fff;
-  border-top-color: #00bcd4;
+  border-top-color: #ffc107;
   animation: spin 1s ease-in-out infinite;
 }
 
@@ -122,9 +122,9 @@
 
 </style>
 <div>
-<!-- <div id="loader">
+<div id="loader">
   <div class="spinner"></div>
-</div> -->
+</div>
 
     <!-- Very little is needed to make a happy life. - Marcus Aurelius -->
     <header class="d-flex align-items-center container" id="header">
@@ -247,12 +247,12 @@
 <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script> -->
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <script>
-// window.addEventListener('load', function() {
-//   const loader = document.querySelector('#loader');
-//   setTimeout(function() {
-//     loader.style.display = 'none';
-//   }, 200); // set the minimum duration to 0.5 seconds (500 milliseconds)
-// });
+window.addEventListener('load', function() {
+  const loader = document.querySelector('#loader');
+  setTimeout(function() {
+    loader.style.display = 'none';
+  }, 200); // set the minimum duration to 0.5 seconds (500 milliseconds)
+});
 
   var userName = document.getElementById('user-info').getAttribute('data-user-name');
   if(userName == 0){
