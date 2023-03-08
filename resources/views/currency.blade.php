@@ -68,7 +68,7 @@ button#toggle-currencies-btn {
                                                     </div>
 
                                                     <fieldset class="form-group">
-                                                      <label for="" class="label_edit off-white-color" id="usdt_field">USDT <span class="off-white-color">@if(Session::get('language') == 'vie') Số dư @else balance @endif : {{$bank['usdt']}} USDT</span></label>
+                                                      <label for="" class="label_edit off-white-color" id="usdt_field">USDT <span class="off-white-color">@if(Session::get('language') == 'vie') Số dư @else balance @endif : {{number_format($bank['usdt'], 2, '.', ',')}} USDT</span></label>
                                                       <input type="number" name="usdt" class="form-control" id="currency2" value="" min="0" step="0.000001" required>
                                                       @if($errors->has('vnd'))
                                                         <div class="error" style="color:red">{{$errors->first('vnd')}}</div>

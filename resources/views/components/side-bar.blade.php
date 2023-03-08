@@ -88,6 +88,9 @@
   .Crystal {
     color: #ffffff !important;
   }
+  .card-block > .card-body > h2, .container > .news > h2 {
+    color: #ffc107;
+  }
 </style>
 <div>
     <!-- Very little is needed to make a happy life. - Marcus Aurelius -->
