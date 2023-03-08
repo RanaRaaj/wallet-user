@@ -499,40 +499,44 @@ class UserController extends Controller
 
     public function withdraw_confirm(Request $request)
     {
-        $user_id = Auth::user()->id;
-        $userBank = UserBank::where('user_id',$user_id)->first();
-        $user_balance = $userBank['amount'] - $request->amount;
+        if(($request->max_amount >= $request->amount) && ($request->amount > 0)){
+            $user_id = Auth::user()->id;
+            $userBank = UserBank::where('user_id',$user_id)->first();
+            $user_balance = $userBank['amount'] - $request->amount;
 
-        $withdraw = new UserWithdraw();
+            $withdraw = new UserWithdraw();
 
-        $withdraw->user_id = $user_id;
-        $withdraw->user_name = Auth::user()->name;
-        $withdraw->amount = $request->amount;
-        $withdraw->bank_name = $request->bank_name;
-        $withdraw->account_name = $request->account_name;
-        $withdraw->account_number = $request->account_number;
-        $withdraw->content = $request->content ?? '';
-        $withdraw->file = $request->file ?? '';
+            $withdraw->user_id = $user_id;
+            $withdraw->user_name = Auth::user()->name;
+            $withdraw->amount = $request->amount;
+            $withdraw->bank_name = $request->bank_name;
+            $withdraw->account_name = $request->account_name;
+            $withdraw->account_number = $request->account_number;
+            $withdraw->content = $request->content ?? '';
+            $withdraw->file = $request->file ?? '';
 
-        $withdraw->save();
-        
-        $userBank->amount = $user_balance;
-        $userBank->save();
+            $withdraw->save();
+            
+            $userBank->amount = $user_balance;
+            $userBank->save();
 
-        $options = array(
-            'cluster' => 'ap2',
-            'encrypted' => true
-        );
-        $pusher = new Pusher(
-            '57313b8085a7707d1c7e',
-            'a261134581d511f071f4',
-            '1548715',
-            $options
-        );
-        $data = 'new withdraw request';
-        $pusher->trigger('withdraw-request', 'withdraw-event', $data);
+            $options = array(
+                'cluster' => 'ap2',
+                'encrypted' => true
+            );
+            $pusher = new Pusher(
+                '57313b8085a7707d1c7e',
+                'a261134581d511f071f4',
+                '1548715',
+                $options
+            );
+            $data = 'new withdraw request';
+            $pusher->trigger('withdraw-request', 'withdraw-event', $data);
 
-        return view('deposit_success');
+            return view('deposit_success');
+        }else{
+            return redirect()->back();
+        }
     }
 
     public function send_form_view()

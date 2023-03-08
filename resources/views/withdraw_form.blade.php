@@ -45,11 +45,11 @@
                                                     @csrf
 
                                                     <p style="text-align: center;"><b>@if(Session::get('language') == 'vie')Số dư của bạn @else Your Balance @endif : </b> {{$bank->amount}}</p>
-                                                
+                                                    <input type="hidden" name="max_amount" value="{{$bank->amount}}">
                                                     <fieldset class="form-group">
-                                                        <label for="" class="label_edit off-white-color">@if(Session::get('language') == 'vie')Số tiền @else Amount @endif VND</label>
+                                                    <label for="" class="label_edit off-white-color">@if(Session::get('language') == 'vie')Số tiền : Tối đa @else Amount : Maximum @endif {{number_format($bank->amount, 2, '.', ',')}} VND</label>
                                                         <input type="number" name="amount" class="form-control"
-                                                               id="basicInput" max={{$bank->amount}} value="" required>
+                                                               id="basicInput" max="{{$bank->amount}}" value="" required>
                                                         @if($errors->has('amount'))
                                                             <div class="error"
                                                                  style="color:red">{{$errors->first('amount')}}</div>

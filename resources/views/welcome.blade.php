@@ -63,6 +63,9 @@ hr {
 .align-items-center.justify-content-center > a > img {
     width: 77%;
 }
+.container-fluid > .news > .d-flex.align-items-center {
+    padding-left: 0;
+}
 </style>
 <body>
 <x-side-bar />  
@@ -204,8 +207,8 @@ hr {
         <div class="container-fluid transaction">            
         </div>
 
-        <div class="container-fluid col-md-6">
-          <div class="row news">
+        <div class="container-fluid col-md-6 home-div-bottom-space">
+          <div class="row news ex">
               <!-- <canvas id="myChart"></canvas> -->
               <p id="current_rate"></p>
               <canvas id="dailyChart"></canvas>
@@ -213,8 +216,8 @@ hr {
           </div>
         </div>
 
-        <div class="container-fluid col-md-6">
-          <div class="row news">
+        <div class="container-fluid col-md-6 home-div-bottom-space">
+          <div class="row news ex">
               <div class="col-7 d-flex align-items-center">
                 <p><b class="gold-color">@if(Session::get('language') == 'vie') Tin tức @else News @endif</b></p>
               </div>
@@ -312,7 +315,7 @@ hr {
           </div>
         </div>
 
-        <div class="container-fluid col-md-6 home-div-bottom-space">
+        <div class="container-fluid col-md-6">
           <div class="row news">
               <div class="col-7 d-flex align-items-center">
                 <p><b class="gold-color">@if(Session::get('language') == 'vie') GD Mua / Bán USDT @else Exchange Amount @endif</b></p>
@@ -426,7 +429,7 @@ hr {
           </div>
         </div>
 
-        <div class="container-fluid col-md-6 home-div-bottom-space">
+        <div class="container-fluid col-md-6">
           <div class="row news">
               <div class="col-7 d-flex align-items-center">
                 <p><b class="gold-color">@if(Session::get('language') == 'vie') Nhận tiền từ hệ thống @else Received From System @endif</b></p>
@@ -463,7 +466,7 @@ hr {
           </div>
         </div>
 
-        <div class="container-fluid col-md-6 home-div-bottom-space">
+        <div class="container-fluid col-md-6">
           <div class="row news">
               <div class="col-7 d-flex align-items-center">
                 <p><b class="gold-color">@if(Session::get('language') == 'vie') Yêu cầu nạp tiền @else Deposit Request @endif</b></p>

@@ -191,7 +191,7 @@ header {
   padding: 20px;
   margin: 15px 0px;
   border-radius: 20px;
-  height: 94%;
+  height: 96%;
   color: #fff;
 }
 
@@ -280,6 +280,9 @@ header {
 @media (max-width: 766px) {
   .home-div-bottom-space {
       margin-bottom: 3% !important;
+  }
+  .bg-main.ex {
+    height: 98% !important;
   }
   .container-fluid.col-md-6 {
       padding: 0px 10px;
