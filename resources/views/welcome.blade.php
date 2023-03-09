@@ -2,6 +2,101 @@
 <html lang="en">
 <title>Taco Collect System  </title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  .justify-content-right > span {
+  color: #fff ;
+  font-size: 10px !important;
+}
+.col-9.align-items-center > span {
+  font-size: 10px;
+  font-weight: 500;
+}
+.col-9.align-items-center p {
+  font-size: 11px;
+  font-weight: 700;
+}
+.container-fluid.col-md-6 {
+  padding: 0px 10px;
+}
+span.usdt_data {
+  font-size: 15px;
+}
+span.exchange_value > span {
+  font-size: 11px !important;
+  color: #fff ;
+}
+span.exchange_value {
+  font-size: 11px !important;
+  color: #fff ;
+  text-align: center;
+  margin-top: 11%;
+  line-height: 19px;
+}
+p#current_rate {
+  margin: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 13px;
+  font-family: math;
+}
+.stories > .justify-content-right {
+  padding-top: 3%;
+}
+.stories > .align-items-center, .align-items-center > .align-items-center , .stories > .justify-content-right {
+padding: 0 !important;
+}
+.align-items-center > .align-items-left {
+padding-right: 0;
+}
+.justify-content-right > a {
+padding-right: 15px !important;
+}
+hr {
+  margin-top: 0rem !important;
+}
+.news-title {
+font-size: 11px !important;
+font-weight: 700 !important;
+color: #ebe894;
+text-transform: capitalize;
+}
+.align-items-center.justify-content-center > a > img {
+  width: 77%;
+}
+.container-fluid > .news > .d-flex.align-items-center {
+  padding-left: 0;
+}
+#stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(circle, #fff 1px, transparent 1px);
+  background-size: 10px 10px;
+}
+.news.ex.bg-main > .row {
+    width: 100%;
+    margin-left: 0% !important;
+}
+.graph-btn {
+    width: 100% !important;
+}
+#not_buy {
+  color: red;
+}
+button.close_model {
+    color: #000;
+    background: #ffc107;
+    border: navajowhite;
+    border-radius: 3px;
+    font-size: 15px;
+}
+.gp {
+    color: #ffc107;
+    text-transform: uppercase;
+}
+</style>
 <body>
 <x-side-bar />  
     <div class="container">
@@ -146,8 +241,88 @@
           <div class="row news ex">
               <!-- <canvas id="myChart"></canvas> -->
               <p id="current_rate"></p>
-              <canvas id="dailyChart"></canvas>
+              <canvas id="dailyChart" style="height: 200px; width: 100%;"></canvas>
+              <div class="row">
+                <div class="col-6">
+                  <a href="#" class="btn btn-success graph-btn" data-toggle="modal" data-target="#modalBuy">@if(Session::get('language') == 'vie') Mua @else Buy @endif</a>
+                  <input type="hidden" id="total_usdt" value="{{$user_bank['usdt']}}">
+                  <input type="hidden" id="total_vnd" value="{{$user_bank['amount']}}">
+                  <input type="hidden" id="exchange_rate" value="{{$currency_rate['vnd']}}">
+                  <!-- Buy USDT Modal -->
+                  <div class="modal fade" id="modalBuy" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content news">
+                      <div class="modal-header">
+                        <h5 class="modal-title gp" id="exampleModalCenterTitle">@if(Session::get('language') == 'vie') Mua @else Buy @endif USDT</h5>
+                        <button class="close_model" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        @if(Session::get('language') == 'vie') Đóng @else Close @endif
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                      <form action="{{route('buy.usdt')}}" method="POST">
+                        @csrf
+                        <label for="">@if(Session::get('language') == 'vie') Số dư hiện tại @else Current Balance @endif: </label><br>
+                        <label for="" class="label_edit off-white-color" id="usdt_field"> USDT <span class="gold-color" style="font-weight: 500;"> $ {{number_format($user_bank['usdt'], 2, '.', ',')}}</span></label><br>
+                        <label for="" class="label_edit off-white-color" id="vnd_field"> VND <span class="gold-color" style="font-weight: 500;"> ₫ {{number_format($user_bank['amount'])}}</span></label>
+                        <input type="number" name="usdt" class="form-control" id="usdt_buy" value="" min="0" step="0.000001" placeholder="USDT" required>
+                        <span id="username-check-result" class="gold-color">Exchange Rate : {{$currency_rate['usdt']}} USDT = {{number_format($currency_rate['vnd'])}} VND</span>
+                        <div class="error" style="color:red"><p id="not_buy"></p></div>
+                        <label for="">@if(Session::get('language') == 'vie') Số sư sau khi giao dịch mua @else Balance After Buy @endif: </label><br>
+                        <label for="" class="label_edit off-white-color"> USDT <span class="gold-color" style="font-weight: 500;" id="after_usdt_field"> $ {{number_format($user_bank['usdt'], 2, '.', ',')}}</span></label><br>
+                        <label for="" class="label_edit off-white-color"> VND <span class="gold-color" style="font-weight: 500;" id="after_vnd_field"> ₫ {{number_format($user_bank['amount'])}}</span></label><br>
+                        <label for="" class="label_edit off-white-color">@if(Session::get('language') == 'vie') Thanh toán @else Payment @endif : <span class="gold-color" style="font-weight: 500;" id="pay_buy_amount"> ₫ 00</span></label>
+                      </div>
+                      <div class="modal-footer row" style="text-align: center;display:block;">
+                        <input type="hidden" name="exchange_rate" value="{{$currency_rate['vnd']}}">
+                        <input type="hidden" name="total_usdt_amount" id="total_usdt_amount" value="">
+                        <input type="hidden" name="total_vnd_amount" id="total_vnd_amount" value="">
+                        <input type="submit" id="submitBtnBuy" style="width: 50%;color:#000 !important;" class="btn btn-success  btn-light-dark" value="@if(Session::get('language') == 'vie') Mua @else Buy @endif" disabled>
+                      </div>
+                      </form>
+                    </div>
+                    </div>
+                  </div>
 
+                </div>
+                <div class="col-6">
+                  <a href="#" class="btn btn-danger graph-btn" data-toggle="modal" data-target="#modalSell">@if(Session::get('language') == 'vie') Bán @else Sell @endif</a>
+                  <!-- Sell USDT Modal -->
+                  <div class="modal fade" id="modalSell" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content news">
+                      <div class="modal-header">
+                        <h5 class="modal-title gp" id="exampleModalCenterTitle">@if(Session::get('language') == 'vie') Bán @else Sell @endif USDT</h5>
+                        <button class="close_model" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          @if(Session::get('language') == 'vie') Đóng @else Close @endif
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                      <form action="{{route('sell.usdt')}}" method="POST">
+                        @csrf
+                        <label for="">@if(Session::get('language') == 'vie') Số dư hiện tại @else Current Balance @endif: </label><br>
+                        <label for="" class="label_edit off-white-color" id="usdt_field">USDT <span class="gold-color" style="font-weight: 500;"> $ {{number_format($user_bank['usdt'], 2, '.', ',')}}</span></label><br>
+                        <label for="" class="label_edit off-white-color" id="vnd_field">VND <span class="gold-color" style="font-weight: 500;"> ₫ {{number_format($user_bank['amount'])}}</span></label>
+                        <input type="number" name="usdt" class="form-control" id="usdt_sell" value="" min="0" step="0.000001" placeholder="USDT" required>
+                        <span id="username-check-result" class="gold-color">Exchange Rate : {{$currency_rate['usdt']}} USDT = {{number_format($currency_rate['vnd'])}} VND</span>
+                        <div class="error" style="color:red"><p id="not_sell"></p></div>
+                        <label for="">@if(Session::get('language') == 'vie') Số sư sau khi giao dịch bán @else Balance After Sell @endif: </label><br>
+                        <label for="" class="label_edit off-white-color">USDT <span class="gold-color" style="font-weight: 500;" id="after_usdt_sell"> $ {{number_format($user_bank['usdt'], 2, '.', ',')}}</span></label><br>
+                        <label for="" class="label_edit off-white-color">VND <span class="gold-color" style="font-weight: 500;" id="after_vnd_sell"> ₫ {{number_format($user_bank['amount'])}}</span></label><br>
+                        <label for="" class="label_edit off-white-color">@if(Session::get('language') == 'vie') Thanh toán @else Payment @endif : <span class="gold-color" style="font-weight: 500;" id="pay_sell_amount"> ₫ 00</span></label>
+                      </div>
+                      <div class="modal-footer row" style="text-align: center;display:block;">
+                        <input type="hidden" name="exchange_rate2" value="{{$currency_rate['vnd']}}">
+                        <input type="hidden" name="total_usdt_amount2" id="total_usdt_amount2" value="">
+                        <input type="hidden" name="total_vnd_amount2" id="total_vnd_amount2" value="">
+                        <input type="submit" id="submitBtnSell" style="width: 50%;color:#000 !important;" class="btn btn-success  btn-light-dark" value="@if(Session::get('language') == 'Bán') Mua @else Sell @endif" disabled>
+                      </div>
+                      </form>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
           </div>
         </div>
 
@@ -491,148 +666,75 @@
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <script type="text/javascript">
 
-// var chartData = {
-//     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-//     datasets: [{
-//         label: 'Exchange Rate',
-//         data: [
-//             {x: 0, y: 23175/1.0001},
-//             {x: 1, y: 23150/1.0002},
-//             {x: 2, y: 23180/1.0005},
-//             {x: 3, y: 23200/1.0008},
-//             {x: 4, y: 23220/1.0012},
-//             {x: 5, y: 23250/1.0015},
-//         ],
-//         borderColor: 'blue',
-//         backgroundColor: 'rgba(0, 0, 255, 0.2)',
-//         borderWidth: 1,
-//     }]
-// };
+//Buy/Sell USDT
+  $('#usdt_buy').on('input', function() {
+    let buy_amount = $('#usdt_buy').val();
+    let exchange_rate = $('#exchange_rate').val();
+    let total_vnd = $('#total_vnd').val();
+    let total_usdt = $('#total_usdt').val();
+    let after_usdt = parseFloat(buy_amount)+parseFloat(total_usdt);
+    const submitBtn = document.getElementById('submitBtnBuy');
 
-// var ctx = document.getElementById('myChart').getContext('2d');
-// var myChart = new Chart(ctx, {
-//     type: 'line',
-//     data: chartData,
-//     options: {
-//         scales: {
-//             yAxes: [{
-//                 ticks: {
-//                     beginAtZero: false,
-//                     callback: function(value, index, values) {
-//                         if (value >= 1000) {
-//                             return '$' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-//                         } else {
-//                             return '$' + value.toFixed(4);
-//                         }
-//                     }
-//                 }
-//             }]
-//         },
-//         tooltips: {
-//             callbacks: {
-//                 label: function(tooltipItem, data) {
-//                     var datasetLabel = data.datasets[tooltipItem.datasetIndex].label || '';
-//                     var value = tooltipItem.yLabel.toFixed(4);
-//                     if (value >= 1000) {
-//                         value = '$' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-//                     } else {
-//                         value = '$' + value;
-//                     }
-//                     return datasetLabel + ': ' + value;
-//                 }
-//             }
-//         }
-//     }
-// });
+    if(buy_amount*exchange_rate > parseFloat(total_vnd)) {
+      $('#not_buy').text("Bạn không thể thực hiên mua vượt quá số tiền $"+(total_vnd/exchange_rate).toFixed(1));
 
-// function updateChart() {
-//     var select1 = document.getElementById("currency-select-1");
-//     var value1 = select1.options[select1.selectedIndex].value;
-//     var select2 = document.getElementById("currency-select-2");
-//     var value2 = select2.options[select2.selectedIndex].value;
-//     var chartDataset = myChart.data.datasets[0];
-//     chartDataset.label = value1.toUpperCase() + ' to ' + value2.toUpperCase() + ' Exchange Rate';
-//     chartDataset.data = [
-//         {x: 0, y: getExchangeRate(value1, value2, '2022-01-01')},
-//         {x: 1, y: getExchangeRate(value1, value2, '2022-02-01')},
-//         {x: 2, y: getExchangeRate(value1, value2, '2022-03-01')},
-//         {x: 3, y: getExchangeRate(value1, value2, '2022-04-01')},
-//         {x: 4, y: getExchangeRate(value1, value2, '2022-05-01')},
-//         {x: 5, y: getExchangeRate(value1, value2, '2022-06-01')},
-//         ];
-//         myChart.update();
-//       }
+      $('#total_vnd_amount').val('');
+      $('#total_usdt_amount').val('');
+      submitBtn.setAttribute('disabled', true);
+    }else if(buy_amount == ''){
+      $('#not_buy').text("");
+      $('#after_usdt_field').text("$ "+parseFloat(total_usdt).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}));
+      $('#after_vnd_field').text("₫ "+parseFloat(total_vnd).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}));
+      $('#pay_buy_amount').text("₫ 00");
 
-//   function getExchangeRate(fromCurrency, toCurrency, date) {
-//   var exchangeRates = {
-//   usdt: {vnd: 23175.00, usd: 1.0001},
-//   vnd: {usdt: 0.000043, usd: 0.000042},
-//   usd: {vnd: 23150.00, usdt: 1.0002},
-//   };
-//   return exchangeRates[fromCurrency][toCurrency];
-// }
+      $('#total_vnd_amount').val('');
+      $('#total_usdt_amount').val('');
+      submitBtn.setAttribute('disabled', true);
+    }else{
+      $('#not_buy').text("");
+      $('#pay_buy_amount').text("₫ -"+(parseFloat(exchange_rate)*parseFloat(buy_amount)).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}));
+      $('#after_usdt_field').text("$ "+after_usdt.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}));
+      $('#after_vnd_field').text("₫ "+(parseFloat(total_vnd)-(parseFloat(exchange_rate)*parseFloat(buy_amount))).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}));
 
-//while graph
+      $('#total_vnd_amount').val(parseFloat(total_vnd)-(parseFloat(exchange_rate)*parseFloat(buy_amount))).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      $('#total_usdt_amount').val(after_usdt.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}));
+      submitBtn.removeAttribute('disabled');
+    }
+  });
+  $('#usdt_sell').on('input', function() {
+    let buy_amount = $('#usdt_sell').val();
+    let exchange_rate = $('#exchange_rate').val();
+    let total_vnd = $('#total_vnd').val();
+    let total_usdt = $('#total_usdt').val();
+    let after_usdt = parseFloat(total_usdt)-parseFloat(buy_amount);
+    const submitBtn = document.getElementById('submitBtnSell');
 
-// var chartData = {
-//     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-//     datasets: [{
-//         label: 'Exchange Rate',
-//         data: [
-//             {x: 0, y: 23175.00},
-//             {x: 1, y: 23150.00},
-//             {x: 2, y: 23180.00},
-//             {x: 3, y: 23200.00},
-//             {x: 4, y: 23220.00},
-//             {x: 5, y: 23250.00},
-//         ],
-//         borderColor: 'white',
-//         backgroundColor: 'rgba(255, 255, 255, 0.2)',
-//         borderWidth: 1,
-//     }]
-// };
+    if(buy_amount > parseFloat(total_usdt)) {
+      $('#not_sell').text("Bạn không thể thực hiên bán vượt quá số tiền : $"+parseFloat(total_usdt).toFixed(2));
 
-// var ctx = document.getElementById('myChart').getContext('2d');
-// var myChart = new Chart(ctx, {
-//     type: 'line',
-//     data: chartData,
-//     options: {
-//         scales: {
-//             xAxes: [{
-//                 ticks: {
-//                     fontColor: 'white'
-//                 }
-//             }],
-//             yAxes: [{
-//                 ticks: {
-//                     fontColor: 'white',
-//                     beginAtZero: false,
-//                     callback: function(value, index, values) {
-//                         return value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-//                     }
-//                 }
-//             }]
-//         },
-//         legend: {
-//             labels: {
-//                 fontColor: 'lightgray'
-//             }
-//         },
-//         tooltips: {
-//             callbacks: {
-//                 label: function(tooltipItem, data) {
-//                     var datasetLabel = data.datasets[tooltipItem.datasetIndex].label || '';
-//                     var value = tooltipItem.yLabel.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-//                     return datasetLabel + ': ' + value;
-//                 }
-//             },
-//             backgroundColor: 'white',
-//             titleFontColor: 'black',
-//             bodyFontColor: 'black',
-//             displayColors: false
-//         }
-//     }
-// });
+      $('#total_vnd_amount2').val('');
+      $('#total_usdt_amount2').val('');
+      submitBtn.setAttribute('disabled', true);
+    }else if(buy_amount == ''){
+      $('#not_sell').text("");
+      $('#after_usdt_sell').text("$ "+parseFloat(total_usdt).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}));
+      $('#after_vnd_sell').text("₫ "+parseFloat(total_vnd).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}));
+      $('#pay_sell_amount').text("₫ 00");
+
+      $('#total_vnd_amount2').val('');
+      $('#total_usdt_amount2').val('');
+      submitBtn.setAttribute('disabled', true);
+    }else{
+      $('#not_sell').text("");
+      $('#pay_sell_amount').text("₫ +"+(parseFloat(exchange_rate)*parseFloat(buy_amount)).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}));
+      $('#after_usdt_sell').text("$ "+after_usdt.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}));
+      $('#after_vnd_sell').text("₫ "+(parseFloat(total_vnd)+(parseFloat(exchange_rate)*parseFloat(buy_amount))).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}));
+
+      $('#total_vnd_amount2').val(parseFloat(total_vnd)+(parseFloat(exchange_rate)*parseFloat(buy_amount))).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      $('#total_usdt_amount2').val(after_usdt.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}));
+      submitBtn.removeAttribute('disabled');
+    }
+  });
 
 // Daily graph
 var date = {!! $date_data !!};

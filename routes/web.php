@@ -35,6 +35,9 @@ Route::middleware('auth')->group(function () {
     Route::get('en', [UserController::class, 'english'])->name('en');
     Route::get('vie', [UserController::class, 'vietnam'])->name('vie');
 
+	Route::post('buy-usdt', [UserController::class, 'buy_usdt'])->name('buy.usdt');
+	Route::post('sell-usdt', [UserController::class, 'sell_usdt'])->name('sell.usdt');
+
 	Route::get('welcome', [UserController::class, 'welcome'])->name('welcome');
 	Route::get('detail-view/{type}', [UserController::class, 'detail_view'])->name('detail.view');
 

@@ -509,3 +509,12 @@ text-transform: capitalize;
 .container-fluid > .news > .d-flex.align-items-center {
   padding-left: 0;
 }
+#stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(circle, #fff 1px, transparent 1px);
+  background-size: 10px 10px;
+}

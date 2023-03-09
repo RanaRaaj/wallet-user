@@ -99,12 +99,69 @@ class UserController extends Controller
             $rate[] = $gp['vnd'];
         }
 
+        $currency_rate = CurrencyRate::latest()->first();
+        $user_bank = UserBank::where('user_id',$user_id)->first();
+
         $date_data = json_encode($date);
         $rate_data = json_encode($rate);
         // dd($graph, $date_data);
                 
-        return view('welcome', compact('send_data','rcv_data', 'rcv_amount', 'deposit', 'profits', 'withdraw', 'exchange', 'date_data', 'rate_data','news'));
+        return view('welcome', compact('send_data','rcv_data', 'rcv_amount', 'deposit', 'profits', 'withdraw', 'exchange', 'date_data', 'rate_data','news', 'currency_rate','user_bank'));
 
+    }
+
+    public function buy_usdt(Request $request)
+    {
+        if($request->input('total_vnd_amount') != ''){
+            $user_id = Auth::user()->id;
+            $exc_amount = array([
+                'first' => floatval($request->input('exchange_rate')) * floatval($request->input('usdt')),
+                'second' => $request->input('usdt')
+            ]);
+
+            $data = UserBank::where('user_id',$user_id)->first();
+            $data->amount = str_replace(',', '',$request->input('total_vnd_amount'));
+            $data->usdt = str_replace(',', '',$request->input('total_usdt_amount'));
+            $data->save();
+            
+            $exchange = New ExchangeRecord();
+
+            $exchange->type = 'vnd';
+            $exchange->user_id = $user_id;
+            $exchange->exchange = json_encode($exc_amount);
+            $exchange->exchange_rate = $request->exchange_rate;
+            $exchange->save();
+
+            return view('deposit_success');
+        }
+        return redirect()->back();
+    }
+
+    public function sell_usdt(Request $request)
+    {
+        if($request->input('total_vnd_amount2') != ''){
+            $user_id = Auth::user()->id;
+            $exc_amount = array([
+                'first' => $request->input('usdt'),
+                'second' => floatval($request->input('exchange_rate2')) * floatval($request->input('usdt')),
+            ]);
+
+            $data = UserBank::where('user_id',$user_id)->first();
+            $data->amount = str_replace(',', '',$request->input('total_vnd_amount2'));
+            $data->usdt = str_replace(',', '',$request->input('total_usdt_amount2'));
+            $data->save();
+            
+            $exchange = New ExchangeRecord();
+
+            $exchange->type = 'usdt';
+            $exchange->user_id = $user_id;
+            $exchange->exchange = json_encode($exc_amount);
+            $exchange->exchange_rate = $request->exchange_rate2;
+            $exchange->save();
+
+            return view('deposit_success');
+        }
+        return redirect()->back();
     }
 
     public function detail_view($type)
