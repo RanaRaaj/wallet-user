@@ -314,7 +314,7 @@ button.close_model {
                         <input type="hidden" name="exchange_rate2" value="{{$currency_rate['vnd']}}">
                         <input type="hidden" name="total_usdt_amount2" id="total_usdt_amount2" value="">
                         <input type="hidden" name="total_vnd_amount2" id="total_vnd_amount2" value="">
-                        <input type="submit" id="submitBtnSell" style="width: 50%;color:#000 !important;" class="btn btn-success  btn-light-dark" value="@if(Session::get('language') == 'Bán') Mua @else Sell @endif" disabled>
+                        <input type="submit" id="submitBtnSell" style="width: 50%;color:#fff !important;" class="btn btn-danger" value="@if(Session::get('language') == 'vie') Bán @else Sell @endif" disabled>
                       </div>
                       </form>
                     </div>

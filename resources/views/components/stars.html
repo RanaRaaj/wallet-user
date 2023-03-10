@@ -1,43 +1,68 @@
-<head>
-    <!-- Include Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    
-    <!-- Include your CSS file -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rotating Background</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
   </head>
   <style>
-    #stars {
+.background {
+  background-color: black;
+  height: 100vh;
+  perspective: 1000px;
+  perspective-origin: 50% 50%;
+}
+
+.stars {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: radial-gradient(circle, #fff 1px, transparent 1px);
-  background-size: 10px 10px;
-  z-index: -1; /* Add this line */
+  right: 0;
+  bottom: 0;
+  background-image: url('https://cdn.pixabay.com/photo/2016/08/01/19/50/background-1562094_960_720.jpg');
+  background-size: cover;
+  opacity: 0.2;
+  transform: translateZ(-50vw);
+  animation: rotate 20s linear infinite;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  color: white;
+  text-align: center;
+  padding: 50px;
+  border: 2px solid white;
+  border-radius: 10px;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  }
+  to {
+    transform: rotateX(180deg) rotateY(180deg) rotateZ(180deg);
+  }
 }
 
   </style>
   <body>
-    <div id="stars" class="fixed-top"></div>
-    
-    <!-- Your page content here -->
-    
-    <!-- Include jQuery and Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    
-    <!-- Include your JavaScript file -->
-    <script>
-        $(document).ready(function() {
-        function animateStars() {
-            $('#stars').animate({
-            backgroundPosition: '+=5px +=5px'
-            }, 10, 'linear', animateStars);
-        }
-        
-        animateStars();
-        });
-    </script>
+    <div class="background">
+      <div class="stars"></div>
+      <div class="stars"></div>
+      <div class="stars"></div>
+      <div class="stars"></div>
+      <div class="stars"></div>
+      <div class="stars"></div>
+      <div class="stars"></div>
+      <div class="stars"></div>
+      <div class="stars"></div>
+      <div class="stars"></div>
+      <div class="container">
+        <h1>Welcome to my website!</h1>
+        <p>This is an example of a rotating 3D background with a space theme that you can use for your website.</p>
+      </div>
+    </div>
   </body>
-  
+</html>

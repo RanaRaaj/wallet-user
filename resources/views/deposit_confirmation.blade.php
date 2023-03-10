@@ -97,7 +97,7 @@ ul.d-inline-block.mb-0 {
                                                         <fieldset class="form-group center m-2">
                                                             <a href="{{ route('deposit.form') }}"
                                                                class="btn btn-primary">@if(Session::get('language') == 'vie')Quay lại @else Back @endif</a>
-                                                            <button type="submit" class="btn btn-success">@if(Session::get('language') == 'vie')Nạp tiền @else Deposit @endif
+                                                            <button type="submit" class="btn btn-success">@if(Session::get('language') == 'vie')Hoàn thành @else Complete @endif
                                                             </button>
                                                         </fieldset>
                                                     </div>
