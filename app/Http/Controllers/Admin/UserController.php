@@ -93,7 +93,7 @@ class UserController extends Controller
         $exchange = ExchangeRecord::where('user_id', $user_id)->take(4)->latest()->get();
         $news = AdminNew::where('visible', 1)->where('status', 1)->take(2)->latest()->get();
 
-        $graph = CurrencyRate::all();
+        $graph = CurrencyRate::latest()->orderBy('id', 'asc')->take(10)->get();
         foreach($graph as $gp){
             $date[] = $gp['date'];
             $rate[] = $gp['vnd'];
@@ -102,9 +102,8 @@ class UserController extends Controller
         $currency_rate = CurrencyRate::latest()->first();
         $user_bank = UserBank::where('user_id',$user_id)->first();
 
-        $date_data = json_encode($date);
-        $rate_data = json_encode($rate);
-        // dd($graph, $date_data);
+        $date_data = json_encode(array_reverse($date));
+        $rate_data = json_encode(array_reverse($rate));
                 
         return view('welcome', compact('send_data','rcv_data', 'rcv_amount', 'deposit', 'profits', 'withdraw', 'exchange', 'date_data', 'rate_data','news', 'currency_rate','user_bank'));
 

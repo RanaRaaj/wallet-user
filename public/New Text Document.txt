@@ -27,3 +27,7 @@ password: ssv388info
 DB: admin_ssv388
 pass: admin_ssv388
 user: admin_ssv388
+
+for Server putty commands
+ls -la
+chown -R website2xe1888com:website2xe1888com *
