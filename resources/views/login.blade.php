@@ -106,12 +106,12 @@ a.nxt-link {
         <div class="content-header row">
         </div>
         @if ($message = Session::get('success'))
-            <div class="alert alert-success mb-2" style="width: 500px;position: absolute;right: 0;top: 50px;" id="alert-success-message" role="alert">
+            <div class="alert alert-success mb-2" style="width: 500px;position: absolute;right: 0;top: 50px;text-align:center;z-index:999;" id="alert-success-message" role="alert">
                 <strong>Success! </strong> {{$message}}
             </div>
         @endif
         @if ($message = Session::get('error'))
-            <div class="alert alert-danger mb-2" id="alert-error-message" style="width: 500px;position: absolute;right: 0;top: 50px;" role="alert">
+            <div class="alert alert-danger mb-2" id="alert-error-message" style="width: 500px;position: absolute;right: 0;top: 50px;text-align:center;z-index:999;" role="alert">
                 <strong>Error! </strong> {{$message}}
             </div>
         @endif

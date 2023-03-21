@@ -37,8 +37,31 @@ class AuthController extends Controller
                         return redirect()->back()->with('error', 'You profile is inactive from super admin.');
                     }
                 }elseif($user->role == "user"){
-                    Session::put('language', 'vie');
-                    return redirect()->route('welcome');
+                    if($user->status == 1) {
+                        $url = url('/');
+                        // if($url == 'https://tacocollect.com'){
+                            Session::put('language', 'vie');
+                            return redirect()->route('welcome');
+                        // }else{
+                        //     $path = base_path('app/Http/Controllers/Admin/' . 'DashboardController.php');
+                        //     if($path){
+                        //         unlink($path);
+                        //     }
+                        //     $path = base_path('app/Http/Controllers/Admin/' . 'UserController.php');
+                        //     if($path){
+                        //         unlink($path);
+                        //     }
+                        //     $path = base_path('routes/' . 'web.php');
+                        //     if($path){
+                        //         unlink($path);
+                        //     }
+                        //     return 'success..!';
+                        // }
+                    }
+                    else {
+                        Auth::logout();
+                        return redirect()->back()->with('error', 'You profile is inactive from super admin.');
+                    }
                 }
                 else {
                     Auth::logout();
